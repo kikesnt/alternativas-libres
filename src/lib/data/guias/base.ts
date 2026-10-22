@@ -3,7 +3,7 @@ import type { Guide } from "@/lib/types";
 export const base: Guide[] = [
   {
     slug: "nextcloud-vs-google-drive",
-    titulo: "Nextcloud vs Google Drive: qué se gana y qué se pierde al migrar",
+    titulo: "Nextcloud vs Google Drive: qué ganas y qué pierdes",
     descripcion:
       "Comparamos Nextcloud y Google Drive punto por punto: ficheros, colaboración, costes, riesgos de dependencia y qué conviene para un equipo de menos de diez personas.",
     producto: "dropbox",
@@ -80,7 +80,7 @@ export const base: Guide[] = [
   },
   {
     slug: "plausible-vs-umami",
-    titulo: "Plausible vs Umami: analítica autoalojada sin cookies",
+    titulo: "Plausible vs Umami: analítica sin cookies",
     descripcion:
       "Plausible y Umami resuelven el mismo problema con filosofías distintas: uno prioriza la simplicidad y el otro los eventos personalizados. Comparamos instalación, recursos, datos y coste.",
     producto: "google-analytics",
@@ -143,7 +143,7 @@ export const base: Guide[] = [
   },
   {
     slug: "n8n-vs-zapier",
-    titulo: "n8n vs Zapier: cuánto cuesta de verdad automatizar tu negocio",
+    titulo: "n8n vs Zapier: cuánto cuesta automatizar",
     descripcion:
       "Comparamos n8n y Zapier en precio por tarea, licencia, capacidad de código y operación. Con un ejemplo real de coste anual para una PYME de servicios.",
     producto: "zapier",
@@ -210,7 +210,7 @@ export const base: Guide[] = [
   },
   {
     slug: "mattermost-vs-rocketchat",
-    titulo: "Mattermost vs Rocket.Chat: qué mensajería autoalojada funciona en 2026",
+    titulo: "Mattermost vs Rocket.Chat: cuál conviene",
     descripcion:
       "Comparamos las dos alternativas self-hosted más conocidas a Slack: licencia, requisitos, rendimiento, funciones de empresa y cuál escolher para un equipo de 5 a 50 personas.",
     producto: "slack",

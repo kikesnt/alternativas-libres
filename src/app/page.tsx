@@ -186,7 +186,16 @@ export default function HomePage() {
           name: site.nombre,
           url: site.url,
           logo: `${site.url}/icon.svg`,
+          image: `${site.url}/icon.svg`,
+          description: site.descripcion,
+          inLanguage: "es",
           founder: { "@type": "Person", name: site.autor },
+          contactPoint: {
+            "@type": "ContactPoint",
+            contactType: "customer support",
+            email: site.email,
+            availableLanguage: ["es"],
+          },
         }}
       />
       <JsonLd

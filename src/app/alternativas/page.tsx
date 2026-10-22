@@ -5,7 +5,7 @@ import { FilterableAlternatives } from "@/components/filterable-alternatives";
 import { getAlternatives, getProducts } from "@/lib/queries";
 
 export const metadata: Metadata = {
-  title: "Directorio completo de alternativas autoalojadas",
+  title: "Directorio de alternativas autoalojadas",
   description:
     "Todas las alternativas open source y autoalojadas del directorio, con filtros por licencia, dificultad de instalación, coste y Docker.",
   alternates: { canonical: "/alternativas" },

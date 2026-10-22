@@ -44,6 +44,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: ahora,
     },
     {
+      url: `${site.url}/herramientas`,
+      changeFrequency: "weekly",
+      priority: 0.8,
+      lastModified: ahora,
+    },
+    {
       url: `${site.url}/novedades`,
       changeFrequency: "daily",
       priority: 0.7,
@@ -51,6 +57,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${site.url}/metodologia`,
+      changeFrequency: "monthly",
+      priority: 0.6,
+      lastModified: ahora,
+    },
+    {
+      url: `${site.url}/boletin`,
       changeFrequency: "monthly",
       priority: 0.6,
       lastModified: ahora,
@@ -132,6 +144,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: ahora,
   }));
 
+  const porPaginaHerramienta: MetadataRoute.Sitemap = herramientas.map((a) => ({
+    url: `${site.url}/herramientas/${a.slug}`,
+    changeFrequency: "monthly",
+    priority: 0.7,
+    lastModified: new Date(`${a.verificadoEn}T00:00:00Z`),
+  }));
+
   const porGuia: MetadataRoute.Sitemap = guias.map((g) => ({
     url: `${site.url}/comparativas/${g.slug}`,
     changeFrequency: "monthly",
@@ -145,6 +164,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...porHerramienta,
     ...porCategoria,
     ...porVertical,
+    ...porHerramienta,
+    ...porPaginaHerramienta,
     ...porGuia,
   ];
 }

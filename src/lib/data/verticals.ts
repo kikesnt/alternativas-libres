@@ -3,51 +3,51 @@ import type { Vertical } from "@/lib/types";
 export const verticals: Vertical[] = [
   {
     slug: "equipos-pequenos",
-    nombre: "Equipos de 2 a 10 personas",
+    nombre: "Equipos pequeños",
     descripcion:
-      "Pocas personas, mucho volumen de documentación y ningún presupuesto de infraestructura.",
+      "Pocas personas, mucho volumen de documentación y ningún presupuesto de infraestructura. Alternativas que se instalan en una VPS de 2 GB.",
     ejemplos: ["Agencias de 3 personas", "Consultores independientes", "Equipos de producto"],
   },
   {
     slug: "agencias",
-    nombre: "Agencias y consultoras",
+    nombre: "Agencias",
     descripcion:
-      "Muchos clientes, datos de clientes y necesidad de auditar dónde acaban los datos.",
+      "Muchos clientes, datos de clientes y necesidad de auditar dónde acaban los datos. Alternativas con licencias que permiten uso comercial.",
     ejemplos: ["Agencias de marketing", "Consultoras IT", "Agencias de diseño"],
   },
   {
     slug: "desarrolladores",
-    nombre: "Equipos de desarrollo",
+    nombre: "Desarrolladores",
     descripcion:
-      "Ciclos de despliegue, self-hosting cómodo y cero fricción con la terminal.",
+      "Ciclos de despliegue, self-hosting cómodo y cero fricción con la terminal, con requisitos de servidor y requisitos de sistema concretos.",
     ejemplos: ["Startups técnicas", "Freelancers", "Equipos DevOps"],
   },
   {
     slug: "educacion",
-    nombre: "Educación y formación",
+    nombre: "Educación",
     descripcion:
-      "Aulas virtuales, gestión de alumnos y costes de licencia por puesto.",
+      "Aulas virtuales, gestión de alumnos y costes de licencia por puesto. Alternativas que funcionan en un servidor propio de una institución.",
     ejemplos: ["Academias", "Centros de FP", "Universidades"],
   },
   {
     slug: "freelancers",
-    nombre: "Autónomos y freelancers",
+    nombre: "Autónomos",
     descripcion:
-      "Una sola persona haciendo de department: también necesita CRM, ficheros y facturación.",
+      "Una sola persona haciendo de department: también necesita CRM, ficheros y facturación, todo en la misma VPS y sin cuotas por usuario.",
     ejemplos: ["Diseñadores", "Programadores", "Asesores"],
   },
   {
     slug: "privacidad",
-    nombre: "Privacidad y datos sensibles",
+    nombre: "Privacidad y datos",
     descripcion:
-      "Datos que no pueden salir del servidor: salud, legal, industrial o clientes con NDA.",
+      "Datos que no pueden salir del servidor: salud, legal, industrial o clientes con NDA. Alternativas con cifrado y control de acceso fino.",
     ejemplos: ["Clínicas", "Despachos", "Iniciativas con datos de menores"],
   },
   {
     slug: "ecommerce",
     nombre: "Tiendas online",
     descripcion:
-      "Catálogo, stock, email transaccional y métricas de venta autoalojadas.",
+      "Catálogo, stock, email transaccional y métricas de venta autoalojadas, para tiendas que no quieren depender de una plataforma de pago.",
     ejemplos: ["Tiendas Shopify", "Marketplaces", "Dropshippers"],
   },
   {

@@ -7,6 +7,7 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { Analytics } from "@/components/analytics";
 import { site } from "@/lib/site";
+import { recortar } from "@/lib/seo";
 import { assertDataIntegrity } from "@/lib/data/integrity";
 
 assertDataIntegrity();
@@ -48,10 +49,12 @@ try {
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.nombre}: alternativas autoalojadas a las herramientas SaaS`,
+    default: "Alternativas autoalojadas a software SaaS",
     template: `%s | ${site.nombre}`,
   },
-  description: site.descripcion,
+  description: recortar(
+    "Directorio en español de alternativas self-hosted y de código abierto a las herramientas SaaS. Requisitos, licencia, coste y contras de cada opción.",
+  ),
   openGraph: {
     type: "website",
     locale: "es_ES",
@@ -63,7 +66,13 @@ export const metadata: Metadata = {
     title: `${site.nombre}: alternativas autoalojadas a las herramientas SaaS`,
     description: site.descripcion,
   },
-  robots: { index: true, follow: true },
+  robots: {
+    index: true,
+    follow: true,
+    "max-image-preview": "large",
+    "max-snippet": -1,
+    "max-video-preview": -1,
+  },
   alternates: { canonical: "/" },
   category: "technology",
 };

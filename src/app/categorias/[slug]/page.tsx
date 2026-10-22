@@ -4,6 +4,7 @@ import { Suspense } from "react";
 import { AdSlot } from "@/components/ad-slot";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { FilterableAlternatives } from "@/components/filterable-alternatives";
+import { recortar } from "@/lib/seo";
 import {
   getAlternativesByCategory,
   getCategories,
@@ -26,7 +27,7 @@ export async function generateMetadata({
 
   return {
     title: `Alternativas de ${category.nombre.toLowerCase()}`,
-    description: category.descripcion,
+    description: recortar(category.descripcion),
     alternates: { canonical: `/categorias/${category.slug}` },
   };
 }

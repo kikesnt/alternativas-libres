@@ -22,8 +22,6 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
-      { source: "/herramientas", destination: "/alternativas", permanent: true },
-      { source: "/herramientas/:slug", destination: "/alternativas/:slug", permanent: true },
       { source: "/comparativa/:slug", destination: "/comparativas/:slug", permanent: true },
       { source: "/blog", destination: "/comparativas", permanent: true },
       { source: "/sponsor", destination: "/anuncios", permanent: true },

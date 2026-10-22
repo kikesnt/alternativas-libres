@@ -10,8 +10,15 @@ import { ComparisonTable } from "@/components/comparison-table";
 import { Byline } from "@/components/byline";
 import { ProductIcon } from "@/components/product-icon";
 import { JsonLd } from "@/components/json-ld";
-import { getAlternativesByProduct, getGuidesForProduct, getProduct, getProducts } from "@/lib/queries";
+import {
+  difficultyLabels,
+  getAlternativesByProduct,
+  getGuidesForProduct,
+  getProduct,
+  getProducts,
+} from "@/lib/queries";
 import { site } from "@/lib/site";
+import { recortar } from "@/lib/seo";
 
 type Params = { params: Promise<{ producto: string }> };
 
@@ -26,8 +33,10 @@ export async function generateMetadata({
   const product = getProduct(producto);
   if (!product) return {};
 
-  const title = `Alternativas a ${product.nombre}: ${product.alternativas.length} opciones autoalojadas`;
-  const description = `Alternativas open source y autoalojadas a ${product.nombre}. Requisitos, licencia, coste real, contras y cuándo no conviene migrar.`;
+  const title = `Alternativas a ${product.nombre}: ${product.alternativas.length} opciones`;
+  const description = recortar(
+    `Alternativas open source y autoalojadas a ${product.nombre}. Requisitos, licencia, coste real, contras y cuándo no conviene migrar.`,
+  );
 
   return {
     title,
@@ -52,6 +61,9 @@ async function Contenido({ params }: Params) {
 
   const alternativas = getAlternativesByProduct(product);
   const guias = getGuidesForProduct(product.slug);
+  const gratuitas = alternativas.filter((a) => a.coste === "gratis");
+  const libres = alternativas.filter((a) => a.licenciaTipo === "open-source");
+  const ligeros = alternativas.filter((a) => a.dificultad <= 2);
 
   const faq = [
     {
@@ -140,6 +152,81 @@ async function Contenido({ params }: Params) {
         className="mt-12"
         minHeight={100}
       />
+
+      <section className="mt-12">
+        <h2 className="text-2xl font-semibold">
+          Alternativas gratuitas a {product.nombre}
+        </h2>
+        <p className="mt-2 text-sm text-muted">
+          Las {gratuitas.length} opciones que no cuestan licencia. El único
+          gasto es el servidor donde las instalas.
+        </p>
+        <ul className="mt-4 grid gap-2 sm:grid-cols-2">
+          {gratuitas.map((a) => (
+            <li key={a.slug}>
+              <Link
+                href={`/alternativas/${product.slug}/${a.slug}`}
+                className="block rounded-lg border border-border bg-panel p-4 text-sm hover:border-accent"
+              >
+                <span className="font-medium">{a.nombre}</span>
+                <span className="mt-1 block text-xs text-muted">
+                  {a.tagline}
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section className="mt-12">
+        <h2 className="text-2xl font-semibold">
+          Alternativas open source a {product.nombre}
+        </h2>
+        <p className="mt-2 text-sm text-muted">
+          Las {libres.length} herramientas con licencia de código abierto, que
+          puedes modificar, auditar y usar sin límites de usuarios.
+        </p>
+        <ul className="mt-4 grid gap-2 sm:grid-cols-2">
+          {libres.map((a) => (
+            <li key={a.slug}>
+              <Link
+                href={`/alternativas/${product.slug}/${a.slug}`}
+                className="block rounded-lg border border-border bg-panel p-4 text-sm hover:border-accent"
+              >
+                <span className="font-medium">{a.nombre}</span>
+                <span className="mt-1 block text-xs text-muted">
+                  {a.licencia} · {a.recursosMinimos}
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section className="mt-12">
+        <h2 className="text-2xl font-semibold">
+          Alternativas ligeras a {product.nombre}
+        </h2>
+        <p className="mt-2 text-sm text-muted">
+          Las {ligeros.length} que se instalan sin perfil de sistemas, para un
+          VPS de 2 GB o menos.
+        </p>
+        <ul className="mt-4 grid gap-2 sm:grid-cols-2">
+          {ligeros.map((a) => (
+            <li key={a.slug}>
+              <Link
+                href={`/alternativas/${product.slug}/${a.slug}`}
+                className="block rounded-lg border border-border bg-panel p-4 text-sm hover:border-accent"
+              >
+                <span className="font-medium">{a.nombre}</span>
+                <span className="mt-1 block text-xs text-muted">
+                  {difficultyLabels[a.dificultad]} · {a.recursosMinimos}
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </section>
 
       <section className="mt-12">
         <h2 className="text-2xl font-semibold">Tabla comparativa</h2>

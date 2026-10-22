@@ -3,7 +3,7 @@ import type { Guide } from "@/lib/types";
 export const nuevas: Guide[] = [
   {
     slug: "outline-vs-notion",
-    titulo: "Outline vs Notion: qué pasa cuando un wiki de equipo deja de ser un documento",
+    titulo: "Outline vs Notion: cuándo merece la pena",
     descripcion:
       "Notion es un editor de bloques con base de datos; Outline es un editor de documentos pensado para escribir y buscar. ComparamosModel de datos, colaboracion, search, licencia y coste real para un equipo de 10 personas.",
     producto: "notion",
@@ -66,7 +66,7 @@ export const nuevas: Guide[] = [
   },
   {
     slug: "twenty-vs-hubspot",
-    titulo: "Twenty vs HubSpot: el CRM que cabe en un servidor propio",
+    titulo: "Twenty vs HubSpot: un CRM que cabe en tu servidor",
     descripcion:
       "Comparamos el CRM open source Twenty con HubSpot CRM: modelo de datos, objetos personalizados, Emails, coste por asiento y qué pasa con los datos de tus clientes al autoalojar.",
     producto: "hubspot",
@@ -129,7 +129,7 @@ export const nuevas: Guide[] = [
   },
   {
     slug: "plane-vs-jira",
-    titulo: "Plane vs Jira: el tracker de tickets que no cuesta 17 USD por persona",
+    titulo: "Plane vs Jira: el tracker que no cuesta 17 USD",
     descripcion:
       "Jira cuesta desde 8,50 USD por usuario y mes; Plane se autoaloja por el precio de un servidor. Comparamos flujo de trabajo, Scrum, campos personalizados, plugins y coste real.",
     producto: "jira",
@@ -191,7 +191,7 @@ export const nuevas: Guide[] = [
   },
   {
     slug: "listmonk-vs-mautic",
-    titulo: "Listmonk vs Mautic: enviar newsletters como software libre o como plataforma de marketing",
+    titulo: "Listmonk vs Mautic: newsletter o plataforma",
     descripcion:
       "Mautic es un sustituto de Mailchimp con automatizaciones; Listmonk es un servidor de envío de newsletters sencillo. Comparamos entregabilidad, automatizaciones, recursos y coste.",
     producto: "mailchimp",
@@ -315,7 +315,7 @@ export const nuevas: Guide[] = [
   },
   {
     slug: "penpot-vs-canva",
-    titulo: "Penpot vs Canva: diseñar interfaces o hacer piezas de marketing",
+    titulo: "Penpot vs Canva: interfaces o piezas de marketing",
     descripcion:
       "No son sustitutos directos. Comparamos Penpot y Canva según para qué se usan realmente, qué pasa con el diseño de interfaces, formatos de archivo y coste por usuario.",
     producto: "canva",

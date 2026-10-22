@@ -23,6 +23,7 @@ import {
   licenseLabels,
 } from "@/lib/queries";
 import { site } from "@/lib/site";
+import { recortar } from "@/lib/seo";
 import { formatearFecha } from "@/lib/fechas";
 
 type Params = { params: Promise<{ producto: string; alternativa: string }> };
@@ -45,7 +46,9 @@ export async function generateMetadata({
   if (!product || !alt) return {};
 
   const title = `${alt.nombre}: alternativa a ${product.nombre}`;
-  const description = `${alt.tagline} Licencia ${alt.licencia}, instalación ${difficultyLabels[alt.dificultad].toLowerCase()} y requisitos: ${alt.recursosMinimos}.`;
+  const description = recortar(
+    `${alt.tagline} Licencia ${alt.licencia}, instalación ${difficultyLabels[alt.dificultad].toLowerCase()} y requisitos: ${alt.recursosMinimos}.`,
+  );
 
   return {
     title,
@@ -203,6 +206,12 @@ async function Contenido({ params }: Params) {
       </dl>
 
       <div className="mt-6 flex flex-wrap gap-3">
+        <Link
+          href={`/herramientas/${alt.slug}`}
+          className="rounded-md border border-border px-4 py-2 text-sm font-medium text-fg hover:bg-panel"
+        >
+          Alternativas a {alt.nombre}
+        </Link>
         <AffiliateLink
           alternative={alt}
           label="Ir al sitio oficial"

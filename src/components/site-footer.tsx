@@ -39,6 +39,11 @@ export function SiteFooter() {
               </Link>
             </li>
             <li>
+              <Link href="/herramientas" className="hover:text-fg">
+                Alternativas a cada herramienta
+              </Link>
+            </li>
+            <li>
               <Link href="/verticales" className="hover:text-fg">
                 Por tipo de equipo
               </Link>

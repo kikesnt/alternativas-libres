@@ -216,6 +216,7 @@ async function Contenido({ params }: Params) {
           "@type": "Article",
           headline: guide.titulo,
           description: guide.descripcion,
+          image: `${site.url}/opengraph-image`,
           datePublished: guide.fecha,
           dateModified: guide.fecha,
           inLanguage: "es",

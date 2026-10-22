@@ -5,9 +5,11 @@ import type { Alternative } from "@/lib/types";
 export function ComparisonTable({
   alternatives,
   productSlug,
+  hrefPorSlug,
 }: {
   alternatives: Alternative[];
   productSlug: string;
+  hrefPorSlug?: Record<string, string>;
 }) {
   if (alternatives.length === 0) return null;
 
@@ -45,7 +47,9 @@ export function ComparisonTable({
             <tr key={a.slug} className="border-b border-border align-top">
               <th scope="row" className="p-3 text-left font-medium">
                 <Link
-                  href={`/alternativas/${productSlug}/${a.slug}`}
+                  href={
+                    hrefPorSlug?.[a.slug] ?? `/alternativas/${productSlug}/${a.slug}`
+                  }
                   className="hover:text-accent"
                 >
                   {a.nombre}

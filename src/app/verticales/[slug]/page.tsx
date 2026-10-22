@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { FilterableAlternatives } from "@/components/filterable-alternatives";
+import { recortar } from "@/lib/seo";
 import {
   getAlternativesByVertical,
   getProductsByVertical,
@@ -25,8 +26,8 @@ export async function generateMetadata({
   if (!vertical) return {};
 
   return {
-    title: `Alternativas autoalojadas para ${vertical.nombre.toLowerCase()}`,
-    description: vertical.descripcion,
+    title: `Alternativas para ${vertical.nombre.toLowerCase()}`,
+    description: recortar(vertical.descripcion),
     alternates: { canonical: `/verticales/${vertical.slug}` },
   };
 }

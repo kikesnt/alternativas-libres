@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { site } from "@/lib/site";
 import { getCategories } from "@/lib/queries";
+import { Logo } from "@/components/logo";
 
 const year = new Date().getFullYear();
 
@@ -11,7 +12,7 @@ export function SiteFooter() {
     <footer className="mt-20 border-t border-border bg-panel">
       <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 sm:grid-cols-2 lg:grid-cols-4">
         <div>
-          <p className="font-semibold">{site.nombre}</p>
+          <Logo texto={site.nombre} size={26} />
           <p className="mt-2 text-sm leading-relaxed text-muted">
             Directorio de alternativas autoalojadas a herramientas SaaS. Datos
             revisados, requisitos reales y cuándo no conviene migrar.

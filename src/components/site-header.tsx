@@ -2,14 +2,14 @@ import Link from "next/link";
 import { nav, site } from "@/lib/site";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { MobileNav } from "@/components/mobile-nav";
+import { Logo } from "@/components/logo";
 
 export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-surface/90 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
-        <Link href="/" className="flex items-center gap-2 font-semibold">
-          <span className="inline-block h-6 w-6 rounded bg-accent" />
-          <span>{site.nombre}</span>
+        <Link href="/" className="font-semibold">
+          <Logo texto={site.nombre} />
         </Link>
         <nav className="hidden items-center gap-5 text-sm text-muted md:flex">
           {nav.map((item) => (

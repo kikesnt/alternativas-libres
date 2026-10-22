@@ -23,6 +23,11 @@ pnpm dev          # http://localhost:3000
 | `node scripts/check-links.mjs http://localhost:3000` | Rastrea el sitio: enlaces rotos, canonicals y sitemap |
 | `node scripts/fetch-logos.mjs` | Descarga los favicon oficiales y regenera `src/lib/data/logos.ts` |
 | `node scripts/check-repos.mjs` | Detecta repositorios archivados o sin actividad (usa `GITHUB_TOKEN` para no agotar el límite de la API) |
+| `node scripts/revisar-fichas.mjs` | Compara la licencia de cada ficha con la del repositorio y comprueba URL y Docker |
+| `node scripts/verificar-docker.mjs` | Busca evidencia de imagen oficial en el README y en la web del proyecto |
+| `node scripts/fetch-actividad.mjs` | Actualiza la fecha del último commit de cada proyecto |
+| `node scripts/check-enlaces.mjs` | Comprueba que las URLs externas de las fichas siguen vivas |
+| `node scripts/check-consola.mjs` | Captura los errores de consola del navegador con el protocolo de DevTools |
 
 ## Variables de entorno
 

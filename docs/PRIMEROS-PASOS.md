@@ -276,7 +276,10 @@ cuentes con ello para el plan.
 - 67 logos oficiales
 - Sitemap, RSS, `adsense.txt`, canonicals, JSON-LD, 301s
 - 0 enlaces internos rotos (comprobado con `scripts/check-links.mjs`)
-- Scripts de mantenimiento: `fetch-logos`, `check-repos`, `check-links`
+- 58 fichas revisadas contra la fuente oficial, con fecha en cada una
+- Scripts de mantenimiento: `fetch-logos`, `check-repos`, `check-links`,
+  `check-enlaces`, `revisar-fichas`, `verificar-docker`, `fetch-actividad`,
+  `check-consola`
 - Boletín automático con preview, cron semanal y alta vía listmonk
 - Formularios de suscripción y contacto con endpoints propios
 - Verificación de enlaces externos (`scripts/check-enlaces.mjs`)

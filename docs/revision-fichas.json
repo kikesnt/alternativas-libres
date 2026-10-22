@@ -1,0 +1,813 @@
+[
+  {
+    "slug": "activepieces",
+    "licenciaDeclarada": "MIT (core) con funciones cloud de pago",
+    "licenciaDetectada": "MIT",
+    "licenciaArchivo": "LICENSE",
+    "docker": {
+      "oficial": true,
+      "namespace": "activepieces",
+      "imagenes": [
+        "backend",
+        "frontend",
+        "ap-base",
+        "activepieces"
+      ]
+    },
+    "urlViva": true
+  },
+  {
+    "slug": "affine",
+    "licenciaDeclarada": "MIT (core) con componentes owners de marca",
+    "licenciaDetectada": "MIT",
+    "licenciaArchivo": "LICENSE",
+    "docker": {
+      "oficial": false,
+      "namespace": "toeverything"
+    },
+    "urlViva": true
+  },
+  {
+    "slug": "anytype",
+    "licenciaDeclarada": "Anytype Source Available License 1.0",
+    "licenciaDetectada": "Any Source Available",
+    "licenciaArchivo": "LICENSE.md",
+    "docker": {
+      "oficial": true,
+      "namespace": "anyproto",
+      "imagenes": [
+        "any-sync-node",
+        "any-sync-coordinator",
+        "any-sync-filenode",
+        "any-sync-consensusnode",
+        "any-sync-tools",
+        "any-ns-node"
+      ]
+    },
+    "urlViva": true
+  },
+  {
+    "slug": "appflowy",
+    "licenciaDeclarada": "AGPL-3.0",
+    "licenciaDetectada": "AGPL-3.0",
+    "licenciaArchivo": "LICENSE",
+    "docker": {
+      "oficial": false,
+      "namespace": "toeverything"
+    },
+    "urlViva": true
+  },
+  {
+    "slug": "automatisch",
+    "licenciaDeclarada": "AGPL-3.0",
+    "licenciaDetectada": "DESCONOCIDA",
+    "licenciaArchivo": "LICENSE",
+    "docker": {
+      "oficial": false,
+      "namespace": "automatisch"
+    },
+    "urlViva": true
+  },
+  {
+    "slug": "baserow",
+    "licenciaDeclarada": "Sustainable Use License (MIT modificada)",
+    "licenciaDetectada": "MIT",
+    "licenciaArchivo": "LICENSE",
+    "docker": {
+      "oficial": true,
+      "namespace": "baserow",
+      "imagenes": [
+        "baserow",
+        "backend",
+        "web-frontend",
+        "cloudron",
+        "baserow-pg11",
+        "baserow-pgautoupgrade"
+      ]
+    },
+    "urlViva": true
+  },
+  {
+    "slug": "bigbluebutton",
+    "licenciaDeclarada": "LGPL-3.0",
+    "licenciaDetectada": "LGPL-3.0",
+    "licenciaArchivo": "LICENSE",
+    "docker": {
+      "oficial": true,
+      "namespace": "bigbluebutton",
+      "imagenes": [
+        "greenlight",
+        "bbb-lti-broker",
+        "bbb-app-rooms",
+        "bbb-libreoffice",
+        "bbb-playback-proxy",
+        "bbb-build"
+      ]
+    },
+    "urlViva": true
+  },
+  {
+    "slug": "directus",
+    "licenciaDeclarada": "BUSL 1.1 / GPL-3.0 en versiones anteriores",
+    "licenciaDetectada": null,
+    "licenciaArchivo": null,
+    "docker": {
+      "oficial": true,
+      "namespace": "directus",
+      "imagenes": [
+        "directus",
+        "directus-signatures",
+        "directus-dryrun",
+        "license-mock-server"
+      ]
+    },
+    "urlViva": true
+  },
+  {
+    "slug": "ditto",
+    "licenciaDeclarada": "MIT",
+    "licenciaDetectada": "MIT",
+    "licenciaArchivo": "LICENSE",
+    "docker": {
+      "oficial": true,
+      "namespace": "dittofeed",
+      "imagenes": [
+        "dittofeed-dashboard",
+        "dittofeed-api",
+        "dittofeed-worker",
+        "dittofeed-admin-cli",
+        "dittofeed-lite"
+      ]
+    },
+    "urlViva": true
+  },
+  {
+    "slug": "element-matrix",
+    "licenciaDeclarada": "AGPL-3.0 (cliente Element y Synapse)",
+    "licenciaDetectada": null,
+    "licenciaArchivo": null,
+    "docker": null,
+    "urlViva": true
+  },
+  {
+    "slug": "erpnext",
+    "licenciaDeclarada": "GPL-3.0 (framework Frappe bajo MIT)",
+    "licenciaDetectada": null,
+    "licenciaArchivo": null,
+    "docker": {
+      "oficial": true,
+      "namespace": "frappe",
+      "imagenes": [
+        "frappe-worker",
+        "erpnext-worker",
+        "frappe-socketio",
+        "frappe-nginx",
+        "erpnext-nginx",
+        "bench"
+      ]
+    },
+    "urlViva": true
+  },
+  {
+    "slug": "espocrm",
+    "licenciaDeclarada": "GPL-3.0 (core) con extensiones de pago",
+    "licenciaDetectada": "AGPL-3.0",
+    "licenciaArchivo": "LICENSE.txt",
+    "docker": {
+      "oficial": true,
+      "namespace": "espocrm",
+      "imagenes": [
+        "espocrm"
+      ]
+    },
+    "urlViva": true
+  },
+  {
+    "slug": "excalidraw",
+    "licenciaDeclarada": "MIT",
+    "licenciaDetectada": "MIT",
+    "licenciaArchivo": "LICENSE",
+    "docker": {
+      "oficial": true,
+      "namespace": "excalidraw",
+      "imagenes": [
+        "excalidraw",
+        "excalidraw-room"
+      ]
+    },
+    "urlViva": true
+  },
+  {
+    "slug": "forgejo",
+    "licenciaDeclarada": "MIT",
+    "licenciaDetectada": null,
+    "licenciaArchivo": null,
+    "docker": {
+      "oficial": true,
+      "namespace": "forgejo",
+      "imagenes": [
+        "forgejo"
+      ]
+    },
+    "urlViva": false
+  },
+  {
+    "slug": "gimp",
+    "licenciaDeclarada": "GPL-3.0",
+    "licenciaDetectada": null,
+    "licenciaArchivo": null,
+    "docker": null,
+    "urlViva": true
+  },
+  {
+    "slug": "gitea",
+    "licenciaDeclarada": "MIT",
+    "licenciaDetectada": "MIT",
+    "licenciaArchivo": "LICENSE",
+    "docker": {
+      "oficial": true,
+      "namespace": "gitea",
+      "imagenes": [
+        "lgtm",
+        "gitea",
+        "test-openldap",
+        "test_env",
+        "proto-tool",
+        "act_runner"
+      ]
+    },
+    "urlViva": true
+  },
+  {
+    "slug": "gitlab",
+    "licenciaDeclarada": "MIT (core) con funciones EE de pago",
+    "licenciaDetectada": "MIT",
+    "licenciaArchivo": "LICENSE",
+    "docker": {
+      "oficial": true,
+      "namespace": "gitlab",
+      "imagenes": [
+        "gitlab-ce",
+        "dind",
+        "gitlab-runner",
+        "gitlab-ee",
+        "gitlab-build-images",
+        "gitlab-runner-helper"
+      ]
+    },
+    "urlViva": true
+  },
+  {
+    "slug": "goaccess",
+    "licenciaDeclarada": "MIT",
+    "licenciaDetectada": "MIT",
+    "licenciaArchivo": "COPYING",
+    "docker": null,
+    "urlViva": true
+  },
+  {
+    "slug": "grist",
+    "licenciaDeclarada": "Apache-2.0",
+    "licenciaDetectada": "Apache-2.0",
+    "licenciaArchivo": "LICENSE.txt",
+    "docker": {
+      "oficial": true,
+      "namespace": "gristlabs",
+      "imagenes": [
+        "grist",
+        "gvisor-unprivileged",
+        "grist-ee",
+        "grist-omnibus",
+        "grist-ee-omnibus",
+        "grist-llm"
+      ]
+    },
+    "urlViva": true
+  },
+  {
+    "slug": "huginn",
+    "licenciaDeclarada": "MIT",
+    "licenciaDetectada": "MIT",
+    "licenciaArchivo": "LICENSE",
+    "docker": {
+      "oficial": true,
+      "namespace": "activepieces",
+      "imagenes": [
+        "backend",
+        "frontend",
+        "ap-base",
+        "activepieces"
+      ]
+    },
+    "urlViva": true
+  },
+  {
+    "slug": "inkscape",
+    "licenciaDeclarada": "GPL-3.0",
+    "licenciaDetectada": null,
+    "licenciaArchivo": null,
+    "docker": null,
+    "urlViva": null
+  },
+  {
+    "slug": "jitsi",
+    "licenciaDeclarada": "Apache-2.0",
+    "licenciaDetectada": "Apache-2.0",
+    "licenciaArchivo": "LICENSE",
+    "docker": {
+      "oficial": true,
+      "namespace": "jitsi",
+      "imagenes": [
+        "base",
+        "base-java",
+        "prosody",
+        "jicofo",
+        "jvb",
+        "web"
+      ]
+    },
+    "urlViva": true
+  },
+  {
+    "slug": "krita",
+    "licenciaDeclarada": "GPL-3.0",
+    "licenciaDetectada": null,
+    "licenciaArchivo": null,
+    "docker": null,
+    "urlViva": true
+  },
+  {
+    "slug": "listmonk",
+    "licenciaDeclarada": "AGPL-3.0",
+    "licenciaDetectada": "AGPL-3.0",
+    "licenciaArchivo": "LICENSE",
+    "docker": {
+      "oficial": true,
+      "namespace": "listmonk",
+      "imagenes": [
+        "listmonk"
+      ]
+    },
+    "urlViva": true
+  },
+  {
+    "slug": "logseq",
+    "licenciaDeclarada": "AGPL-3.0",
+    "licenciaDetectada": "AGPL-3.0",
+    "licenciaArchivo": "LICENSE.md",
+    "docker": {
+      "oficial": false,
+      "namespace": "logseq"
+    },
+    "urlViva": true
+  },
+  {
+    "slug": "matomo",
+    "licenciaDeclarada": "AGPL-3.0",
+    "licenciaDetectada": "AGPL-3.0",
+    "licenciaArchivo": "LICENSE",
+    "docker": {
+      "oficial": false,
+      "namespace": "matomo"
+    },
+    "urlViva": true
+  },
+  {
+    "slug": "mattermost",
+    "licenciaDeclarada": "MIT (server) con módulos Enterprise de pago",
+    "licenciaDetectada": "AGPL-3.0",
+    "licenciaArchivo": "LICENSE.txt",
+    "docker": {
+      "oficial": true,
+      "namespace": "mattermost",
+      "imagenes": [
+        "mattermost-preview",
+        "mattermost-prod-app",
+        "mattermost-prod-db",
+        "mattermost-prod-web",
+        "platform",
+        "webrtc"
+      ]
+    },
+    "urlViva": true
+  },
+  {
+    "slug": "mautic",
+    "licenciaDeclarada": "GPL-3.0 (Community)",
+    "licenciaDetectada": "AGPL-3.0",
+    "licenciaArchivo": "LICENSE.txt",
+    "docker": {
+      "oficial": true,
+      "namespace": "mautic",
+      "imagenes": [
+        "mautic",
+        "community-portal"
+      ]
+    },
+    "urlViva": true
+  },
+  {
+    "slug": "n8n",
+    "licenciaDeclarada": "Sustainable Use License (fair-code, no OSI)",
+    "licenciaDetectada": "Sustainable Use License",
+    "licenciaArchivo": "LICENSE.md",
+    "docker": {
+      "oficial": true,
+      "namespace": "n8nio",
+      "imagenes": [
+        "n8n",
+        "base",
+        "runners",
+        "n8n-sandbox-service-sandbox",
+        "n8n-sandbox-service-runner-dind",
+        "n8n-sandbox-service-api"
+      ]
+    },
+    "urlViva": true
+  },
+  {
+    "slug": "nextcloud",
+    "licenciaDeclarada": "AGPL-3.0",
+    "licenciaDetectada": "AGPL-3.0",
+    "licenciaArchivo": "COPYING",
+    "docker": {
+      "oficial": true,
+      "namespace": "nextcloud",
+      "imagenes": [
+        "univention-app-image",
+        "univention-app",
+        "all-in-one",
+        "aio-apache",
+        "aio-borgbackup",
+        "aio-collabora"
+      ]
+    },
+    "urlViva": true
+  },
+  {
+    "slug": "nextcloud-talk",
+    "licenciaDeclarada": "AGPL-3.0",
+    "licenciaDetectada": null,
+    "licenciaArchivo": null,
+    "docker": {
+      "oficial": true,
+      "namespace": "nextcloud",
+      "imagenes": [
+        "univention-app-image",
+        "univention-app",
+        "all-in-one",
+        "aio-apache",
+        "aio-borgbackup",
+        "aio-collabora"
+      ]
+    },
+    "urlViva": true
+  },
+  {
+    "slug": "nocodb",
+    "licenciaDeclarada": "Fair-code (AGPL-3.0 con condiciones adicionales)",
+    "licenciaDetectada": "Sustainable Use License",
+    "licenciaArchivo": "LICENSE.md",
+    "docker": {
+      "oficial": true,
+      "namespace": "nocodb",
+      "imagenes": [
+        "nocodb",
+        "nocodb-daily",
+        "nocodb-timely",
+        "nocodb-ee",
+        "nginx-secure",
+        "nocodb-daily-timely"
+      ]
+    },
+    "urlViva": true
+  },
+  {
+    "slug": "odoo",
+    "licenciaDeclarada": "LGPL-3.0 (Community Edition)",
+    "licenciaDetectada": "AGPL-3.0",
+    "licenciaArchivo": "LICENSE",
+    "docker": {
+      "oficial": false,
+      "namespace": "odoo"
+    },
+    "urlViva": true
+  },
+  {
+    "slug": "openproject",
+    "licenciaDeclarada": "GPL-3.0 (Community)",
+    "licenciaDetectada": "AGPL-3.0",
+    "licenciaArchivo": "LICENSE",
+    "docker": {
+      "oficial": true,
+      "namespace": "openproject",
+      "imagenes": [
+        "community",
+        "k8s-ecr-login-renew",
+        "pgdump",
+        "open_desk",
+        "openproject",
+        "backup"
+      ]
+    },
+    "urlViva": true
+  },
+  {
+    "slug": "outline",
+    "licenciaDeclarada": "BSL 1.1 (fuente disponible, no OSI)",
+    "licenciaDetectada": "BSL-1.1",
+    "licenciaArchivo": "LICENSE",
+    "docker": {
+      "oficial": false,
+      "namespace": "outline"
+    },
+    "urlViva": true
+  },
+  {
+    "slug": "owncloud",
+    "licenciaDeclarada": "Apache-2.0 (ocis)",
+    "licenciaDetectada": "Apache-2.0",
+    "licenciaArchivo": "LICENSE",
+    "docker": {
+      "oficial": true,
+      "namespace": "owncloud",
+      "imagenes": [
+        "alpine",
+        "ubuntu",
+        "client",
+        "smashbox",
+        "server",
+        "litmus"
+      ]
+    },
+    "urlViva": true
+  },
+  {
+    "slug": "peertube",
+    "licenciaDeclarada": "AGPL-3.0",
+    "licenciaDetectada": "AGPL-3.0",
+    "licenciaArchivo": "LICENSE",
+    "docker": {
+      "oficial": true,
+      "namespace": "chocobozzz",
+      "imagenes": [
+        "peertube",
+        "peertube-webserver",
+        "docker-test-openldap",
+        "s3-ninja",
+        "peertube-webserver-test",
+        "joinpeertube-ci"
+      ]
+    },
+    "urlViva": true
+  },
+  {
+    "slug": "penpot",
+    "licenciaDeclarada": "MPL-2.0",
+    "licenciaDetectada": "GPL-3.0",
+    "licenciaArchivo": "LICENSE",
+    "docker": {
+      "oficial": false,
+      "namespace": "penpot"
+    },
+    "urlViva": true
+  },
+  {
+    "slug": "plane",
+    "licenciaDeclarada": "AGPL-3.0",
+    "licenciaDetectada": "AGPL-3.0",
+    "licenciaArchivo": "LICENSE.txt",
+    "docker": {
+      "oficial": true,
+      "namespace": "makeplane",
+      "imagenes": [
+        "plane-frontend",
+        "plane-backend",
+        "plane-worker",
+        "plane-proxy",
+        "plane-deploy",
+        "plane-space"
+      ]
+    },
+    "urlViva": true
+  },
+  {
+    "slug": "plausible",
+    "licenciaDeclarada": "MIT",
+    "licenciaDetectada": "MIT",
+    "licenciaArchivo": "LICENSE",
+    "docker": null,
+    "urlViva": true
+  },
+  {
+    "slug": "posthog",
+    "licenciaDeclarada": "MIT (core) con funciones Enterprise de pago",
+    "licenciaDetectada": "MIT",
+    "licenciaArchivo": "LICENSE",
+    "docker": {
+      "oficial": true,
+      "namespace": "posthog",
+      "imagenes": [
+        "posthog",
+        "squeak",
+        "max-ai",
+        "chproxy",
+        "posthog-node",
+        "posthog-recording-rasterizer"
+      ]
+    },
+    "urlViva": true
+  },
+  {
+    "slug": "redmine",
+    "licenciaDeclarada": "GPL-2.0",
+    "licenciaDetectada": "GPL-2.0",
+    "licenciaArchivo": "LICENSE.txt",
+    "docker": {
+      "oficial": false,
+      "namespace": "redmine"
+    },
+    "urlViva": true
+  },
+  {
+    "slug": "rocketchat",
+    "licenciaDeclarada": "MIT",
+    "licenciaDetectada": "MIT",
+    "licenciaArchivo": "LICENSE",
+    "docker": {
+      "oficial": true,
+      "namespace": "rocketchat",
+      "imagenes": [
+        "rocket.chat",
+        "hubot-rocketchat",
+        "meteor12androidbuilder",
+        "ssh-container",
+        "hubot-baronbogo",
+        "hubot-gitsy"
+      ]
+    },
+    "urlViva": true
+  },
+  {
+    "slug": "seafile",
+    "licenciaDeclarada": "GPL-2.0 (Community Edition)",
+    "licenciaDetectada": "LGPL-2.1",
+    "licenciaArchivo": "LICENSE.txt",
+    "docker": {
+      "oficial": false,
+      "namespace": "haiwen"
+    },
+    "urlViva": true
+  },
+  {
+    "slug": "sendy",
+    "licenciaDeclarada": "Licencia comercial de pago (no open source)",
+    "licenciaDetectada": null,
+    "licenciaArchivo": null,
+    "docker": null,
+    "urlViva": true
+  },
+  {
+    "slug": "strapi",
+    "licenciaDeclarada": "MIT (Community Edition)",
+    "licenciaDetectada": "MIT",
+    "licenciaArchivo": "LICENSE",
+    "docker": {
+      "oficial": true,
+      "namespace": "strapi",
+      "imagenes": [
+        "hiring-test-db",
+        "hiring-test-api"
+      ]
+    },
+    "urlViva": true
+  },
+  {
+    "slug": "suitecrm",
+    "licenciaDeclarada": "AGPL-3.0",
+    "licenciaDetectada": "AGPL-3.0",
+    "licenciaArchivo": "LICENSE.txt",
+    "docker": {
+      "oficial": false,
+      "namespace": "suitecrm"
+    },
+    "urlViva": true
+  },
+  {
+    "slug": "syncthing",
+    "licenciaDeclarada": "MPL-2.0",
+    "licenciaDetectada": "GPL-3.0",
+    "licenciaArchivo": "LICENSE",
+    "docker": {
+      "oficial": true,
+      "namespace": "syncthing",
+      "imagenes": [
+        "syncthing",
+        "syncthing-android-builder",
+        "builder",
+        "discosrv",
+        "relaysrv",
+        "stupgrades"
+      ]
+    },
+    "urlViva": true
+  },
+  {
+    "slug": "taiga",
+    "licenciaDeclarada": "MPL-2.0 (backend) / AGPL-3.0 (frontend)",
+    "licenciaDetectada": "GPL-3.0",
+    "licenciaArchivo": "LICENSE",
+    "docker": {
+      "oficial": false,
+      "namespace": "taiga"
+    },
+    "urlViva": true
+  },
+  {
+    "slug": "teable",
+    "licenciaDeclarada": "AGPL-3.0",
+    "licenciaDetectada": "AGPL-3.0",
+    "licenciaArchivo": "LICENSE",
+    "docker": {
+      "oficial": true,
+      "namespace": "teable",
+      "imagenes": [
+        "nextoa-api",
+        "nextoa-apidoc",
+        "nextoa-ui"
+      ]
+    },
+    "urlViva": true
+  },
+  {
+    "slug": "twenty",
+    "licenciaDeclarada": "AGPL-3.0",
+    "licenciaDetectada": "AGPL-3.0",
+    "licenciaArchivo": "LICENSE",
+    "docker": {
+      "oficial": true,
+      "namespace": "twentycrm",
+      "imagenes": [
+        "twenty-front",
+        "twenty-server",
+        "twenty-postgres",
+        "twenty",
+        "twenty-postgres-spilo",
+        "twenty-app-dev"
+      ]
+    },
+    "urlViva": true
+  },
+  {
+    "slug": "umami",
+    "licenciaDeclarada": "MIT",
+    "licenciaDetectada": "MIT",
+    "licenciaArchivo": "LICENSE",
+    "docker": {
+      "oficial": true,
+      "namespace": "umami",
+      "imagenes": [
+        "docker-caddy",
+        "docker-atlassian-confluence-server-production",
+        "caddy"
+      ]
+    },
+    "urlViva": true
+  },
+  {
+    "slug": "windmill",
+    "licenciaDeclarada": "AGPL-3.0",
+    "licenciaDetectada": "Apache-2.0",
+    "licenciaArchivo": "LICENSE",
+    "docker": {
+      "oficial": true,
+      "nota": "imagen en GitHub Packages"
+    },
+    "urlViva": true
+  },
+  {
+    "slug": "woodpecker",
+    "licenciaDeclarada": "Apache-2.0",
+    "licenciaDetectada": "Apache-2.0",
+    "licenciaArchivo": "LICENSE",
+    "docker": null,
+    "urlViva": true
+  },
+  {
+    "slug": "zulip",
+    "licenciaDeclarada": "Apache-2.0",
+    "licenciaDetectada": "Apache-2.0",
+    "licenciaArchivo": "LICENSE",
+    "docker": {
+      "oficial": true,
+      "namespace": "zulip",
+      "imagenes": [
+        "zulip-postgresql",
+        "docker-zulip",
+        "zulip-postgresql-test",
+        "ci"
+      ]
+    },
+    "urlViva": true
+  }
+]

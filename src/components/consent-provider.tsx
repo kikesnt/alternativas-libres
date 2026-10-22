@@ -58,7 +58,9 @@ export function ConsentProvider({ children }: { children: ReactNode }) {
     serverSnapshot,
   );
 
-  const adsAllowed = consent === "all" || consent === "ads-only";
+  const client = process.env.NEXT_PUBLIC_ADSENSE_CLIENT ?? "";
+  const adsAllowed =
+    client !== "" && (consent === "all" || consent === "ads-only");
 
   useEffect(() => {
     if (consent) applyConsent(consent);
@@ -79,7 +81,7 @@ export function ConsentProvider({ children }: { children: ReactNode }) {
       {children}
       {adsAllowed ? (
         <Script
-          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_ADSENSE_CLIENT ?? ""}`}
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${client}`}
           strategy="afterInteractive"
           crossOrigin="anonymous"
         />

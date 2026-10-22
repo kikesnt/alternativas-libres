@@ -31,6 +31,7 @@ export default function OpengraphImage() {
         <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
           <img
             src={uriMarca}
+            alt="Alternativas Libres"
             width={72}
             height={72}
             style={{ borderRadius: 18 }}

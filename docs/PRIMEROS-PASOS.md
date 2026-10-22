@@ -168,6 +168,50 @@ valoración de la herramienta.
 
 ---
 
+## Paso 7.5 — Boletín automático (1 h)
+
+El boletín ya está automatizado: no escribes el correo, se genera solo con las
+comparativas y fichas nuevas de las últimas dos semanas.
+
+**Puesta en marcha:**
+
+1. Autoaloja **listmonk** (está en el propio directorio, `/alternativas/mailchimp`).
+   Crea una lista y copia su ID desde la URL de la lista.
+2. En la pestaña de Ajustes de listmonk, crea un token de API.
+3. Rellena en `.env.local`:
+
+```
+NEWSLETTER_API_URL=https://boletin.tudominio.es
+NEWSLETTER_API_TOKEN=el-token-que-te-dio-listmonk
+NEWSLETTER_LIST_ID=1
+NEWSLETTER_FROM_EMAIL=boletin@tudominio.es
+CRON_SECRET=una-cadena-larga-y-aleatoria
+```
+
+4. Prueba el envío manual:
+
+```bash
+curl -X POST https://tudominio.es/api/boletin -H "Authorization: Bearer TU_CRON_SECRET"
+```
+
+5. Para ver el HTML antes de enviarlo (útil para revisar el diseño):
+
+```
+https://tudominio.es/api/boletin?preview=1
+```
+
+6. El envío automático está configurado en `vercel.json`: un cron los lunes a
+   las 9:00 UTC. Si no usas Vercel, cronea la misma ruta desde tu servidor.
+
+**El formulario de alta** (en `/boletin` y en el pie) llama a
+`/api/suscripcion`, que usa la misma API de listmonk. Si no está configurado,
+responde con un mensaje claro en vez de romperse.
+
+**Formulario de contacto:** `/contacto` usa `/api/contacto`, que envía a
+`CONTACT_WEBHOOK_URL`. Sirve cualquier webhook (Discord, Slack, Formspree).
+
+---
+
 ## Paso 8 — Contenido (continuo)
 
 El único trabajo que no se acaba nunca. En orden de prioridad:
@@ -203,6 +247,27 @@ constante, deberías estar entre 50 y 200 €/mes. A los 12 meses, entre 600 y
 
 ---
 
+## Nota sobre redes sociales
+
+No hace falta ninguna. Ni Twitter/X, ni Instagram, ni TikTok.
+
+El crecimiento de un directorio viene de tres sitios, en este orden:
+
+1. **Buscadores.** Es el canal principal, y por eso el trabajo de comparativas
+   largas y de verificación de datos es lo que más rinde.
+2. **Enlaces desde los propios proyectos.** La página `/colabora` está escrita
+   para que los mantenedores de un open source te enlacen a su ficha. Es la
+   vía más barata y la que menos se obvia.
+3. **Comunidades donde ya está tu audiencia:** Reddit, HN, dev.to, foro de
+   tu tecnología, grupos de Telegram de autoalojo.
+
+Las redes sociales son opcionales y con un retorno bajo para un directorio
+técnico en español. Si algún día quieres, lo razonable sería Bluesky o
+Mastodon (sin algoritmo que premie el contenido de pelea) antes que X. Pero no
+cuentes con ello para el plan.
+
+---
+
 ## Resumen de lo que YA está hecho y no tienes que tocar
 
 - 58 herramientas con fichas verificadas, 12 productos, 10 comparativas largas
@@ -212,4 +277,8 @@ constante, deberías estar entre 50 y 200 €/mes. A los 12 meses, entre 600 y
 - Sitemap, RSS, `adsense.txt`, canonicals, JSON-LD, 301s
 - 0 enlaces internos rotos (comprobado con `scripts/check-links.mjs`)
 - Scripts de mantenimiento: `fetch-logos`, `check-repos`, `check-links`
+- Boletín automático con preview, cron semanal y alta vía listmonk
+- Formularios de suscripción y contacto con endpoints propios
+- Verificación de enlaces externos (`scripts/check-enlaces.mjs`)
+- Actividad de cada proyecto (último commit) en cada ficha
 - Plan de monetización detallado en `docs/MONETIZACION.md`

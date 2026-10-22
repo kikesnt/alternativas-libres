@@ -1,7 +1,9 @@
 import Link from "next/link";
 import type { Alternative } from "@/lib/types";
 import { costLabels, difficultyLabels, licenseLabels } from "@/lib/queries";
+import { formatearFechaCorta } from "@/lib/fechas";
 import { ToolIcon } from "@/components/tool-icon";
+import { actividad } from "@/lib/data/actividad";
 
 const licenseStyles: Record<Alternative["licenciaTipo"], string> = {
   "open-source": "border-accent/40 text-accent bg-accent-soft/40",
@@ -65,7 +67,7 @@ export function AlternativeCard({
         />
       </div>
 
-      <dl className="mt-4 grid grid-cols-2 gap-x-4 gap-y-2 text-xs sm:grid-cols-4">
+      <dl className="mt-4 grid grid-cols-2 gap-x-4 gap-y-2 text-xs sm:grid-cols-5">
         <div>
           <dt className="text-muted">Instalación</dt>
           <dd className="font-medium">
@@ -84,6 +86,14 @@ export function AlternativeCard({
           <dt className="text-muted">Docker</dt>
           <dd className="font-medium">
             {alternative.dockerOficial ? "Oficial" : "No oficial"}
+          </dd>
+        </div>
+        <div>
+          <dt className="text-muted">Actividad</dt>
+          <dd className="font-medium">
+            {actividad[alternative.slug]
+              ? formatearFechaCorta(actividad[alternative.slug])
+              : "Sin repo"}
           </dd>
         </div>
       </dl>

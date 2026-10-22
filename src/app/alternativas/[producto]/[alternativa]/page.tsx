@@ -10,6 +10,7 @@ import { JsonLd } from "@/components/json-ld";
 import { LicenseBadge } from "@/components/alternative-card";
 import { ToolIcon } from "@/components/tool-icon";
 import { Byline } from "@/components/byline";
+import { actividad } from "@/lib/data/actividad";
 import {
   costLabels,
   difficultyLabels,
@@ -22,6 +23,7 @@ import {
   licenseLabels,
 } from "@/lib/queries";
 import { site } from "@/lib/site";
+import { formatearFecha } from "@/lib/fechas";
 
 type Params = { params: Promise<{ producto: string; alternativa: string }> };
 
@@ -74,6 +76,10 @@ async function Contenido({ params }: Params) {
   const verticales = alt.mejorPara
     .map((v) => getVertical(v))
     .filter((v) => v !== undefined);
+  const otrosProductos = alt.sustituye
+    .filter((s) => s !== product.slug)
+    .map((s) => getProduct(s))
+    .filter((p) => p !== undefined);
 
   const faq = [
     {
@@ -127,6 +133,23 @@ async function Contenido({ params }: Params) {
         <div className="mt-4">
           <Byline fecha={alt.verificadoEn} />
         </div>
+        {otrosProductos.length > 0 ? (
+          <p className="mt-3 text-sm text-muted">
+            {alt.nombre} también sustituye a{" "}
+            {otrosProductos.map((o, i) => (
+              <span key={o.slug}>
+                {i > 0 ? " y " : ""}
+                <Link
+                  href={`/alternativas/${o.slug}/${alt.slug}`}
+                  className="text-accent hover:underline"
+                >
+                  {o.nombre}
+                </Link>
+              </span>
+            ))}
+            .
+          </p>
+        ) : null}
       </div>
 
       <dl className="mt-8 grid gap-4 rounded-lg border border-border bg-panel p-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -152,6 +175,21 @@ async function Contenido({ params }: Params) {
             Recursos mínimos
           </dt>
           <dd className="mt-1 font-medium">{alt.recursosMinimos}</dd>
+        </div>
+        <div>
+          <dt className="text-xs uppercase tracking-wide text-muted">
+            Actividad
+          </dt>
+          <dd className="mt-1 font-medium">
+            {actividad[alt.slug] ? (
+              <>
+                Último commit el{" "}
+                {formatearFecha(actividad[alt.slug])}
+              </>
+            ) : (
+              <span className="text-muted">Sin repositorio público</span>
+            )}
+          </dd>
         </div>
         <div>
           <dt className="text-xs uppercase tracking-wide text-muted">Coste</dt>

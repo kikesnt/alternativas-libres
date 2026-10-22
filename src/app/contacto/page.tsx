@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { site } from "@/lib/site";
+import { FormularioContacto } from "@/components/formulario-contacto";
 
 export const metadata: Metadata = {
   title: "Contacto",
@@ -21,6 +22,14 @@ export default function ContactoPage() {
         </a>
         . Respondemos en un plazo de dos días laborables.
       </p>
+
+      <div className="mt-8 rounded-lg border border-border bg-panel p-6">
+        <h2 className="text-lg font-semibold">Escríbenos</h2>
+        <p className="mt-2 mb-5 text-sm leading-relaxed text-muted">
+          Rellena el formulario y te respondemos en dos días laborables.
+        </p>
+        <FormularioContacto />
+      </div>
 
       <div className="mt-8 space-y-6">
         <section className="rounded-lg border border-border bg-panel p-6">

@@ -44,7 +44,7 @@ export const products: Product[] = [
       "Si no hay nadie que se encargue de operar el servidor y de las actualizaciones de seguridad.",
       "Si dependes de integraciones proprietary de Slack que no tienen equivalente.",
     ],
-    alternativas: ["mattermost", "rocketchat", "zulip", "element-matrix", "nextcloud-talk"],
+    alternativas: ["mattermost", "rocketchat", "zulip", "element-matrix", "nextcloud-talk", "nextcloud"],
     verificadoEn: "2026-10-22",
   },
   {
@@ -90,7 +90,7 @@ export const products: Product[] = [
       "Si el equipo ya vive en el ecosistema de Atlassian o Salesforce.",
       "Si no hay tiempo para modelar bien las relaciones entre tablas.",
     ],
-    alternativas: ["nocodb", "baserow", "grist", "directus", "strapi", "teable"],
+    alternativas: ["nocodb", "baserow", "grist", "directus", "strapi", "teable", "appflowy", "affine"],
     verificadoEn: "2026-10-22",
   },
   {
@@ -112,7 +112,7 @@ export const products: Product[] = [
       "Si envías pocas campañas al mes y necesitas entregabilidad gestionada sin tocar un servidor.",
       "Si no tienes tiempo para ocuparte del bounce management, SPF, DKIM y listas de bloqueo.",
     ],
-    alternativas: ["listmonk", "mailtrain", "mautic", "sendy", "ditto"],
+    alternativas: ["listmonk", "keila", "mautic", "sendy", "ditto"],
     verificadoEn: "2026-10-22",
   },
   {
@@ -156,7 +156,7 @@ export const products: Product[] = [
       "Si tus clientes entran desde dispositivos sin posibilidad de instalar nada.",
       "Si necesitas grabación, transcripción y webinars gestionados sin operar infraestructura.",
     ],
-    alternativas: ["jitsi", "bigbluebutton", "nextcloud-talk", "peertube"],
+    alternativas: ["jitsi", "bigbluebutton", "nextcloud-talk", "peertube", "nextcloud"],
     verificadoEn: "2026-10-22",
   },
   {
@@ -200,7 +200,7 @@ export const products: Product[] = [
       "Si el número de tareas es bajo y no quieres mantener un servidor.",
       "Si dependes de conectores que no existen en la alternativa que elijas.",
     ],
-    alternativas: ["n8n", "windmill", "activepieces", "huginn", "automatisch"],
+    alternativas: ["n8n", "windmill", "activepieces", "huginn", "automatisch", "mautic"],
     verificadoEn: "2026-10-22",
   },
   {

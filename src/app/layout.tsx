@@ -58,6 +58,11 @@ export const metadata: Metadata = {
     siteName: site.nombre,
     url: site.url,
   },
+  twitter: {
+    card: "summary_large_image",
+    title: `${site.nombre}: alternativas autoalojadas a las herramientas SaaS`,
+    description: site.descripcion,
+  },
   robots: { index: true, follow: true },
   alternates: { canonical: "/" },
   category: "technology",

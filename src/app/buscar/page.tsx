@@ -8,7 +8,12 @@ export const metadata: Metadata = {
   robots: { index: false, follow: true },
 };
 
-export default function BuscarPage() {
+export default async function BuscarPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ q?: string }>;
+}) {
+  const { q } = await searchParams;
   const products = getProducts();
   const alternativas = getAlternatives(
     products.flatMap((p) => p.alternativas),
@@ -35,7 +40,7 @@ export default function BuscarPage() {
     <div className="mx-auto max-w-3xl px-4 py-10">
       <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">Buscar</h1>
       <div className="mt-6">
-        <Buscador indice={indice} />
+        <Buscador indice={indice} consultaInicial={q ?? ""} />
       </div>
     </div>
   );

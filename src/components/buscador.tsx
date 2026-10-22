@@ -11,8 +11,14 @@ type Resultado = {
   etiquetas: string[];
 };
 
-export function Buscador({ indice }: { indice: Resultado[] }) {
-  const [consulta, setConsulta] = useState("");
+export function Buscador({
+  indice,
+  consultaInicial = "",
+}: {
+  indice: Resultado[];
+  consultaInicial?: string;
+}) {
+  const [consulta, setConsulta] = useState(consultaInicial);
 
   const resultados = useMemo(() => {
     const q = consulta.trim().toLowerCase();

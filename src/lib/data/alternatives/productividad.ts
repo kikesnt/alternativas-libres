@@ -613,7 +613,7 @@ export const productividad: Alternative[] = [
     slug: "filegator",
     nombre: "FileGator",
     tagline: "Gestor de archivos web ligero para publicar un directorio del servidor con contraseña.",
-    url: "https://filegator.org",
+    url: "https://filegator.io",
     repo: "https://github.com/filegator/filegator",
     licenciaTipo: "open-source",
     licencia: "MIT",

@@ -45,6 +45,14 @@ export function assertDataIntegrity() {
     if (!listed) {
       errors.push(`${alt.slug} no aparece en ningún producto`);
     }
+    for (const target of alt.sustituye) {
+      const product = products.find((p) => p.slug === target);
+      if (product && !product.alternativas.includes(alt.slug)) {
+        errors.push(
+          `${alt.slug} declara sustituir a ${target} pero no está en su lista de alternativas`,
+        );
+      }
+    }
   }
 
   if (errors.length > 0) {

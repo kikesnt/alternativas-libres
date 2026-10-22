@@ -1,5 +1,6 @@
 import { ImageResponse } from "next/og";
 import { site } from "@/lib/site";
+import { getAlternatives, getGuides, getProducts } from "@/lib/queries";
 
 const svgMarca = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
   <rect width="64" height="64" rx="15" fill="#0f766e"/>
@@ -14,6 +15,10 @@ export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 export default function OpengraphImage() {
+  const productos = getProducts();
+  const total = getAlternatives(productos.flatMap((p) => p.alternativas)).length;
+  const guias = getGuides().length;
+
   return new ImageResponse(
     (
       <div
@@ -75,7 +80,7 @@ export default function OpengraphImage() {
         </div>
 
         <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
-          {["12 productos", "58 herramientas", "10 comparativas"].map((t) => (
+          {[`${productos.length} productos`, `${total} herramientas`, `${guias} comparativas`].map((t) => (
             <div
               key={t}
               style={{

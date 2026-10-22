@@ -128,7 +128,7 @@ export const infraestructura: Alternative[] = [
     slug: "automatisch",
     nombre: "Automatisch",
     tagline: "Zapier open source con las integraciones de los grandes servicios de pago dentro.",
-    url: "https://automatisch.com",
+    url: "https://automatisch.io",
     repo: "https://github.com/automatisch/automatisch",
     licenciaTipo: "open-source",
     licencia: "AGPL-3.0",

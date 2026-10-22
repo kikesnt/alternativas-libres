@@ -11,7 +11,7 @@ volumen.
 | 1 | Afiliación (hosting, correo, dominios) | 50-100 visitas/mes | 20-90 €/conversión | Mes 3-4 |
 | 2 | Patrocinios de proyectos open source | 1.000 visitas/mes | 50-300 €/mes | Mes 6-8 |
 | 3 | Google AdSense (display) | 10.000+ páginas/mes | RPM 4-9 € | Mes 8-12 |
-| 4 | Boletín (newsletter) | 500-2.000 suscriptores | 100-500 €/envío | Mes 12+ |
+| 4 | Boletín (newsletter) | 500-2.000 suscriptores | 100-500 €/envío | Mes 9+ |
 | 5 | API / licencia de datos | 5.000+ visitas/mes | 99-499 €/mes | Mes 18+ |
 
 La razón de este orden: **una conversión de afiliación paga lo mismo que
@@ -133,8 +133,14 @@ visibilidad.
 Un correo cada dos semanas con una migración real (qué se sustituye, por qué,
 cuánto cuesta). Es el activo más valioso, porque convierte tráfico en una audiencia que te pertenece, y es lo que convierte un directorio en un negocio vendible.
 
-Criterio de activación: cuando el directorio tenga 25-30 páginas publicadas y
-un ritmo constante de publicación (una ficha nueva cada semana), no antes.
+El envío ya está automatizado: la ruta `/api/boletin` genera el HTML con las
+comparativas y fichas nuevas de las últimas dos semanas y lo publica en
+listmonk. El cron de los lunes a las 9:00 UTC (configurado en `vercel.json`)
+hace el resto. No hay trabajo manual.
+
+Criterio de activación: cuando haya un ritmo constante de publicación (una
+comparativa y una ficha por semana), no antes. Con 500 suscriptores, un
+envío cada dos semanas a 2 EUR de CPC de sponsor ya son 100 EUR/mes.
 
 ## 6. Números objetivo a 12 meses
 

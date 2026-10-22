@@ -59,6 +59,11 @@ export function SiteFooter() {
               </Link>
             </li>
             <li>
+              <Link href="/boletin" className="hover:text-fg">
+                Boletín
+              </Link>
+            </li>
+            <li>
               <Link href="/metodologia" className="hover:text-fg">
                 Metodología de verificación
               </Link>

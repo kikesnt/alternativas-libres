@@ -1,5 +1,11 @@
 import type { MetadataRoute } from "next";
-import { getAlternatives, getGuides, getProducts } from "@/lib/queries";
+import {
+  getAlternatives,
+  getCategories,
+  getGuides,
+  getProducts,
+  getVerticals,
+} from "@/lib/queries";
 import { site } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -100,11 +106,30 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: ahora,
   }));
 
-  const porHerramienta: MetadataRoute.Sitemap = herramientas.map((a) => ({
-    url: `${site.url}/alternativas/${a.sustituye[0]}/${a.slug}`,
-    changeFrequency: "monthly",
+  const porHerramienta: MetadataRoute.Sitemap = productos.flatMap((producto) =>
+    producto.alternativas
+      .map((slug) => herramientas.find((a) => a.slug === slug))
+      .filter((a): a is (typeof herramientas)[number] => Boolean(a))
+      .map((a) => ({
+        url: `${site.url}/alternativas/${producto.slug}/${a.slug}`,
+        changeFrequency: "monthly" as const,
+        priority: 0.8,
+        lastModified: new Date(`${a.verificadoEn}T00:00:00Z`),
+      })),
+  );
+
+  const porCategoria: MetadataRoute.Sitemap = getCategories().map((c) => ({
+    url: `${site.url}/categorias/${c.slug}`,
+    changeFrequency: "weekly",
     priority: 0.8,
-    lastModified: new Date(`${a.verificadoEn}T00:00:00Z`),
+    lastModified: ahora,
+  }));
+
+  const porVertical: MetadataRoute.Sitemap = getVerticals().map((v) => ({
+    url: `${site.url}/verticales/${v.slug}`,
+    changeFrequency: "weekly",
+    priority: 0.8,
+    lastModified: ahora,
   }));
 
   const porGuia: MetadataRoute.Sitemap = guias.map((g) => ({
@@ -118,6 +143,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...fijas,
     ...porProducto,
     ...porHerramienta,
+    ...porCategoria,
+    ...porVertical,
     ...porGuia,
   ];
 }

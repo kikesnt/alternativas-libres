@@ -18,9 +18,12 @@ export function getAlternative(slug: string): Alternative | undefined {
 }
 
 export function getAlternatives(slugs: string[]): Alternative[] {
-  return slugs
-    .map((s) => alternativeBySlug.get(s))
-    .filter((a): a is Alternative => Boolean(a));
+  const unicos = new Map<string, Alternative>();
+  for (const slug of slugs) {
+    const alt = alternativeBySlug.get(slug);
+    if (alt && !unicos.has(slug)) unicos.set(slug, alt);
+  }
+  return [...unicos.values()];
 }
 
 export function getAlternativesByProduct(product: Product): Alternative[] {

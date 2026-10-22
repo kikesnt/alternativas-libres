@@ -1,0 +1,99 @@
+# Alternativas Libres
+
+Directorio en español de alternativas autoalojadas a herramientas SaaS.
+
+**Stack:** Next.js 16 (App Router, Turbopack) + React 19 + TypeScript +
+Tailwind CSS v4. Sin base de datos: todo el contenido vive en ficheros
+TypeScript versionados, lo que permite revisar cada cambio en un pull request.
+
+## Puesta en marcha
+
+```bash
+pnpm install
+cp .env.example .env.local
+pnpm dev          # http://localhost:3000
+```
+
+| Comando | Qué hace |
+|---|---|
+| `pnpm dev` | Servidor de desarrollo |
+| `pnpm build` | Build de producción |
+| `pnpm start` | Sirve el build |
+| `pnpm lint` | ESLint |
+| `node scripts/check-links.mjs http://localhost:3000` | Rastrea el sitio: enlaces rotos, canonicals y sitemap |
+| `node scripts/fetch-logos.mjs` | Descarga los favicon oficiales y regenera `src/lib/data/logos.ts` |
+| `node scripts/check-repos.mjs` | Detecta repositorios archivados o sin actividad (usa `GITHUB_TOKEN` para no agotar el límite de la API) |
+
+## Variables de entorno
+
+Ver `.env.example`. Para trabajar sin una cuenta de AdSense basta con
+`NEXT_PUBLIC_ADSENSE_CLIENT` vacío: los espacios publicitarios muestran un
+placeholder y no se carga ningún script de terceros.
+
+## Estructura
+
+```
+src/
+  app/
+    layout.tsx              Layout, Consent Mode v2, tema y analítica
+    page.tsx                Portada
+    alternativas/           Hub de producto + ficha de herramienta
+    categorias/             Landings por categoría
+    verticales/             Landings por tipo de equipo
+    comparativas/           Guias largas (las páginas de mayor dwell time)
+    novedades/              Registro de cambios y revisiones
+    metodologia/             Cómo verificamos los datos (E-E-A-T)
+    collaborates/            Añadir tu proyecto y patrocinio
+    feed.xml/               RSS
+    sitemap.ts, robots.ts   Indexación
+  components/               UI (anuncios, consentimiento, tablas, logos)
+  lib/
+    data/                   Contenido: productos, alternativas, guías
+    queries.ts              Selectores y etiquetas
+    fechas.ts               Formato de fecha en español
+    integrity.ts            Comprobaciones que rompen el build si los datos no cuadran
+  scripts/                  Utilidades de mantenimiento
+docs/
+  MONETIZACION.md          Plan de monetización completo
+```
+
+## Modelo de datos
+
+- `Product`: el SaaS que se quiere sustituir (precio, licencia, motivos y
+  casos en los que **no** conviene migrar).
+- `Alternative`: una herramienta autoalojada (licencia real, dificultad,
+  recursos, Docker, coste, contras, verticales, fecha de revisión).
+- `Guide`: comparativa larga con veredicto y FAQ.
+- `Vertical`: tipo de equipo (agencias, developers, privacidad...).
+
+`assertDataIntegrity()` se ejecuta en cada build: si una alternativa apunta a
+un producto inexistente, o una ficha queda fuera de todos los hubs, el build
+falla. Es la red de seguridad de un sitio generado con datos.
+
+## Flujo editorial
+
+1. Añade la entrada en `src/lib/data/alternatives/`.
+2. `node scripts/fetch-logos.mjs` para el favicon.
+3. `node scripts/check-repos.mjs` para confirmar licencia y actividad.
+4. Marca `revisionPendiente: false` y actualiza `verificadoEn` cuando la
+   ficha esté verificada contra la fuente oficial.
+5. `pnpm build` y `node scripts/check-links.mjs`.
+
+## Publicidad
+
+Cuatro tipos de hueco, todos etiquetados como "Publicidad" y ninguno dentro de
+las listings:
+
+- `NEXT_PUBLIC_ADSENSE_SLOT_LISTADO` → home, directorio, categorías, sidebar
+  de las comparativas.
+- `NEXT_PUBLIC_ADSENSE_SLOT_ARTICULO` → fichas de producto, fichas de
+  herramienta y comparativas (dos inserciones).
+
+En la UE, el consentimiento se gestiona antes de cargar `adsbygoogle.js`.
+Para producción, activa el CMP de Google (Funding Choices) desde el panel de
+AdSense y desactiva el banner local.
+
+## Licencia
+
+Código del sitio: uso interno. Los logotipos de los proyectos pertenecen a
+sus respectivos titulares y se usan únicamente para identificarlos.

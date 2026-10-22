@@ -1,0 +1,123 @@
+@import "tailwindcss";
+
+:root {
+  --surface: #ffffff;
+  --panel: #f7f8fa;
+  --fg: #0d1117;
+  --muted: #57606a;
+  --border: #e4e7ec;
+  --accent: #0f766e;
+  --accent-soft: #ccfbf1;
+  --accent-fg: #ffffff;
+  --warn-bg: #fffbeb;
+  --warn-fg: #92400e;
+  --warn-border: #fde68a;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --surface: #0b0e14;
+    --panel: #131822;
+    --fg: #e6edf3;
+    --muted: #9198a1;
+    --border: #232b38;
+    --accent: #2dd4bf;
+    --accent-soft: #113b38;
+    --accent-fg: #042f2e;
+    --warn-bg: #1c1917;
+    --warn-fg: #fbbf24;
+    --warn-border: #453a1e;
+  }
+}
+
+:root[data-theme="dark"] {
+  --surface: #0b0e14;
+  --panel: #131822;
+  --fg: #e6edf3;
+  --muted: #9198a1;
+  --border: #232b38;
+  --accent: #2dd4bf;
+  --accent-soft: #113b38;
+  --accent-fg: #042f2e;
+  --warn-bg: #1c1917;
+  --warn-fg: #fbbf24;
+  --warn-border: #453a1e;
+}
+
+:root[data-theme="light"] {
+  --surface: #ffffff;
+  --panel: #f7f8fa;
+  --fg: #0d1117;
+  --muted: #57606a;
+  --border: #e4e7ec;
+  --accent: #0f766e;
+  --accent-soft: #ccfbf1;
+  --accent-fg: #ffffff;
+  --warn-bg: #fffbeb;
+  --warn-fg: #92400e;
+  --warn-border: #fde68a;
+}
+
+@theme inline {
+  --color-surface: var(--surface);
+  --color-panel: var(--panel);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-fg: var(--accent-fg);
+  --color-warn-bg: var(--warn-bg);
+  --color-warn-fg: var(--warn-fg);
+  --color-warn-border: var(--warn-border);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--surface);
+  color: var(--fg);
+  font-family: var(--font-geist-sans), system-ui, -apple-system, "Segoe UI",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.prose-guia {
+  max-width: 68ch;
+}
+
+.prose-guia p {
+  margin-block: 1rem;
+  line-height: 1.75;
+  color: var(--fg);
+}
+
+.prose-guia ul {
+  margin-block: 1rem 1.5rem;
+  padding-left: 1.4rem;
+  list-style: disc;
+  line-height: 1.7;
+}
+
+.prose-guia ul li {
+  margin-block: 0.5rem;
+  padding-left: 0.25rem;
+}
+
+.prose-guia ul li::marker {
+  color: var(--accent);
+}
+
+.prose-guia strong {
+  color: var(--fg);
+  font-weight: 600;
+}
+
+.card-hover {
+  transition: border-color 150ms ease, transform 150ms ease;
+}
+
+.card-hover:hover {
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}

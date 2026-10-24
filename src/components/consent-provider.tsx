@@ -11,6 +11,7 @@ import {
   type ReactNode,
 } from "react";
 import { createLocalStorageStore } from "@/lib/stores";
+import { adsenseClient, usaCmpGoogle } from "@/lib/ads";
 import type { ConsentValue } from "@/lib/types";
 
 type ConsentContextValue = {
@@ -58,9 +59,9 @@ export function ConsentProvider({ children }: { children: ReactNode }) {
     serverSnapshot,
   );
 
-  const client = process.env.NEXT_PUBLIC_ADSENSE_CLIENT ?? "";
   const adsAllowed =
-    client !== "" && (consent === "all" || consent === "ads-only");
+    adsenseClient !== "" &&
+    (usaCmpGoogle || consent === "all" || consent === "ads-only");
 
   useEffect(() => {
     if (consent) applyConsent(consent);
@@ -81,7 +82,7 @@ export function ConsentProvider({ children }: { children: ReactNode }) {
       {children}
       {adsAllowed ? (
         <Script
-          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${client}`}
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClient}`}
           strategy="afterInteractive"
           crossOrigin="anonymous"
         />

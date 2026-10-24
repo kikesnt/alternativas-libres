@@ -6,6 +6,7 @@ import { CookieBanner } from "@/components/cookie-banner";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { Analytics } from "@/components/analytics";
+import { adsenseClient } from "@/lib/ads";
 import { site } from "@/lib/site";
 import { recortar } from "@/lib/seo";
 import { assertDataIntegrity } from "@/lib/data/integrity";
@@ -76,6 +77,11 @@ export const metadata: Metadata = {
   creator: site.autor,
   publisher: site.nombre,
   category: "technology",
+  // Permite verificar la propiedad del sitio en AdSense por metaetiqueta, sin
+  // depender de que el script ya esté cargando anuncios.
+  ...(adsenseClient
+    ? { other: { "google-adsense-account": adsenseClient } }
+    : {}),
 };
 
 export const viewport: Viewport = {

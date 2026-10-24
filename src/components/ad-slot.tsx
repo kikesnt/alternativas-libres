@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { useConsent } from "@/components/consent-provider";
+import { adsenseClient } from "@/lib/ads";
 
 declare global {
   interface Window {
@@ -28,10 +29,10 @@ export function AdSlot({
 }: AdSlotProps) {
   const { adsAllowed } = useConsent();
   const pushed = useRef(false);
-  const client = process.env.NEXT_PUBLIC_ADSENSE_CLIENT;
+  const client = adsenseClient;
 
   useEffect(() => {
-    if (!adsAllowed || !client || pushed.current) return;
+    if (!adsAllowed || !client || !slot || pushed.current) return;
     pushed.current = true;
     try {
       window.adsbygoogle = window.adsbygoogle || [];
@@ -39,7 +40,7 @@ export function AdSlot({
     } catch {
       pushed.current = false;
     }
-  }, [adsAllowed, client]);
+  }, [adsAllowed, client, slot]);
 
   if (!client) {
     if (process.env.NODE_ENV === "production") return null;
@@ -57,6 +58,11 @@ export function AdSlot({
       </div>
     );
   }
+
+  // Sin ID de bloque (todavía no creado en AdSense) no se pinta nada: un
+  // `<ins>` con `data-ad-slot` vacío solo llena la consola de errores y deja
+  // un hueco en blanco.
+  if (!slot) return null;
 
   if (!adsAllowed) {
     return <div style={{ minHeight: 0 }} aria-hidden="true" />;

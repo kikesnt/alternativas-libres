@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useSyncExternalStore } from "react";
 import { useConsent } from "@/components/consent-provider";
+import { usaCmpGoogle } from "@/lib/ads";
 import type { ConsentValue } from "@/lib/types";
 
 const opciones: { valor: ConsentValue; texto: string; destacado?: boolean }[] = [
@@ -19,6 +20,9 @@ export function CookieBanner() {
   const { consent, grant } = useConsent();
   const isMounted = useSyncExternalStore(subscribe, mounted, serverMounted);
 
+  // Con el CMP de Google activo, el aviso lo muestra él: dos banners seguidos
+  // obligan a decidir dos veces y sobran.
+  if (usaCmpGoogle) return null;
   if (!isMounted || consent !== null) return null;
 
   return (

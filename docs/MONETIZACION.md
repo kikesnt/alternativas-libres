@@ -29,8 +29,8 @@ más común de perder los primeros seis meses.
       `/acerca-de` (ya incluidas).
 - [ ] Al menos 25-30 páginas con contenido original y útil (el directorio ya genera 124).
 - [ ] Sin contenido generado en masa ni copiado.
-- [ ] `adsense.txt` servido con el client ID correcto (ya incluido en
-      `src/app/adsense.txt/route.ts`).
+- [ ] `ads.txt` servido en la raíz con el client ID correcto (ya incluido en
+      `src/app/ads.txt/route.ts`).
 - [ ] Navegación, buscador y filtros funcionales.
 - [ ] Core Web Vitals en verde en PageSpeed Insights.
 - [ ] Search Console configurado y sitemap enviado (ya incluido).

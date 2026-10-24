@@ -96,6 +96,7 @@ El fichero `.env.local` ya está creado en la raíz del proyecto. Rellena:
 | `NEXT_PUBLIC_ADSENSE_CLIENT` | AdSense → Configuración → Cuenta (empieza por `ca-pub-`) |
 | `NEXT_PUBLIC_ADSENSE_SLOT_LISTADO` | ID del bloque de anuncio |
 | `NEXT_PUBLIC_ADSENSE_SLOT_ARTICULO` | ID del segundo bloque |
+| `NEXT_PUBLIC_ADSENSE_CMP` | `google` si usas el CMP de Google (recomendado) |
 
 Los pasos 4 y 5 te dan esos IDs. Mientras `NEXT_PUBLIC_ADSENSE_CLIENT` esté
 vacío, el sitio funciona igual y los anuncios salen como cajas con la palabra
@@ -113,16 +114,17 @@ Después de cambiar el `.env.local`, reinicia el servidor (`pnpm build && pnpm s
    `ca-pub-XXXXXXXX` → va en `NEXT_PUBLIC_ADSENSE_CLIENT`.
 4. Activa el CMP: **Privacidad y mensajería → Consentimiento gestionado →
    "Consentimiento gestionado por Google (CMP)"**. Es gratis y sustituye al
-   banner local.
+   banner local. Después pon `NEXT_PUBLIC_ADSENSE_CMP=google` y el banner
+   propio se retira solo: dos avisos seguidos obligan a decidir dos veces.
 5. Crea dos bloques de anuncio (Anuncios → Nuevo bloque):
    - Display → **"Banner responsivo"** → te da un ID. Apúntalo como
      `SLOT_LISTADO`.
    - Otro igual → `SLOT_ARTICULO`.
 6. Pega los IDs en el `.env.local`.
 
-**Nota sobre el consentimiento:** con el CMP de Google activado, desactiva el
-banner local (en `src/components/cookie-banner.tsx`, quita `<CookieBanner />`
-del layout). Los dos juntos obligan al usuario a decidir dos veces y es mala práctica.
+Mientras no haya ID de bloque, los huecos de anuncio no se pintan: no queda
+espacio vacío ni errores en la consola. Si tampoco hay `ADSENSE_CLIENT`, el
+sitio funciona igual y en desarrollo se ven cajas de muestra.
 
 ---
 
@@ -327,7 +329,7 @@ cuentes con ello para el plan.
 - 124 páginas generadas estáticamente
 - Modo noche, cookies con Consent Mode v2, menú móvil
 - 67 logos oficiales
-- Sitemap, RSS, `adsense.txt`, canonicals, JSON-LD, 301s
+- Sitemap, RSS, `ads.txt`, canonicals, JSON-LD, 301s
 - 0 enlaces internos rotos (comprobado con `scripts/check-links.mjs`)
 - 58 fichas revisadas contra la fuente oficial, con fecha en cada una
 - Scripts de mantenimiento: `fetch-logos`, `check-repos`, `check-links`,

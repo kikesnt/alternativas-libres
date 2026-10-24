@@ -1,0 +1,27 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "alternativas-libres",
+  "main": "worker.ts",
+  "compatibility_date": "2026-10-19",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "triggers": {
+    "crons": ["0 9 * * 1"]
+  },
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "services": [
+    {
+      "binding": "WORKER_SELF_REFERENCE",
+      "service": "alternativas-libres"
+    }
+  ],
+  "observability": {
+    "enabled": true
+  },
+  "routes": [
+    { "pattern": "alternativas-libres.com", "custom_domain": true },
+    { "pattern": "www.alternativas-libres.com", "custom_domain": true }
+  ]
+}

@@ -14,48 +14,74 @@ dirección web real. Nada de esto funciona con `localhost`.
 1. El dominio elegido es `alternativas-libres.com`. Si más adelante quieres
    proteger la marca, registra `alternativas-libres.es` en un registrador
    español (Cloudflare no vende `.es`) y redirígelo al `.com`.
-2. Regístralo en Cloudflare (registro + DNS + proxy gratis), Porkbun o Namecheap.
-3. Apunta el dominio a la IP del servidor donde vas a publicar (paso 2).
+2. Está registrado en Cloudflare, con el DNS y el proxy incluidos gratis.
+3. No hay que apuntar el dominio a ninguna IP: el sitio se publica como Worker
+   y Cloudflare crea solo los registros del dominio personalizado.
 
 **Cómo sabes que está bien:** el dominio abre tu página.
 
 ---
 
-## Paso 2 — Hosting y publicación (1 h, 5-10 €/mes)
+## Paso 2 — Publicar en Cloudflare Workers (~5 min, plan gratuito)
 
-**Qué hacer:**
+El sitio se despliega con `@opennextjs/cloudflare`, que adapta Next.js al
+runtime de Workers (SSR, rutas de API, imagen Open Graph y redirecciones).
+La configuración vive en el repo: `wrangler.jsonc`, `open-next.config.ts` y
+`worker.ts`.
 
-1. Contrata una VPS (un servidor con Linux y una IP). Para empezar: 2 vCPU y
-   4 GB de RAM bastan de sobra. Proveedores: Hetzner (Europa, más barato),
-   DigitalOcean, Vultr, Contabo.
-2. Instala Node.js 20+ y Nginx (proxy) + un certificado HTTPS gratuito con
-   Let's Encrypt o Caddy.
-3. Sube el proyecto y publícalo:
+**La primera vez:**
 
 ```bash
-# en el servidor
-git clone <tu-repo> /var/www/alternativas
-cd /var/www/alternativas
 pnpm install
-pnpm build
-pnpm start        # o con systemd/pm2 para que arranque solo
+pnpm exec wrangler login      # abre el navegador y autoriza la cuenta
+pnpm deploy                   # build de Next + build de OpenNext + deploy
 ```
 
-4. Nginx hace de proxy inverso hacia el puerto 3000 y renewal del
-   certificado. Con Caddy es automático:
+**Cada vez que cambies código:**
 
-```
-alternativas-libres.com {
-    reverse_proxy localhost:3000
-}
+```bash
+pnpm deploy
 ```
 
-**Alternativa si no quieres tocar servidores:** Vercel Hobby (gratis) o
-Netlify. Sube el repo, conecta el dominio y listo. El único límite es que
-AdSense a veces tarda más en aprobar dominios alojados ahí.
+**Probar en local con el runtime real de Workers** (recomendado antes de subir):
 
-**Cómo sabes que está bien:** `https://tudominio.com` abre el sitio con el
-certificado verde.
+```bash
+pnpm preview                  # http://localhost:8787
+```
+
+`pnpm dev` sigue funcionando para el día a día, pero no reproduce el runtime de
+Cloudflare.
+
+**Qué queda configurado en la zona** (no está en el repo, se hace una vez):
+
+| Ajuste | Valor |
+|---|---|
+| Dominio personalizado | `alternativas-libres.com` y `www.alternativas-libres.com` |
+| Redirect Rule | `www` → `https://alternativas-libres.com` (301) |
+| SSL/TLS → Always Use HTTPS | Activado |
+| SSL/TLS → HSTS | `max-age=31536000; includeSubDomains` |
+| TLS mínimo | 1.2 |
+| Cron Trigger | `0 9 * * 1` → `/api/boletin` (solo actúa si existe `CRON_SECRET`) |
+
+**Cómo sabes que está bien:** `https://alternativas-libres.com` abre el sitio,
+`http://` y `www.` redirigen al dominio principal, y el certificado es válido.
+
+> Ojo con los cambios de configuración: las Redirect Rules y los ajustes de
+> SSL no se versionan en el repo. Si algún día migras de cuenta, hay que
+> volver a crearlos.
+
+---
+
+## Paso 2b — Correo (15 min, gratis)
+
+1. Cloudflare → Email → Email Routing → activar.
+2. Añade tu buzón real como destino y verifícalo.
+3. Crea `hola@alternativas-libres.com` (es la dirección que muestra la web).
+4. Cloudflare crea los MX, el SPF y el DKIM. El DMARC ya está puesto en
+   `p=none` para vigilar sin bloquear.
+
+Email Routing solo recibe y reenvía. Para responder como `hola@` necesitas un
+buzón real o configurar "Enviar como" en Gmail.
 
 ---
 
@@ -66,7 +92,7 @@ El fichero `.env.local` ya está creado en la raíz del proyecto. Rellena:
 | Variable | Dónde la sacas |
 |---|---|
 | `NEXT_PUBLIC_SITE_URL` | Tu dominio completo, con `https://` y sin barra final |
-| `NEXT_PUBLIC_CONTACTO_EMAIL` | El tuyo |
+| `NEXT_PUBLIC_CONTACTO_EMAIL` | `hola@alternativas-libres.com` |
 | `NEXT_PUBLIC_ADSENSE_CLIENT` | AdSense → Configuración → Cuenta (empieza por `ca-pub-`) |
 | `NEXT_PUBLIC_ADSENSE_SLOT_LISTADO` | ID del bloque de anuncio |
 | `NEXT_PUBLIC_ADSENSE_SLOT_ARTICULO` | ID del segundo bloque |
@@ -199,8 +225,20 @@ curl -X POST https://tudominio.com/api/boletin -H "Authorization: Bearer TU_CRON
 https://tudominio.com/api/boletin?preview=1
 ```
 
-6. El envío automático está configurado en `vercel.json`: un cron los lunes a
-   las 9:00 UTC. Si no usas Vercel, cronea la misma ruta desde tu servidor.
+6. El envío automático está configurado como Cron Trigger de Cloudflare
+   (`wrangler.jsonc`, lunes a las 9:00 UTC) y llama a esta ruta. Solo hace algo
+   si `CRON_SECRET` está definido como secreto del Worker:
+
+```bash
+pnpm exec wrangler secret put CRON_SECRET
+pnpm exec wrangler secret put NEWSLETTER_API_URL
+pnpm exec wrangler secret put NEWSLETTER_API_TOKEN
+pnpm exec wrangler secret put NEWSLETTER_LIST_ID
+pnpm exec wrangler secret put NEWSLETTER_FROM_EMAIL
+```
+
+`NEXT_PUBLIC_*` no va por secretos: se incrusta en el build, así que vive en
+`.env.local` (o en las variables del builder) y se aplica al desplegar.
 
 **El formulario de alta** (en `/boletin` y en el pie) llama a
 `/api/suscripcion`, que usa la misma API de listmonk. Si no está configurado,

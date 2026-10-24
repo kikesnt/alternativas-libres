@@ -19,6 +19,8 @@ pnpm dev          # http://localhost:3000
 | `pnpm dev` | Servidor de desarrollo |
 | `pnpm build` | Build de producción |
 | `pnpm start` | Sirve el build |
+| `pnpm preview` | Build + runtime real de Cloudflare en `localhost:8787` |
+| `pnpm deploy` | Build y despliegue en Cloudflare Workers |
 | `pnpm lint` | ESLint |
 | `node scripts/check-links.mjs http://localhost:3000` | Rastrea el sitio: enlaces rotos, canonicals y sitemap |
 | `node scripts/fetch-logos.mjs` | Descarga los favicon oficiales y regenera `src/lib/data/logos.ts` |
@@ -34,6 +36,29 @@ pnpm dev          # http://localhost:3000
 Ver `.env.example`. Para trabajar sin una cuenta de AdSense basta con
 `NEXT_PUBLIC_ADSENSE_CLIENT` vacío: los espacios publicitarios muestran un
 placeholder y no se carga ningún script de terceros.
+
+## Despliegue
+
+El sitio corre en **Cloudflare Workers** con `@opennextjs/cloudflare`. El
+Worker está en `worker.ts` (reutiliza el handler de OpenNext y añade el cron
+del boletín), la configuración en `wrangler.jsonc` y el adaptador en
+`open-next.config.ts`.
+
+```bash
+pnpm exec wrangler login   # solo la primera vez
+pnpm deploy
+```
+
+`NEXT_PUBLIC_SITE_URL` y `NEXT_PUBLIC_CONTACTO_EMAIL` se incrustan en el
+build: si cambian, hay que volver a desplegar. El resto de variables
+(secretos de boletín, webhook de contacto) se suben con
+`pnpm exec wrangler secret put NOMBRE`.
+
+> Si `pnpm exec wrangler` responde `Command "wrangler" not found`, instala el
+> CLI global con `npm install -g wrangler@4`. Es un fallo de enlazado de pnpm
+> 12 con las dependencias de Wrangler; el comando global funciona igual.
+
+Detalle del paso a paso en `docs/PRIMEROS-PASOS.md`.
 
 ## Estructura
 

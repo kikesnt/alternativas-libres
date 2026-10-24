@@ -6,8 +6,14 @@ import { ComparisonTable } from "@/components/comparison-table";
 import { Faq } from "@/components/faq";
 import { JsonLd } from "@/components/json-ld";
 import { ToolIcon } from "@/components/tool-icon";
-import { getAlternatives, getAlternative, getProducts } from "@/lib/queries";
+import {
+  getAlternatives,
+  getAlternative,
+  getProducts,
+  licenseLabels,
+} from "@/lib/queries";
 import { site } from "@/lib/site";
+import { recortar } from "@/lib/seo";
 
 type Params = { params: Promise<{ slug: string }> };
 
@@ -25,14 +31,29 @@ export async function generateMetadata({
   const alt = getAlternative(slug);
   if (!alt) return {};
 
-  const titulo = `Alternativas a ${alt.nombre}: ${alt.licencia}`;
-  const descripcion = `Alternativas open source a ${alt.nombre}. Requisitos, licencia, coste y contras de cada opción, con la ficha completa de ${alt.nombre}.`;
+  const productos = getProducts();
+  const hermanos = getAlternatives(
+    [
+      ...new Set(
+        productos
+          .filter((p) => p.alternativas.includes(alt.slug))
+          .flatMap((p) => p.alternativas),
+      ),
+    ],
+  ).filter((a) => a.slug !== alt.slug);
+
+  const total = hermanos.length;
+  const titulo = `Alternativas a ${alt.nombre}: ${total} ${
+    total === 1 ? "opción" : "opciones"
+  }`;
+  const descripcion = recortar(
+    `Alternativas autoalojadas a ${alt.nombre} (${licenseLabels[alt.licenciaTipo]}): requisitos de servidor, coste, contras y cuándo conviene seguir con ${alt.nombre}.`,
+  );
 
   return {
     title: titulo,
     description: descripcion,
     alternates: { canonical: `/herramientas/${alt.slug}` },
-    openGraph: { title: titulo, description: descripcion, type: "website" },
   };
 }
 
@@ -55,13 +76,17 @@ export default async function HerramientaPage({ params }: Params) {
 
   const gratuitas = hermanos.filter((a) => a.coste === "gratis");
   const libres = hermanos.filter(
-    (a) => a.licenciaTipo === "open-source" || a.licenciaTipo === "source-available",
+    (a) =>
+      a.licenciaTipo === "open-source" || a.licenciaTipo === "source-available",
   );
+  const masSencilla = [...hermanos].sort(
+    (a, b) => a.dificultad - b.dificultad,
+  )[0];
 
   const faq = [
     {
       q: `¿Cuál es la mejor alternativa a ${alt.nombre}?`,
-      a: `Depende del caso. Para la instalación más sencilla, ${hermanos[0]?.nombre ?? "consulta la tabla"}. Para el mínimo consumo de recursos, busca las marcadas como "Trivial" en el filtro. ${alt.nombre} sigue siendo la opción más completa si necesitas un solo sistema que cubra ficheros, calendario y contactos.`,
+      a: `Depende del caso. Para la instalación más sencilla, ${masSencilla?.nombre ?? "consulta la tabla"}. Para el mínimo consumo de recursos, revisa la columna de requisitos. No hay una mejor opción absoluta: cambia según si priorizas licencia, facilidad de instalación, funciones o comunidad.`,
     },
     {
       q: `¿Hay una alternativa gratuita a ${alt.nombre}?`,
@@ -80,7 +105,10 @@ export default async function HerramientaPage({ params }: Params) {
       <Breadcrumbs
         items={[
           { name: "Herramientas", href: "/alternativas" },
-          { name: `Alternativas a ${alt.nombre}`, href: `/herramientas/${alt.slug}` },
+          {
+            name: `Alternativas a ${alt.nombre}`,
+            href: `/herramientas/${alt.slug}`,
+          },
         ]}
       />
 
@@ -91,16 +119,17 @@ export default async function HerramientaPage({ params }: Params) {
             Alternativas a {alt.nombre}
           </h1>
           <p className="mt-3 text-lg leading-relaxed text-muted">
-            {hermanos.length} herramientas que puedes montar en tu propio
-            servidor en lugar de usar {alt.nombre}, con licencia, requisitos y
-            contras de cada una.
+            {hermanos.length}{" "}
+            {hermanos.length === 1 ? "herramienta" : "herramientas"} que puedes
+            montar en tu propio servidor en lugar de usar {alt.nombre}, con
+            licencia, requisitos y contras de cada una.
           </p>
         </div>
       </div>
 
       <p className="mt-5 text-sm text-muted">
-        {alt.nombre} es {alt.tagline.toLowerCase()} Si buscas lo contrario,
-        esta es{" "}
+        {alt.tagline.endsWith(".") ? alt.tagline : `${alt.tagline}.`} Si buscas
+        lo contrario, esta es{" "}
         <Link
           href={`/alternativas/${hubs[0]?.slug ?? "notion"}/${alt.slug}`}
           className="text-accent hover:underline"
@@ -110,32 +139,36 @@ export default async function HerramientaPage({ params }: Params) {
         , con los requisitos de servidor y cuándo no conviene usarla.
       </p>
 
-      <section className="mt-10">
-        <h2 className="text-2xl font-semibold">
-          Alternativas open source a {alt.nombre}
-        </h2>
-        <p className="mt-2 text-sm text-muted">
-          Las {libres.length} opciones con licencia libre o fuente disponible.
-        </p>
-        <div className="mt-6 grid gap-4 lg:grid-cols-2">
-          {libres.map((a) => (
-            <Link
-              key={a.slug}
-              href={`/alternativas/${a.sustituye[0]}/${a.slug}`}
-              className="card-hover flex gap-3 rounded-lg border border-border bg-panel p-5"
-            >
-              <ToolIcon slug={a.slug} nombre={a.nombre} size={36} />
-              <div className="min-w-0">
-                <h3 className="font-semibold">{a.nombre}</h3>
-                <p className="mt-1 text-sm leading-relaxed text-muted">
-                  {a.tagline}
-                </p>
-                <p className="mt-2 text-xs text-muted">{a.licencia}</p>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </section>
+      {libres.length > 0 ? (
+        <section className="mt-10">
+          <h2 className="text-2xl font-semibold">
+            Alternativas open source o de fuente disponible a {alt.nombre}
+          </h2>
+          <p className="mt-2 text-sm text-muted">
+            Las {libres.length}{" "}
+            {libres.length === 1 ? "opción" : "opciones"} con licencia libre o
+            fuente disponible.
+          </p>
+          <div className="mt-6 grid gap-4 lg:grid-cols-2">
+            {libres.map((a) => (
+              <Link
+                key={a.slug}
+                href={`/alternativas/${a.sustituye[0]}/${a.slug}`}
+                className="card-hover flex gap-3 rounded-lg border border-border bg-panel p-5"
+              >
+                <ToolIcon slug={a.slug} nombre={a.nombre} size={36} />
+                <div className="min-w-0">
+                  <h3 className="font-semibold">{a.nombre}</h3>
+                  <p className="mt-1 text-sm leading-relaxed text-muted">
+                    {a.tagline}
+                  </p>
+                  <p className="mt-2 text-xs text-muted">{a.licencia}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+      ) : null}
 
       {hermanos.length > 0 ? (
         <section className="mt-12">

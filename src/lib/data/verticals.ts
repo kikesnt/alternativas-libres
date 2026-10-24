@@ -5,7 +5,7 @@ export const verticals: Vertical[] = [
     slug: "equipos-pequenos",
     nombre: "Equipos pequeños",
     descripcion:
-      "Pocas personas, mucho volumen de documentación y ningún presupuesto de infraestructura. Alternativas que se instalan en una VPS de 2 GB.",
+      "Pocas personas, mucho volumen de documentación y ningún presupuesto de infraestructura. Alternativas que se pagan por servidor, no por usuario.",
     ejemplos: ["Agencias de 3 personas", "Consultores independientes", "Equipos de producto"],
   },
   {
@@ -19,7 +19,7 @@ export const verticals: Vertical[] = [
     slug: "desarrolladores",
     nombre: "Desarrolladores",
     descripcion:
-      "Ciclos de despliegue, self-hosting cómodo y cero fricción con la terminal, con requisitos de servidor y requisitos de sistema concretos.",
+      "Ciclos de despliegue, autoalojamiento cómodo y cero fricción con la terminal, con requisitos de servidor y requisitos de sistema concretos.",
     ejemplos: ["Startups técnicas", "Freelancers", "Equipos DevOps"],
   },
   {
@@ -33,21 +33,21 @@ export const verticals: Vertical[] = [
     slug: "freelancers",
     nombre: "Autónomos",
     descripcion:
-      "Una sola persona haciendo de department: también necesita CRM, ficheros y facturación, todo en la misma VPS y sin cuotas por usuario.",
+      "Una sola persona haciendo las veces de todo un departamento: también necesita CRM, ficheros y facturación, todo en la misma VPS y sin cuotas por usuario.",
     ejemplos: ["Diseñadores", "Programadores", "Asesores"],
   },
   {
     slug: "privacidad",
     nombre: "Privacidad y datos",
     descripcion:
-      "Datos que no pueden salir del servidor: salud, legal, industrial o clientes con NDA. Alternativas con cifrado y control de acceso fino.",
+      "Datos que no pueden salir del servidor: salud, legal, industrial o clientes con NDA. Alternativas para instalar en tu infraestructura y decidir quién accede.",
     ejemplos: ["Clínicas", "Despachos", "Iniciativas con datos de menores"],
   },
   {
     slug: "ecommerce",
     nombre: "Tiendas online",
     descripcion:
-      "Catálogo, stock, email transaccional y métricas de venta autoalojadas, para tiendas que no quieren depender de una plataforma de pago.",
+      "Catálogo, stock, correo transaccional y métricas de venta autoalojadas, para tiendas que no quieren depender de una plataforma de pago.",
     ejemplos: ["Tiendas Shopify", "Marketplaces", "Dropshippers"],
   },
   {

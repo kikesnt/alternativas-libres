@@ -14,100 +14,126 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const herramientas = getAlternatives(
     productos.flatMap((p) => p.alternativas),
   );
+  const alternativaPorSlug = new Map(herramientas.map((a) => [a.slug, a]));
 
-  const ahora = new Date();
+  const fechas = [
+    ...productos.map((p) => p.verificadoEn),
+    ...herramientas.map((a) => a.verificadoEn),
+    ...guias.map((g) => g.fecha),
+  ]
+    .filter(Boolean)
+    .sort();
 
-  const fijas: MetadataRoute.Sitemap = [
-    { url: `${site.url}/`, changeFrequency: "daily", priority: 1, lastModified: ahora },
+  const ultimaRevision = new Date(
+    `${fechas.at(-1) ?? new Date().toISOString().slice(0, 10)}T00:00:00Z`,
+  );
+
+  const fechaDeProducto = (producto: (typeof productos)[number]) => {
+    const fechasProducto = [
+      producto.verificadoEn,
+      ...producto.alternativas.map(
+        (slug) => alternativaPorSlug.get(slug)?.verificadoEn,
+      ),
+    ]
+      .filter((fecha): fecha is string => Boolean(fecha))
+      .sort();
+
+    return new Date(
+      `${fechasProducto.at(-1) ?? producto.verificadoEn}T00:00:00Z`,
+    );
+  };
+
+    const fijas: MetadataRoute.Sitemap = [
+    { url: `${site.url}/`, changeFrequency: "daily", priority: 1, lastModified: ultimaRevision },
     {
       url: `${site.url}/alternativas`,
       changeFrequency: "daily",
       priority: 0.9,
-      lastModified: ahora,
+      lastModified: ultimaRevision,
     },
     {
       url: `${site.url}/categorias`,
       changeFrequency: "weekly",
       priority: 0.8,
-      lastModified: ahora,
+      lastModified: ultimaRevision,
     },
     {
       url: `${site.url}/verticales`,
       changeFrequency: "weekly",
       priority: 0.8,
-      lastModified: ahora,
+      lastModified: ultimaRevision,
     },
     {
       url: `${site.url}/comparativas`,
       changeFrequency: "daily",
       priority: 0.9,
-      lastModified: ahora,
+      lastModified: ultimaRevision,
     },
     {
       url: `${site.url}/herramientas`,
       changeFrequency: "weekly",
       priority: 0.8,
-      lastModified: ahora,
+      lastModified: ultimaRevision,
     },
     {
       url: `${site.url}/novedades`,
       changeFrequency: "daily",
       priority: 0.7,
-      lastModified: ahora,
+      lastModified: ultimaRevision,
     },
     {
       url: `${site.url}/metodologia`,
       changeFrequency: "monthly",
       priority: 0.6,
-      lastModified: ahora,
+      lastModified: ultimaRevision,
     },
     {
       url: `${site.url}/boletin`,
       changeFrequency: "monthly",
       priority: 0.6,
-      lastModified: ahora,
+      lastModified: ultimaRevision,
     },
     {
       url: `${site.url}/colabora`,
       changeFrequency: "monthly",
       priority: 0.6,
-      lastModified: ahora,
+      lastModified: ultimaRevision,
     },
     {
       url: `${site.url}/acerca-de`,
       changeFrequency: "monthly",
       priority: 0.5,
-      lastModified: ahora,
+      lastModified: ultimaRevision,
     },
     {
       url: `${site.url}/anuncios`,
       changeFrequency: "monthly",
       priority: 0.4,
-      lastModified: ahora,
+      lastModified: ultimaRevision,
     },
     {
       url: `${site.url}/contacto`,
       changeFrequency: "yearly",
       priority: 0.4,
-      lastModified: ahora,
+      lastModified: ultimaRevision,
     },
     {
       url: `${site.url}/privacidad`,
       changeFrequency: "yearly",
       priority: 0.2,
-      lastModified: ahora,
+      lastModified: ultimaRevision,
     },
     {
       url: `${site.url}/cookies`,
       changeFrequency: "yearly",
       priority: 0.2,
-      lastModified: ahora,
+      lastModified: ultimaRevision,
     },
     {
       url: `${site.url}/terminos`,
       changeFrequency: "yearly",
       priority: 0.2,
-      lastModified: ahora,
+      lastModified: ultimaRevision,
     },
   ];
 
@@ -115,7 +141,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url: `${site.url}/alternativas/${p.slug}`,
     changeFrequency: "weekly",
     priority: 0.9,
-    lastModified: ahora,
+    lastModified: fechaDeProducto(p),
   }));
 
   const porHerramienta: MetadataRoute.Sitemap = productos.flatMap((producto) =>
@@ -134,14 +160,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url: `${site.url}/categorias/${c.slug}`,
     changeFrequency: "weekly",
     priority: 0.8,
-    lastModified: ahora,
+    lastModified: ultimaRevision,
   }));
 
   const porVertical: MetadataRoute.Sitemap = getVerticals().map((v) => ({
     url: `${site.url}/verticales/${v.slug}`,
     changeFrequency: "weekly",
     priority: 0.8,
-    lastModified: ahora,
+    lastModified: ultimaRevision,
   }));
 
   const porPaginaHerramienta: MetadataRoute.Sitemap = herramientas.map((a) => ({
@@ -162,10 +188,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...fijas,
     ...porProducto,
     ...porHerramienta,
+    ...porPaginaHerramienta,
     ...porCategoria,
     ...porVertical,
-    ...porHerramienta,
-    ...porPaginaHerramienta,
     ...porGuia,
   ];
 }

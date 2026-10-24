@@ -25,7 +25,7 @@ export const comunicacion: Alternative[] = [
     contras: [
       "El stack es pesado: Go, React, Postgres y Elasticsearch.",
       "Las funciones que la competencia da por gratis (SSO, auditoría) están en el plan de pago.",
-      "La licencia MIT del servidor no cubre el código de los plugins proprietary.",
+      "La licencia MIT del servidor no cubre el código de los plugins propietarios.",
     ],
     mejorPara: ["agencias", "privacidad", "equipos-pequenos"],
     sustituye: ["slack"],
@@ -47,7 +47,7 @@ export const comunicacion: Alternative[] = [
     requiereDevops: true,
     recursosMinimos: "4 vCPU, 8 GB RAM",
     coste: "gratis",
-    costeNota: "Gratuito bajo MIT. La versión cloud de pago añade gestión y soporte.",
+    costeNota: "Gratuito bajo MIT. La versión en la nube de pago añade gestión y soporte.",
     highlights: [
       "OmniBridge traduce en directo entre más de veinte idiomas: útil en equipos multilingües.",
       "Marketplace de apps y webhooks abierto.",
@@ -56,7 +56,7 @@ export const comunicacion: Alternative[] = [
     contras: [
       "Su base es Meteor, que exige un conocimiento específico para operar y actualizar.",
       "Consume más recursos que Mattermost para el mismo número de usuarios.",
-      "El ritmo de desarrollo del core ha sido irregular en los últimos años.",
+      "El ritmo de desarrollo del núcleo ha sido irregular en los últimos años.",
     ],
     mejorPara: ["agencias", "equipos-pequenos"],
     sustituye: ["slack"],
@@ -115,7 +115,7 @@ export const comunicacion: Alternative[] = [
       "Un cliente desktop y móvil, y un servidor Synapse autoalojable.",
     ],
     contras: [
-      "Las claves de cifrado y el Concepto deIdentity complican las migraciones y el onboarding.",
+      "Las claves de cifrado y el concepto de identidad complican las migraciones y la incorporación.",
       "El consumo de recursos de los clientes es alto comparado con Slack.",
       "Menos integraciones con herramientas de empresa.",
     ],
@@ -175,7 +175,7 @@ export const comunicacion: Alternative[] = [
     ],
     contras: [
       "Montar una instancia escala con JVB y un TURN bien dimensionado: no es trivial.",
-      "Sin grabación nativa en la versión self-hosted sin herramientas de terceros.",
+      "Sin grabación nativa en la versión autoalojada sin herramientas de terceros.",
       "El audio puede dar problemas en redes corporativas: hay que probar con tus usuarios reales.",
     ],
     mejorPara: ["privacidad", "educacion", "agencias", "equipos-pequenos"],
@@ -261,7 +261,7 @@ export const comunicacion: Alternative[] = [
     costeNota: "Gratuito bajo AGPL. El autor ofrece un plan de hosting de pago.",
     highlights: [
       "De lo más sencillo de montar: un binario y una base de datos.",
-      "Double opt-in, plantillas, campaigning y statistics de envío.",
+      "Doble opt-in, plantillas, campañas y estadísticas de envío.",
       "Importación directa desde Mailchimp, Klaviyo y Sendy.",
     ],
     contras: [
@@ -278,7 +278,7 @@ export const comunicacion: Alternative[] = [
   {
     slug: "keila",
     nombre: "Keila",
-    tagline: "Email marketing autoalojado, con plantillas, listas y campañas segmentadas.",
+    tagline: "Marketing por correo autoalojado, con plantillas, listas y campañas segmentadas.",
     url: "https://keila.io",
     repo: "https://github.com/pentacent/keila",
     licenciaTipo: "open-source",
@@ -293,7 +293,7 @@ export const comunicacion: Alternative[] = [
     highlights: [
       "Motor de campañas con plantillas, previsualización y envíos segmentados.",
       "Doble opt-in, gestión de bajas e importación de contactos desde CSV.",
-      "Proyecto muy activo, con releases frecuentes y comunidad europea.",
+      "Proyecto muy activo, con versiones frecuentes y comunidad europea.",
     ],
     contras: [
       "AGPL-3.0: si lo expones por red modificado, debes publicar los cambios.",
@@ -308,7 +308,7 @@ export const comunicacion: Alternative[] = [
   {
     slug: "mautic",
     nombre: "Mautic",
-    tagline: "Automatización de marketing open source: email, campañas, formularios y seguimiento.",
+    tagline: "Automatización de marketing open source: correo, campañas, formularios y seguimiento.",
     url: "https://www.mautic.org",
     repo: "https://github.com/mautic/mautic",
     licenciaTipo: "open-source",
@@ -322,11 +322,11 @@ export const comunicacion: Alternative[] = [
     costeNota: "Community gratis. Mautic Pro es una edición comercial de pago.",
     highlights: [
       "El sustituto más completo de Mailchimp cuando lo que necesitas son automatizaciones.",
-      "Campañas, formularios, landing pages, seguimiento de contactos y scoring.",
+      "Campañas, formularios, páginas de aterrizaje, seguimiento de contactos y puntuación.",
       "Plugins para el ecosistema WordPress y APIs.",
     ],
     contras: [
-      "Es la opción más pesada: PHP, Symfony, MySQL, cron y queue.",
+      "Es la opción más pesada: PHP, Symfony, MySQL, cron y cola de trabajos.",
       "La interfaz de edición de campañas es anticuada.",
       "El hosting compartido barato no aguanta: hace falta un VPS decente.",
     ],
@@ -338,7 +338,7 @@ export const comunicacion: Alternative[] = [
   {
     slug: "sendy",
     nombre: "Sendy",
-    tagline: "Autoalojado, rápido y con precio por número de emails enviados, sin límite de contactos.",
+    tagline: "Autoalojado, rápido y con precio por número de correos enviados, sin límite de contactos.",
     url: "https://sendy.co",
     licenciaTipo: "propietario",
     licencia: "Licencia comercial de pago (no open source)",
@@ -348,15 +348,15 @@ export const comunicacion: Alternative[] = [
     requiereDevops: true,
     recursosMinimos: "1 vCPU, 1 GB RAM",
     coste: "pago-unico",
-    costeNota: "Licencia de pago único por instalación. El precio por campaña es solo lo que pagas al proveedor de email.",
+    costeNota: "Licencia de pago único por instalación. El precio por campaña es solo lo que pagas al proveedor de correo.",
     highlights: [
-      "Interfaz de edición de email que parece de producto de pago.",
-      "Se integra con AWS SES o cualquier SMTP, así que el coste real es del email.",
+      "Interfaz de edición de correo que parece de producto de pago.",
+      "Se integra con AWS SES o cualquier SMTP, así que el coste real es del correo.",
       "El doble opt-in y la gestión de bajas están bien resueltos.",
     ],
     contras: [
       "No es open source: es software propietario de pago.",
-      "Solo trabaja con SMTP: necesitas un proveedor de email de pago aparte.",
+      "Solo trabaja con SMTP: necesitas un proveedor de correo de pago aparte.",
       "Sin automatizaciones de flujo.",
     ],
     mejorPara: ["ecommerce", "agencias", "freelancers"],
@@ -367,7 +367,7 @@ export const comunicacion: Alternative[] = [
   {
     slug: "ditto",
     nombre: "Ditto",
-    tagline: "Newsletter self-hosted sencilla, pensada para quien publica cada semana.",
+    tagline: "Boletín autoalojado sencillo, pensado para quien publica cada semana.",
     url: "https://dittofeed.com",
     repo: "https://github.com/dittofeed/dittofeed",
     licenciaTipo: "open-source",
@@ -380,7 +380,7 @@ export const comunicacion: Alternative[] = [
     coste: "gratis",
     costeNota: "Gratuito bajo MIT.",
     highlights: [
-      "Editor visual claro y previsualización del email.",
+      "Editor visual claro y previsualización del correo.",
       "Métricas de apertura, clics y bajas por campaña.",
       "Arranque con un solo Docker y Postgres.",
     ],

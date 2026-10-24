@@ -43,6 +43,7 @@ export function GET() {
     <link>${site.url}</link>
     <description>${escapar(site.descripcion)}</description>
     <language>es</language>
+    <lastBuildDate>${new Date(`${items[0]?.fecha ?? new Date().toISOString().slice(0, 10)}T09:00:00Z`).toUTCString()}</lastBuildDate>
     <atom:link href="${site.url}/feed.xml" rel="self" type="application/rss+xml" />
 ${items
   .map(

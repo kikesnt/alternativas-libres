@@ -11,10 +11,8 @@ export const site = {
 
 export const nav = [
   { href: "/alternativas", label: "Herramientas" },
-  { href: "/herramientas", label: "Herramientas" },
   { href: "/categorias", label: "Categorías" },
   { href: "/comparativas", label: "Comparativas" },
-  { href: "/novedades", label: "Novedades" },
   { href: "/metodologia", label: "Metodología" },
-  { href: "/acerca-de", label: "Sobre el directorio" },
+  { href: "/acerca-de", label: "Sobre" },
 ] as const;

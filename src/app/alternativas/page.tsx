@@ -7,7 +7,7 @@ import { getAlternatives, getProducts } from "@/lib/queries";
 export const metadata: Metadata = {
   title: "Directorio de alternativas autoalojadas",
   description:
-    "Todas las alternativas open source y autoalojadas del directorio, con filtros por licencia, dificultad de instalación, coste y Docker.",
+    "Todas las alternativas autoalojadas del directorio, open source o de fuente disponible, con filtros por licencia, dificultad, coste y Docker.",
   alternates: { canonical: "/alternativas" },
 };
 
@@ -28,7 +28,10 @@ export default function AlternativasPage() {
         de imagen de Docker.
       </p>
 
-      <div className="mt-8">
+      <h2 className="mt-10 text-2xl font-semibold">
+        Todas las herramientas
+      </h2>
+      <div className="mt-4">
         <FilterableAlternatives alternatives={alternativas} />
       </div>
 

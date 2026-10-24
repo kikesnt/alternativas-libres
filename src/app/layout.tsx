@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ConsentProvider } from "@/components/consent-provider";
@@ -49,9 +49,10 @@ try {
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: "Alternativas autoalojadas a software SaaS",
+    default: `${site.nombre}: software autoalojado y open source`,
     template: `%s | ${site.nombre}`,
   },
+  applicationName: site.nombre,
   description: recortar(
     "Directorio en español de alternativas self-hosted y de código abierto a las herramientas SaaS. Requisitos, licencia, coste y contras de cada opción.",
   ),
@@ -59,12 +60,9 @@ export const metadata: Metadata = {
     type: "website",
     locale: "es_ES",
     siteName: site.nombre,
-    url: site.url,
   },
   twitter: {
     card: "summary_large_image",
-    title: `${site.nombre}: alternativas autoalojadas a las herramientas SaaS`,
-    description: site.descripcion,
   },
   robots: {
     index: true,
@@ -74,7 +72,18 @@ export const metadata: Metadata = {
     "max-video-preview": -1,
   },
   alternates: { canonical: "/" },
+  authors: [{ name: site.autor }],
+  creator: site.autor,
+  publisher: site.nombre,
   category: "technology",
+};
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#0b0e14" },
+  ],
+  colorScheme: "light dark",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -96,8 +105,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       </head>
       <body className="min-h-full flex flex-col">
         <ConsentProvider>
+          <a href="#contenido" className="skip-link">
+            Saltar al contenido
+          </a>
           <SiteHeader />
-          <main className="flex-1">{children}</main>
+          <main id="contenido" tabIndex={-1} className="flex-1 outline-none">
+            {children}
+          </main>
           <SiteFooter />
           <CookieBanner />
           <Analytics />

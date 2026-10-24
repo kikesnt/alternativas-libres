@@ -26,7 +26,7 @@ export function ToolIcon({
       // eslint-disable-next-line @next/next/no-img-element
       <img
         src={logo}
-        alt={`Logo de ${nombre}`}
+        alt=""
         width={size}
         height={size}
         loading="lazy"

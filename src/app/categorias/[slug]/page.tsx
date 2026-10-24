@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { AdSlot } from "@/components/ad-slot";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { FilterableAlternatives } from "@/components/filterable-alternatives";
+import { JsonLd } from "@/components/json-ld";
 import { recortar } from "@/lib/seo";
+import { site } from "@/lib/site";
 import {
   getAlternativesByCategory,
   getCategories,
@@ -64,7 +67,10 @@ async function Contenido({ params }: Params) {
         {category.descripcion}
       </p>
 
-      <div className="mt-8">
+      <h2 className="mt-10 text-2xl font-semibold">
+        Herramientas de {category.nombre.toLowerCase()}
+      </h2>
+      <div className="mt-4">
         <FilterableAlternatives alternatives={alternativas} />
       </div>
 
@@ -81,7 +87,7 @@ async function Contenido({ params }: Params) {
         <ul className="mt-4 grid gap-2 sm:grid-cols-2">
           {productos.map((p) => (
             <li key={p.slug}>
-              <a
+              <Link
                 href={`/alternativas/${p.slug}`}
                 className="block rounded-lg border border-border bg-panel p-4 text-sm hover:border-accent"
               >
@@ -89,11 +95,33 @@ async function Contenido({ params }: Params) {
                 <span className="mt-1 block text-xs text-muted">
                   {p.resumen}
                 </span>
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
       </section>
+
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          name: `${category.nombre} autoalojado`,
+          description: category.descripcion,
+          url: `${site.url}/categorias/${category.slug}`,
+          inLanguage: "es",
+          isPartOf: { "@type": "WebSite", name: site.nombre, url: site.url },
+          mainEntity: {
+            "@type": "ItemList",
+            numberOfItems: alternativas.length,
+            itemListElement: alternativas.slice(0, 20).map((a, i) => ({
+              "@type": "ListItem",
+              position: i + 1,
+              name: a.nombre,
+              url: `${site.url}/alternativas/${a.sustituye[0]}/${a.slug}`,
+            })),
+          },
+        }}
+      />
     </div>
   );
 }

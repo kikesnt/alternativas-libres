@@ -4,7 +4,9 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { FilterableAlternatives } from "@/components/filterable-alternatives";
+import { JsonLd } from "@/components/json-ld";
 import { recortar } from "@/lib/seo";
+import { site } from "@/lib/site";
 import {
   getAlternativesByVertical,
   getProductsByVertical,
@@ -67,7 +69,10 @@ async function Contenido({ params }: Params) {
         Ejemplos: {vertical.ejemplos.join(", ")}
       </p>
 
-      <div className="mt-8">
+      <h2 className="mt-10 text-2xl font-semibold">
+        Herramientas para {vertical.nombre.toLowerCase()}
+      </h2>
+      <div className="mt-4">
         <FilterableAlternatives alternatives={alternativas} />
       </div>
 
@@ -91,6 +96,28 @@ async function Contenido({ params }: Params) {
           ))}
         </ul>
       </section>
+
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          name: `Alternativas autoalojadas para ${vertical.nombre.toLowerCase()}`,
+          description: vertical.descripcion,
+          url: `${site.url}/verticales/${vertical.slug}`,
+          inLanguage: "es",
+          isPartOf: { "@type": "WebSite", name: site.nombre, url: site.url },
+          mainEntity: {
+            "@type": "ItemList",
+            numberOfItems: alternativas.length,
+            itemListElement: alternativas.slice(0, 20).map((a, i) => ({
+              "@type": "ListItem",
+              position: i + 1,
+              name: a.nombre,
+              url: `${site.url}/alternativas/${a.sustituye[0]}/${a.slug}`,
+            })),
+          },
+        }}
+      />
     </div>
   );
 }

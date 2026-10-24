@@ -29,25 +29,25 @@ export const categories: Category[] = [
     slug: "marketing",
     nombre: "Email y automatización",
     descripcion:
-      "Campañas de email, envío transaccional y flujos automáticos autoalojados, con la diferencia entre una plataforma de marketing y un simple newsletter.",
+      "Campañas de correo, envío transaccional y flujos automáticos autoalojados, con la diferencia entre una plataforma de marketing y un simple newsletter.",
   },
   {
     slug: "almacenamiento",
     nombre: "Almacenamiento",
     descripcion:
-      "Nubes personales, sincronización de archivos y backup para no depender de Drive o Dropbox, con las licencias y los límites de cada opción.",
+      "Nubes personales, sincronización de archivos y copias de seguridad para no depender de Drive o Dropbox, con las licencias y los límites de cada opción.",
   },
   {
     slug: "crm",
     nombre: "CRM",
     descripcion:
-      "Control de clientes, contactos y pipeline para consultoras y equipos comerciales, con el coste real frente a los CRM de pago.",
+      "Control de clientes, contactos y embudo comercial para consultoras y equipos comerciales, con el coste real frente a los CRM de pago.",
   },
   {
     slug: "codigo",
     nombre: "Código y CI/CD",
     descripcion:
-      "Forks de GitHub autoalojados, integraciones continuas y gestión de secretos, con la licencia y la actividad de cada proyecto.",
+      "Alternativas autoalojadas a GitHub, integraciones continuas y gestión de secretos, con la licencia y la actividad de cada proyecto.",
   },
   {
     slug: "diseno",

@@ -24,6 +24,13 @@ const inicial: Filters = {
 const selectClass =
   "rounded-md border border-border bg-surface px-2 py-1.5 text-sm text-fg";
 
+function normalizar(texto: string) {
+  return texto
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+}
+
 export function FilterableAlternatives({
   alternatives,
   productSlug,
@@ -36,7 +43,7 @@ export function FilterableAlternatives({
   const [filters, setFilters] = useState<Filters>(inicial);
 
   const resultado = useMemo(() => {
-    const texto = filters.texto.trim().toLowerCase();
+    const texto = normalizar(filters.texto.trim());
     return alternatives.filter((a) => {
       if (filters.licencia !== "todas" && a.licenciaTipo !== filters.licencia) {
         return false;
@@ -53,19 +60,23 @@ export function FilterableAlternatives({
       if (filters.docker === "si" && !a.dockerOficial) return false;
       if (filters.docker === "no" && a.dockerOficial) return false;
       if (texto) {
-        const heno = [
-          a.nombre,
-          a.tagline,
-          a.stack.join(" "),
-          a.highlights.join(" "),
-        ]
-          .join(" ")
-          .toLowerCase();
-        if (!heno.includes(texto)) return false;
+        const textoBuscable = normalizar(
+          [a.nombre, a.tagline, a.stack.join(" "), a.highlights.join(" ")].join(
+            " ",
+          ),
+        );
+        if (!textoBuscable.includes(texto)) return false;
       }
       return true;
     });
   }, [alternatives, filters]);
+
+  const hayFiltros =
+    filters.licencia !== "todas" ||
+    filters.dificultad !== "todas" ||
+    filters.coste !== "todos" ||
+    filters.docker !== "todos" ||
+    filters.texto.trim() !== "";
 
   const licencias = Array.from(new Set(alternatives.map((a) => a.licenciaTipo)));
   const costes = Array.from(new Set(alternatives.map((a) => a.coste)));
@@ -152,9 +163,21 @@ export function FilterableAlternatives({
         </label>
       </div>
 
-      <p className="mt-4 text-sm text-muted">
-        {resultado.length} de {alternatives.length} herramientas
-      </p>
+      <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
+        <p className="text-sm text-muted" aria-live="polite">
+          {resultado.length} de {alternatives.length}{" "}
+          {alternatives.length === 1 ? "herramienta" : "herramientas"}
+        </p>
+        {hayFiltros ? (
+          <button
+            type="button"
+            onClick={() => setFilters(inicial)}
+            className="text-sm font-medium text-accent hover:underline"
+          >
+            Limpiar filtros
+          </button>
+        ) : null}
+      </div>
 
       <div className="mt-4 grid gap-4 lg:grid-cols-2">
         {resultado.map((alt) => (

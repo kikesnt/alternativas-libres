@@ -5,7 +5,7 @@ import { getVerticals } from "@/lib/queries";
 export const metadata: Metadata = {
   title: "Por tipo de equipo",
   description:
-    "Alternativas autoalojadas seleccionadas según el tipo de equipo:Consultorías, agencias, desarrolladores, educación, autónomos, privacidad y ecommerce.",
+    "Alternativas autoalojadas según el tipo de equipo: equipos pequeños, agencias, desarrolladores, educación, autónomos, privacidad y tiendas online.",
   alternates: { canonical: "/verticales" },
 };
 

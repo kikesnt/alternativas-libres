@@ -42,6 +42,8 @@ export function AdSlot({
   }, [adsAllowed, client]);
 
   if (!client) {
+    if (process.env.NODE_ENV === "production") return null;
+
     return (
       <div
         className={`flex flex-col items-center justify-center gap-1 rounded border border-dashed border-border text-xs text-muted ${className}`}

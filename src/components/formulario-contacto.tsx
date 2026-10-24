@@ -96,7 +96,7 @@ export function FormularioContacto() {
         {estado === "enviando" ? "Enviando…" : "Enviar mensaje"}
       </button>
       {estado === "error" ? (
-        <p className="text-sm text-amber-600">{mensaje}</p>
+        <p className="text-sm text-warn-fg">{mensaje}</p>
       ) : null}
     </form>
   );

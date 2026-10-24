@@ -4,9 +4,9 @@ import { Breadcrumbs } from "@/components/breadcrumbs";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Añade tu proyecto o collaborates",
+  title: "Añade tu proyecto al directorio",
   description:
-    "Cómo enlisted tu herramienta autoalojada en el directorio, los criterios de inclusión y las condiciones de patrocinio.",
+    "Cómo incluir tu herramienta autoalojada en el directorio, los criterios de inclusión y las condiciones de patrocinio.",
   alternates: { canonical: "/colabora" },
 };
 
@@ -14,17 +14,17 @@ const criterios = [
   {
     titulo: "Se puede autoalojar en un servidor propio",
     detalle:
-      "Necesitamos Docker, un paquete sistema o un binario que se ejecute sin un servicio de terceros. Un SaaS con plan self-hosted que solo se vende en la nube no entra.",
+      "Necesitamos Docker, un paquete del sistema o un binario que se ejecute sin un servicio de terceros. Un SaaS con plan autoalojado que solo se vende en la nube no entra.",
   },
   {
     titulo: "Licencia clara y compatible con uso comercial",
     detalle:
-      "Aceptamos open source OSI (MIT, Apache, GPL, AGPL, MPL, LGPL) y las licencias source available con condiciones conocidas, siempre que se expliquen en la ficha.",
+      "Aceptamos open source OSI (MIT, Apache, GPL, AGPL, MPL, LGPL) y las licencias de fuente disponible con condiciones conocidas, siempre que se expliquen en la ficha.",
   },
   {
     titulo: "Proyecto con actividad reciente",
     detalle:
-      "Commits, releases oissues respondidos en los últimos seis meses. Si el repositorio está archivado, lo indicamos o lo retiramos.",
+      "Commits, versiones o incidencias respondidas en los últimos seis meses. Si el repositorio está archivado, lo indicamos o lo retiramos.",
   },
   {
     titulo: "Casos de uso distintos a los ya cubiertos",

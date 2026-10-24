@@ -27,11 +27,11 @@ export default function AnunciosPage() {
         Publicamos anuncios servidos por Google AdSense. Google decide qué
         anuncios mostrar según el contenido de la página, tu ubicación y tu
         perfil de navegación. Nosotros no elegimos los anunciantes concretos y
-        no interfieres en ese proceso.
+        no interferimos en ese proceso.
       </p>
       <p className="mt-3 leading-relaxed text-muted">
         Los bloques publicitarios están identificados como «Publicidad». No
-        los colocamos dentro de las listings de herramientas ni entre tarjetas
+        los colocamos dentro de los listados de herramientas ni entre tarjetas
         de resultados, sino en las páginas de contenido, que son las que
         tienen texto suficiente para ser relevantes.
       </p>

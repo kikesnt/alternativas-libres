@@ -47,14 +47,13 @@ export async function generateMetadata({
 
   const title = `${alt.nombre}: alternativa a ${product.nombre}`;
   const description = recortar(
-    `${alt.tagline} Licencia ${alt.licencia}, instalación ${difficultyLabels[alt.dificultad].toLowerCase()} y requisitos: ${alt.recursosMinimos}.`,
+    `${alt.nombre} es una alternativa a ${product.nombre}. ${alt.tagline}`,
   );
 
   return {
     title,
     description,
     alternates: { canonical: `/alternativas/${product.slug}/${alt.slug}` },
-    openGraph: { title, description, type: "article" },
   };
 }
 
@@ -89,7 +88,7 @@ async function Contenido({ params }: Params) {
       q: `¿Cómo se instala ${alt.nombre}?`,
       a: alt.dockerOficial
         ? `Existe imagen oficial de Docker, así que el camino rápido es levantar el compose del proyecto y configurar las variables de entorno. En el caso de ${alt.nombre}, la referencia oficial de despliegue está en su repositorio.`
-        : `No hay imagen de Docker oficial, así que la instalación pasa por el empaquetado nativo o por una imagen de la comunidad. Revisa las issues del repositorio antes de decidir: en ${alt.nombre} esto suele ser el punto de fricción.`,
+        : `No hay imagen de Docker oficial, así que la instalación pasa por el empaquetado nativo o por una imagen de la comunidad. Revisa las incidencias del repositorio antes de decidir: en ${alt.nombre} esto suele ser el punto de fricción.`,
     },
     {
       q: `¿Qué recursos necesita ${alt.nombre}?`,
@@ -97,7 +96,7 @@ async function Contenido({ params }: Params) {
     },
     {
       q: `¿Puedo usar ${alt.nombre} en un servidor compartido?`,
-      a: `Solo si el proyecto lo soporta. Comprueba los requisitos de la ficha: las instalaciones con base de datos y workers en segundo plano suelen necesitar un servidor con control total. Un hosting compartido con PHP puede bastar para casos concretos.`,
+      a: `Solo si el proyecto lo admite. Comprueba los requisitos de la ficha: las instalaciones con base de datos y procesos en segundo plano suelen necesitar un servidor con control total. Un alojamiento compartido con PHP puede bastar para casos concretos.`,
     },
   ];
 
@@ -272,7 +271,7 @@ async function Contenido({ params }: Params) {
         </div>
         <p className="mt-4 text-sm leading-relaxed text-muted">
           {alt.requiereDevops
-            ? "Necesita alguien que sepa de administración de servidores: actualizaciones, backups, certificados y monitorización."
+            ? "Necesita alguien que sepa de administración de servidores: actualizaciones, copias de seguridad, certificados y monitorización."
             : "Se puede instalar y mantener sin perfil de sistemas: la documentación oficial cubre el caso más común."}
         </p>
       </section>

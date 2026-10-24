@@ -19,10 +19,10 @@ export const productividad: Alternative[] = [
     highlights: [
       "Experiencia de uso casi calcada a Notion: bloques, bases de datos y vistas.",
       "Se autohospeda el servidor y los datos; las apps cliente son open source.",
-      "Buscador integrated y funcionan offline en escritorio.",
+      "Buscador integrado y funcionan offline en escritorio.",
     ],
     contras: [
-      "El self-hosting es oficialmente soportado pero la documentación aún es más fina que en Nextcloud.",
+      "El autoalojamiento tiene soporte oficial, pero la documentación aún es más fina que en Nextcloud.",
       "Las funciones de colaboración en tiempo real piden más recursos y un tuning de WebSocket.",
       "El ecosistema de integraciones es pequeño frente a Notion.",
     ],
@@ -31,7 +31,7 @@ export const productividad: Alternative[] = [
     destacado: true,
     verificadoEn: "2026-10-22",
     revisionPendiente: false,
-    notas: "Comprobar la versión mínima de Postgres que soporta la release actual.",
+    notas: "Comprobar la versión mínima de Postgres que soporta la versión actual.",
   },
   {
     slug: "outline",
@@ -48,15 +48,15 @@ export const productividad: Alternative[] = [
     recursosMinimos: "2 vCPU, 4 GB RAM",
     coste: "freemium",
     costeNota:
-      "La edición community es gratuita y autoalojada. La versión cloud de pago añade SSO, auditoría y comentarios.",
+      "La edición community es gratuita y autoalojada. La versión en la nube de pago añade SSO, auditoría y comentarios.",
     highlights: [
       "Interfaz de editor de Markdown muy cuidada, sin bloques raros.",
-      "Búsqueda server-side potente y con menos ruido visual que Notion.",
+      "Búsqueda en el servidor potente y con menos ruido visual que Notion.",
       "SSO, API y webhooks disponibles.",
     ],
     contras: [
       "La licencia BSL no es open source OSI: si superas los 20 USD/mes de ingresos, la licencia cambia.",
-      "El soporte oficial cubre el producto cloud, no tu instalación.",
+      "El soporte oficial cubre el producto en la nube, no tu instalación.",
       "Menos flexible que Notion para bases de datos y automatizaciones.",
     ],
     mejorPara: ["equipos-pequenos", "agencias", "desarrolladores"],
@@ -69,21 +69,21 @@ export const productividad: Alternative[] = [
   {
     slug: "affine",
     nombre: "AFFiNE",
-    tagline: "Workspace open source al estilo Notion/Miro, con pizarra y base de datos en la misma app.",
+    tagline: "Espacio de trabajo open source al estilo Notion/Miro, con pizarra y base de datos en la misma app.",
     url: "https://affine.pro",
     repo: "https://github.com/toeverything/AFFiNE",
     licenciaTipo: "open-source",
-    licencia: "MIT (core) con componentes owners de marca",
+    licencia: "MIT (núcleo) con componentes propietarios de marca",
     stack: ["TypeScript", "NestJS", "PostgreSQL", "Redis"],
     dificultad: 2,
     dockerOficial: true,
     requiereDevops: true,
     recursosMinimos: "2 vCPU, 4 GB RAM",
     coste: "gratis",
-    costeNota: "Core MIT. La nube de pago añade funciones de equipo; el self-hosting es gratuito.",
+    costeNota: "Núcleo MIT. La nube de pago añade funciones de equipo; el autoalojamiento es gratuito.",
     highlights: [
       "Editor de bloques, pizarra y base de datos en una sola superficie.",
-      "Licencia MIT en el core: sin trampas de licencia para uso comercial.",
+      "Licencia MIT en el núcleo: sin trampas de licencia para uso comercial.",
       "Aplicaciones de escritorio disponibles para Windows, macOS y Linux.",
     ],
     contras: [
@@ -117,9 +117,9 @@ export const productividad: Alternative[] = [
       "Puedes autoalojar el servidor de sincronización con Docker.",
     ],
     contras: [
-      "Multiusuario mucho menos maduro que Notion: el servidor sync es la parte más frágil.",
-      "Interfaz menos pulida y menos appealing para equipos no técnicos.",
-      "Exportar a otros formatos requiere Lithium.",
+      "Multiusuario mucho menos maduro que Notion: el servidor de sincronización es la parte más frágil.",
+      "Interfaz menos pulida y menos atractiva para equipos no técnicos.",
+      "Exportar a otros formatos requiere herramientas externas.",
     ],
     mejorPara: ["desarrolladores", "freelancers", "privacidad"],
     sustituye: ["notion"],
@@ -129,7 +129,7 @@ export const productividad: Alternative[] = [
   {
     slug: "anytype",
     nombre: "Anytype",
-    tagline: "Workspace local-first con objetos tipados y una licencia abierta con condiciones.",
+    tagline: "Espacio de trabajo local, con objetos tipados y una licencia abierta con condiciones.",
     url: "https://anytype.io",
     repo: "https://github.com/anyproto/anytype-ts",
     licenciaTipo: "source-available",
@@ -138,9 +138,9 @@ export const productividad: Alternative[] = [
     dificultad: 2,
     dockerOficial: false,
     requiereDevops: false,
-    recursosMinimos: "Aplicación de escritorio o móvil; nodo self-hosted opcional",
+    recursosMinimos: "Aplicación de escritorio o móvil; nodo autoalojado opcional",
     coste: "gratis",
-    costeNota: "Uso personal gratuito. La licencia source available impone condiciones si superas ciertos ingresos.",
+    costeNota: "Uso personal gratuito. La licencia de fuente disponible impone condiciones si superas ciertos ingresos.",
     highlights: [
       "Todo el contenido vive en tu dispositivo, cifrado y replicado.",
       "Objetos tipados con relaciones: el modelo es más rico que el de Notion.",
@@ -148,7 +148,7 @@ export const productividad: Alternative[] = [
     ],
     contras: [
       "La licencia no es open source OSI: revisa las condiciones antes de usarlo en una empresa.",
-      "El self-hosting del nodo P2P todavía es experimental.",
+      "El autoalojamiento del nodo P2P todavía es experimental.",
       "Menor comunidad en español que Notion o AFFiNE.",
     ],
     mejorPara: ["freelancers", "privacidad", "desarrolladores"],
@@ -159,7 +159,7 @@ export const productividad: Alternative[] = [
   {
     slug: "teable",
     nombre: "Teable",
-    tagline: "Basas de datos tipo Airtable con interfaz de rejilla, API y autoalojado con Docker.",
+    tagline: "Bases de datos tipo Airtable con interfaz de rejilla, API y autoalojado con Docker.",
     url: "https://teable.io",
     repo: "https://github.com/teableio/teable",
     licenciaTipo: "open-source",
@@ -170,7 +170,7 @@ export const productividad: Alternative[] = [
     requiereDevops: false,
     recursosMinimos: "2 vCPU, 2 GB RAM",
     coste: "gratis",
-    costeNota: "Self-hosting gratuito bajo AGPL. La nube de pago añade control de acceso avanzado.",
+    costeNota: "Autoalojamiento gratuito bajo AGPL. La nube de pago añade control de acceso avanzado.",
     highlights: [
       "Muy cerca de Airtable en la experiencia: rejilla, fórmulas, linked records y vistas.",
       "Una sola app de Next.js con Postgres: stack sencillo de operar.",
@@ -189,7 +189,7 @@ export const productividad: Alternative[] = [
   {
     slug: "nocodb",
     nombre: "NocoDB",
-    tagline: "La alternativa más popular a Airtable: tu base de datos convertida en una API REST.",
+    tagline: "Tu base de datos convertida en una API REST, con vistas de hoja de cálculo y sin escribir SQL.",
     url: "https://nocodb.com",
     repo: "https://github.com/nocodb/nocodb",
     licenciaTipo: "source-available",
@@ -200,7 +200,7 @@ export const productividad: Alternative[] = [
     requiereDevops: false,
     recursosMinimos: "1 vCPU, 1 GB RAM con SQLite; 2 GB con Postgres",
     coste: "gratis",
-    costeNota: "Self-hosting gratuito. La versión cloud de pago añade SSO, roles y logs.",
+    costeNota: "Autoalojamiento gratuito. La versión en la nube de pago añade SSO, roles y registros.",
     highlights: [
       "Migrar desde Airtable o Sheets es inmediato: conectas la base y listo.",
       "Genera API REST y webhooks automáticamente sobre tus tablas.",
@@ -208,7 +208,7 @@ export const productividad: Alternative[] = [
     ],
     contras: [
       "La licencia fair-code impone condiciones si facturas por encima de un umbral.",
-      "El self-hosting no incluye todas las integraciones de la versión cloud.",
+      "El autoalojamiento no incluye todas las integraciones de la versión en la nube.",
       "En tablas muy grandes el rendimiento se resiente.",
     ],
     mejorPara: ["equipos-pequenos", "agencias", "freelancers"],
@@ -232,10 +232,10 @@ export const productividad: Alternative[] = [
     requiereDevops: false,
     recursosMinimos: "2 vCPU, 2 GB RAM",
     coste: "gratis",
-    costeNota: "Self-hosting gratuito bajo licencia source available; existen ediciones comerciales.",
+    costeNota: "Autoalojamiento gratuito bajo licencia de fuente disponible; existen ediciones comerciales.",
     highlights: [
       "Interfaz de rejilla muy pulida, con vistas de calendario, galería y Kanban.",
-      "Row-level permissions y campos de todo tipo.",
+      "Permisos a nivel de fila y campos de todo tipo.",
       "Importador nativo de Airtable y CSV.",
     ],
     contras: [
@@ -262,7 +262,7 @@ export const productividad: Alternative[] = [
     requiereDevops: true,
     recursosMinimos: "2 vCPU, 2 GB RAM",
     coste: "gratis",
-    costeNota: "Self-hosting gratuito bajo Apache-2.0. Ofrece una versión cloud de pago.",
+    costeNota: "Autoalojamiento gratuito bajo Apache-2.0. Ofrece una versión en la nube de pago.",
     highlights: [
       "Modelo de columnas y fórmulas comparable a una hoja de cálculo con historia de versiones.",
       "Automations con Python, scripts y webhooks: resuelve flujos que Airtable no toca.",
@@ -271,7 +271,7 @@ export const productividad: Alternative[] = [
     contras: [
       "Concepto de datos menos visual que Airtable: exige un cambio de mentalidad.",
       "Los recursos de Python y las dependencias requieren atención.",
-      "Documentación extensive pero dispersa entre la versión cloud y la self-hosted.",
+      "Documentación extensa pero dispersa entre la versión en la nube y la autoalojada.",
     ],
     mejorPara: ["desarrolladores", "agencias", "educacion"],
     sustituye: ["airtable"],
@@ -292,7 +292,7 @@ export const productividad: Alternative[] = [
     requiereDevops: false,
     recursosMinimos: "1 vCPU, 1 GB RAM",
     coste: "gratis",
-    costeNota: "Self-hosting gratuito bajo BUSL; hay ediciones comerciales de pago.",
+    costeNota: "Autoalojamiento gratuito bajo BUSL; hay ediciones comerciales de pago.",
     highlights: [
       "Se conecta a la base de datos que ya tienes: no hay que migrar nada.",
       "Genera API REST y GraphQL con permisos granulares por rol y campo.",
@@ -382,14 +382,14 @@ export const productividad: Alternative[] = [
     requiereDevops: true,
     recursosMinimos: "2 vCPU, 2 GB RAM",
     coste: "gratis",
-    costeNota: "Self-hosting gratuito bajo AGPL.",
+    costeNota: "Autoalojamiento gratuito bajo AGPL.",
     highlights: [
       "Interfaz en español y muy orientada a Scrum y Kanban.",
       "Webapp, API y Scrum board idéntico a una herramienta de pago.",
       "Comunidad europea muy activa.",
     ],
     contras: [
-      "AGPL y proyecto con ritmo de desarrollo irregular: verifica el estado de las releases.",
+      "AGPL y proyecto con ritmo de desarrollo irregular: verifica el estado de las versiones.",
       "Requiere más recursos que Redmine para el mismo número de usuarios.",
       "Fewer integraciones que Jira.",
     ],
@@ -412,15 +412,15 @@ export const productividad: Alternative[] = [
     requiereDevops: true,
     recursosMinimos: "4 vCPU, 8 GB RAM",
     coste: "gratis",
-    costeNota: "Community gratis. OpenProject Enterprise, con cloud hosting y soporte, es de pago.",
+    costeNota: "Community gratis. OpenProject Enterprise, con alojamiento en la nube y soporte, es de pago.",
     highlights: [
-      "Cubre project management, wiki, agile, horas y portafolio en un solo sitio.",
+      "Cubre gestión de proyectos, wiki, metodologías ágiles, horas y portafolio en un solo sitio.",
       "Interfaz en español y muy orientada a equipos no técnicos.",
       "Modelo de licences claro: GPL sin trampas.",
     ],
     contras: [
       "Stack pesado: es el más exigente de esta lista en recursos.",
-      "Actualizaciones(mmigraciones) sensibles: conviene leer el changelog antes de tocar producción.",
+      "Actualizaciones (migraciones) sensibles: conviene leer el registro de cambios antes de tocar producción.",
       "Curva de configuración inicial alta.",
     ],
     mejorPara: ["agencias", "educacion"],
@@ -442,16 +442,16 @@ export const productividad: Alternative[] = [
     requiereDevops: true,
     recursosMinimos: "2 vCPU, 4 GB RAM",
     coste: "gratis",
-    costeNota: "Self-hosting gratuito bajo AGPL; existe una versión cloud de pago.",
+    costeNota: "Autoalojamiento gratuito bajo AGPL; existe una versión en la nube de pago.",
     highlights: [
-      "Interfaz de las más claras del sector, con cycles, modules y vistas personalizables.",
-      "Incluye páginas, Intake y dashboards, no solo issues.",
+      "Interfaz de las más claras del sector, con ciclos, módulos y vistas personalizables.",
+      "Incluye páginas, Intake y paneles, no solo incidencias.",
       "Se despliega con un docker-compose documentado.",
     ],
     contras: [
-      "AGPL y proyecto joven: el ritmo de release es alto y los breaking changes existen.",
+      "AGPL y proyecto joven: el ritmo de publicación es alto y los cambios incompatibles existen.",
       "El stack mixto (Next + Django) no es trivial de operar.",
-      "El self-hosting va por detrás de la versión cloud en algunas funciones.",
+      "El autoalojamiento va por detrás de la versión en la nube en algunas funciones.",
     ],
     mejorPara: ["desarrolladores", "equipos-pequenos"],
     sustituye: ["jira"],
@@ -476,7 +476,7 @@ export const productividad: Alternative[] = [
     highlights: [
       "Se levanta con un contenedor y SQLite en un minuto.",
       "Licencia MIT real, con proyecto gobernado por una fundación sin ánimo de lucro.",
-      "Issues, wiki, paquetes, releases y Actions incluido.",
+      "Incidencias, wiki, paquetes, versiones y Actions incluido.",
     ],
     contras: [
       "La comunidad es mucho más pequeña que la de GitHub o GitLab.",
@@ -509,7 +509,7 @@ export const productividad: Alternative[] = [
       "Cifrado en cliente disponible (E2EE) y apps móviles de verdad.",
     ],
     contras: [
-      "Many moving parts: las actualizaciones requieren atención y backups probados.",
+      "Muchas piezas móviles: las actualizaciones requieren atención y copias de seguridad probadas.",
       "AGPL: derivar un producto cerrado obliga a publicar el código modificado.",
       "El rendimiento con ficheros muy grandes exige tuning de PHP y de la base de datos.",
     ],
@@ -533,11 +533,11 @@ export const productividad: Alternative[] = [
     requiereDevops: true,
     recursosMinimos: "2 vCPU, 4 GB RAM",
     coste: "gratis",
-    costeNota: "Community Edition gratuita. Seafile Pro, con sincronización de escritorio y backup, es de pago.",
+    costeNota: "Community Edition gratuita. Seafile Pro, con sincronización de escritorio y copias de seguridad, es de pago.",
     highlights: [
       "Sincronización incremental muy rápida: destaca con carpetas de vídeos grandes.",
       "SeafDAV permite montar el espacio como una unidad de red.",
-      "Md5 dedupe y cifrado de librerías en el servidor.",
+      "Deduplicación por MD5 y cifrado de las bibliotecas en el servidor.",
     ],
     contras: [
       "La edición community no incluye la sincronización de escritorio oficial: hay que usar la de terceros.",
@@ -561,7 +561,7 @@ export const productividad: Alternative[] = [
     dificultad: 1,
     dockerOficial: true,
     requiereDevops: false,
-    recursosMinimos: "100 MB RAM; un nodo always-on en una VPS pequeña",
+    recursosMinimos: "100 MB RAM; un nodo siempre encendido en una VPS pequeña",
     coste: "gratis",
     costeNota: "Gratuito bajo MPL-2.0. Syncthing Pro es un producto comercial distinto.",
     highlights: [
@@ -570,7 +570,7 @@ export const productividad: Alternative[] = [
       "Perfecto para el portátil que se queda sin espacio y para el NAS del despacho.",
     ],
     contras: [
-      "No es un Drive sustituto: no hay sharing con enlaces ni colaboración.",
+      "No es un sustituto de Drive: no permite compartir con enlaces ni colaboración.",
       "Hay que tener un dispositivo siempre encendido para sincronizar fuera de casa.",
       "Sin histórico de versiones de forma nativa (hay soluciones de terceros).",
     ],
@@ -597,7 +597,7 @@ export const productividad: Alternative[] = [
     highlights: [
       "Sirve SFTP, FTP/S, WebDAV, HTTP y S3 desde el mismo servidor.",
       "Panel web para crear usuarios, cuotas y carpetas compartidas.",
-      "Veryactively: releases frecuentes y comunidad en español activa.",
+      "Muy activo: versiones frecuentes y comunidad en español activa.",
     ],
     contras: [
       "AGPL-3.0: si lo expones por red modificado, debes publicar los cambios.",
@@ -653,10 +653,10 @@ export const productividad: Alternative[] = [
     requiereDevops: true,
     recursosMinimos: "4 vCPU, 8 GB RAM",
     coste: "gratis",
-    costeNota: "El core AGPL es gratuito. ownCloud Infinite Scale y los File Hubs son de pago.",
+    costeNota: "El núcleo AGPL es gratuito. ownCloud Infinite Scale y los File Hubs son de pago.",
     highlights: [
       "Muy orientado a casos de empresa con muchos usuarios, políticas y auditoría.",
-      "Escala a setups grandes con Object Storage.",
+      "Escala a instalaciones grandes con almacenamiento de objetos.",
       "Interoperable con Nextcloud en varios puntos.",
     ],
     contras: [

@@ -77,7 +77,7 @@ export function FormularioBoletin({
         clic.
       </p>
       {estado === "error" ? (
-        <p className="mt-2 text-xs text-amber-600">{mensaje}</p>
+        <p className="mt-2 text-xs text-warn-fg">{mensaje}</p>
       ) : null}
     </form>
   );

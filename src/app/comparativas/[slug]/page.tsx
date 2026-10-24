@@ -8,6 +8,7 @@ import { Byline } from "@/components/byline";
 import { Faq } from "@/components/faq";
 import { JsonLd } from "@/components/json-ld";
 import { getAlternative, getGuide, getGuides, getProduct } from "@/lib/queries";
+import { recortar } from "@/lib/seo";
 import { site } from "@/lib/site";
 
 type Params = { params: Promise<{ slug: string }> };
@@ -25,14 +26,8 @@ export async function generateMetadata({
 
   return {
     title: guide.titulo,
-    description: guide.descripcion,
+    description: recortar(guide.descripcion),
     alternates: { canonical: `/comparativas/${guide.slug}` },
-    openGraph: {
-      title: guide.titulo,
-      description: guide.descripcion,
-      type: "article",
-      publishedTime: guide.fecha,
-    },
   };
 }
 

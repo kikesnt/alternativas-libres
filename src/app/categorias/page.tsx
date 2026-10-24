@@ -19,7 +19,7 @@ export default function CategoriasPage() {
       </h1>
       <p className="mt-3 text-lg text-muted">
         Cada categoría agrupa los productos que quieres sustituir y las
-        herramientas open source que los reemplazan.
+        herramientas autoalojadas que los reemplazan.
       </p>
 
       <div className="mt-8 grid gap-4 sm:grid-cols-2">

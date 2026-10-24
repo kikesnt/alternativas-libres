@@ -100,7 +100,7 @@ export default function AcercaDePage() {
 
       <h2 className="mt-10 text-2xl font-semibold">Lo que este directorio no es</h2>
       <p className="mt-3 leading-relaxed text-muted">
-        No somos un consultancy, no vendemos implantaciones y no gestionamos
+        No somos una consultora, no vendemos implantaciones y no gestionamos
         servidores por ti. Tampoco damos soporte a los proyectos listados:
         para eso está su comunidad y su repositorio.
       </p>

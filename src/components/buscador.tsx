@@ -11,6 +11,13 @@ type Resultado = {
   etiquetas: string[];
 };
 
+function normalizar(texto: string) {
+  return texto
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+}
+
 export function Buscador({
   indice,
   consultaInicial = "",
@@ -21,14 +28,13 @@ export function Buscador({
   const [consulta, setConsulta] = useState(consultaInicial);
 
   const resultados = useMemo(() => {
-    const q = consulta.trim().toLowerCase();
+    const q = normalizar(consulta.trim());
     if (q.length < 2) return [];
     return indice
       .filter((r) =>
-        [r.nombre, r.descripcion, r.etiquetas.join(" ")]
-          .join(" ")
-          .toLowerCase()
-          .includes(q),
+        normalizar(
+          [r.nombre, r.descripcion, r.etiquetas.join(" ")].join(" "),
+        ).includes(q),
       )
       .slice(0, 40);
   }, [consulta, indice]);
@@ -44,7 +50,8 @@ export function Buscador({
         value={consulta}
         onChange={(e) => setConsulta(e.target.value)}
         placeholder="notion, nextcloud, analítica, docker..."
-        autoFocus
+        autoComplete="off"
+        enterKeyHint="search"
         className="mt-2 w-full rounded-md border border-border bg-surface px-4 py-3 text-base text-fg"
       />
 
@@ -58,8 +65,9 @@ export function Buscador({
         </p>
       ) : (
         <div className="mt-6">
-          <p className="text-sm text-muted">
-            {resultados.length} resultados
+          <p className="text-sm text-muted" aria-live="polite">
+            {resultados.length}{" "}
+            {resultados.length === 1 ? "resultado" : "resultados"}
           </p>
           <ul className="mt-3 divide-y divide-border rounded-lg border border-border">
             {resultados.map((r) => (

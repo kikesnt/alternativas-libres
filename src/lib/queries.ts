@@ -84,6 +84,33 @@ export function getGuidesForProduct(slug: string) {
   return guides.filter((g) => g.producto === slug);
 }
 
+export function getResumenDirectorio() {
+  const productos = getProducts();
+  const alternativas = getAlternatives(
+    productos.flatMap((p) => p.alternativas),
+  );
+  const guias = getGuides();
+
+  const ultimaRevision =
+    [
+      ...productos.map((p) => p.verificadoEn),
+      ...alternativas.map((a) => a.verificadoEn),
+      ...guias.map((g) => g.fecha),
+    ]
+      .filter(Boolean)
+      .sort()
+      .at(-1) ?? "";
+
+  return {
+    productos,
+    alternativas,
+    guias,
+    totalAlternativas: alternativas.length,
+    totalGuias: guias.length,
+    ultimaRevision,
+  };
+}
+
 export const licenseLabels: Record<
   Alternative["licenciaTipo"],
   string

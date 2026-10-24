@@ -40,9 +40,9 @@ export const products: Product[] = [
       "En cuanto tienes más de 30 personas, el coste por usuario se dispara.",
     ],
     cuandoNoMigrar: [
-      "Si tu equipo vive en Slack y ya tiene thousands of mensajes históricos que nadie va a migrar.",
+      "Si tu equipo vive en Slack y ya tiene miles de mensajes históricos que nadie va a migrar.",
       "Si no hay nadie que se encargue de operar el servidor y de las actualizaciones de seguridad.",
-      "Si dependes de integraciones proprietary de Slack que no tienen equivalente.",
+      "Si dependes de integraciones propietarias de Slack que no tienen equivalente.",
     ],
     alternativas: ["mattermost", "rocketchat", "zulip", "element-matrix", "nextcloud-talk", "nextcloud"],
     verificadoEn: "2026-10-22",
@@ -56,14 +56,14 @@ export const products: Product[] = [
     precio: "Standard 8,50 USD/usuario/mes; Premium 17 USD",
     licencia: "Propietario (SaaS en la nube)",
     resumen:
-      "Tracker de tickets con campos personalizados, workflows y un panel de agile para equipos de desarrollo.",
+      "Gestor de tickets con campos personalizados, flujos de trabajo y un tablero ágil para equipos de desarrollo.",
     porqueSustituir: [
       "El histórico de tickets es el activo de un equipo de desarrollo y en la nube se paga cada mes por tenerlo.",
       "Los plugins de pago se multiplican: un Jira bien configurado para 20 personas puede superar los 300 USD/mes.",
       "Licencia por usuario castiga justo a los equipos pequeños y a los consultores que rotan.",
     ],
     cuandoNoMigrar: [
-      "Si tu equipo vive dentro del ecosistema Atlassian y ya tiene Confluence y Loom Contracts.",
+      "Si tu equipo vive dentro del ecosistema Atlassian y ya tiene Confluence y Loom contratados.",
       "Si necesitas integraciones de Jira con Salesforce o ServiceNow que no vas a replicar.",
       "Si el volumen de tickets es bajo y la herramienta no es el cuello de botella.",
     ],
@@ -81,7 +81,7 @@ export const products: Product[] = [
     resumen:
       "Hojas de cálculo con relaciones, campos de todo tipo y vistas para colaborar sin saber SQL.",
     porqueSustituir: [
-      "Cada registro es una fila facturable a partir del plan gratuito: una base de clientes deja de ser gratis muy pronto.",
+      "Cada registro empieza a costar a partir del plan gratuito: una base de clientes deja de ser gratis muy pronto.",
       "Las automatizaciones y las integraciones de Airtable son de pago y las funciones avanzadas ya no están en los planes pequeños.",
       "Tener el inventario, el CRM o el catálogo de productos en el SaaS ajeno ata tu negocio a su modelo de precios.",
     ],
@@ -102,7 +102,7 @@ export const products: Product[] = [
     precio: "Gratis hasta 500 contactos; Standard 20 USD/mes; Premium 60 USD/mes",
     licencia: "Propietario (SaaS en la nube)",
     resumen:
-      "Email marketing con plantillas, Landing pages, automatizaciones y segmentación sin conocer de email.",
+      "Marketing por correo con plantillas, páginas de aterrizaje, automatizaciones y segmentación, sin saber de correo.",
     porqueSustituir: [
       "El precio se dispara justo cuando la lista crece, y los contactos más valiosos son los que ya tienes.",
       "Necesitas un doble opt-in y una base de datos de consentimiento que además de exportarse sea de tu propiedad.",
@@ -110,7 +110,7 @@ export const products: Product[] = [
     ],
     cuandoNoMigrar: [
       "Si envías pocas campañas al mes y necesitas entregabilidad gestionada sin tocar un servidor.",
-      "Si no tienes tiempo para ocuparte del bounce management, SPF, DKIM y listas de bloqueo.",
+      "Si no tienes tiempo para ocuparte de la gestión de rebotes, SPF, DKIM y listas de bloqueo.",
     ],
     alternativas: ["listmonk", "keila", "mautic", "sendy", "ditto"],
     verificadoEn: "2026-10-22",
@@ -124,7 +124,7 @@ export const products: Product[] = [
     precio: "Personal 2 TB: 11,99 USD/mes; Standard 2 TB/usuario/mes: 20 USD",
     licencia: "Propietario (SaaS en la nube)",
     resumen:
-      "Sincronización de archivos entre dispositivos con versiones, equilibrio de equipo y sharing por enlace.",
+      "Sincronización de archivos entre dispositivos con versiones, espacio de equipo y enlaces para compartir.",
     porqueSustituir: [
       "Los archivos compartidos con clientes tienen fecha de caducidad implícita: si el cliente deja de pagar, se bloquea el acceso.",
       "La sincronización selectiva y el versionado son siempre de pago.",
@@ -132,7 +132,7 @@ export const products: Product[] = [
     ],
     cuandoNoMigrar: [
       "Si la mayor parte de tu equipo ya usa OneDrive o Google Drive por contrato con Microsoft.",
-      "Si necesitas sharing con personas fuera de tu organización sin crearles cuentas.",
+      "Si necesitas compartir con personas fuera de tu organización sin crearles cuentas.",
     ],
     alternativas: ["nextcloud", "seafile", "syncthing", "sftpgo", "filegator", "owncloud"],
     verificadoEn: "2026-10-22",
@@ -146,7 +146,7 @@ export const products: Product[] = [
     precio: "Básico gratis con 40 minutos; Pro 15,99 USD/mes",
     licencia: "Propietario (SaaS en la nube)",
     resumen:
-      "Videollamadas, webinars, Rooms y gravação en la nube con un cliente que funciona en cualquier sitio.",
+      "Videollamadas, webinars, Rooms y grabación en la nube con un cliente que funciona en cualquier sitio.",
     porqueSustituir: [
       "La versión gratuita corta las reuniones a 40 minutos, justo cuando tienes una sesión con clientes.",
       "Las grabaciones se quedan en una nube ajena, con la configuración de retención que marca el contrato.",
@@ -187,13 +187,13 @@ export const products: Product[] = [
     vendedor: "Zapier",
     url: "https://zapier.com",
     categoria: "marketing",
-    precio: "Professional 19,99 USD/mes por tarea; Free 100 tareas/mes",
+    precio: "Free 100 tareas/mes; Professional 19,99 USD/mes",
     licencia: "Propietario (SaaS en la nube)",
     resumen:
-      "Conectores entre aplicaciones con reglas if-this-then-that, tareas programadas y webhooks.",
+      "Conectores entre aplicaciones con reglas del tipo «si esto, entonces aquello», tareas programadas y webhooks.",
     porqueSustituir: [
       "Cada tarea ejecutada se factura. Un flujo que parece barato en el diagrama puede costar cientos al mes.",
-      "Los datos de tu negocio (facturas, leads, tickets) pasan por el intermediario de un tercero y en el plan de pago se puede auditar.",
+      "Los datos de tu negocio (facturas, clientes potenciales, tickets) pasan por un intermediario y no puedes auditar qué hace con ellos.",
       "Los conectores de terceros son el punto de fallo: cuando uno cambia, tu flujo se rompe sin aviso.",
     ],
     cuandoNoMigrar: [
@@ -215,7 +215,7 @@ export const products: Product[] = [
       "CRM con marketing, ventas, servicio al cliente y automatización en una sola plataforma.",
     porqueSustituir: [
       "El plan gratuito se queda corto en cuanto la base de clientes pasa de 1.000 contactos.",
-      "El coste por asiento y por contacto crece en escalones, y el pipeline comercial se queda sin datos útiles.",
+      "El coste por asiento y por contacto crece en escalones, y el embudo comercial se queda sin datos útiles.",
       "Los datos de tus clientes son los más sensibles que manejas y están en un CRM propietario en la nube.",
     ],
     cuandoNoMigrar: [
@@ -234,11 +234,11 @@ export const products: Product[] = [
     precio: "Free con repositorios públicos ilimitados; Team 4 USD/usuario/mes",
     licencia: "Propietario (SaaS en la nube)",
     resumen:
-      "Alojamiento de repositorios Git, issues, pull requests, Actions y paquetes.",
+      "Alojamiento de repositorios Git, incidencias, pull requests, Actions y paquetes.",
     porqueSustituir: [
       "Las Actions de GitHub consumen minutos de tu facturación y, en repositorios con mucho tráfico, se disparan.",
       "Las funcionalidades clave de CI/CD y el registro de paquetes están atados al plan de pago.",
-      "Autoalojar el repositorio da control sobre las reglas de contribución, la temperatura del código y la disponibilidad.",
+      "Autoalojar el repositorio da control sobre las reglas de contribución, la calidad del código y la disponibilidad.",
     ],
     cuandoNoMigrar: [
       "Si tu proyecto necesita la red social de GitHub para atraer colaboradores.",
@@ -263,7 +263,7 @@ export const products: Product[] = [
       "Para piezas simples o exports en lote, una suite local es más rápida y no te pide una cuenta.",
     ],
     cuandoNoMigrar: [
-      "Si el diseño es tu core y necesitas la biblioteca de plantillas y la IA de Canva.",
+      "Si el diseño es tu núcleo y necesitas la biblioteca de plantillas y la IA de Canva.",
       "Si trabajas con perfiles no técnicos que no van a instalar nada.",
     ],
     alternativas: ["penpot", "excalidraw", "inkscape", "gimp", "krita"],

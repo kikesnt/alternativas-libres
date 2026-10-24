@@ -125,8 +125,8 @@ export function SiteFooter() {
             fuente oficial de cada proyecto antes de tomar una decisión.
           </p>
           <p className="mt-2">
-            Este sitio participa en el programa de afiliados de Google
-            Advertising y puede mostrar publicidad. No afectamos a las
+            Este sitio muestra publicidad mediante Google AdSense y puede
+            incluir enlaces de afiliado. Ninguna de esas relaciones cambia las
             decisiones de edición de las fichas.
           </p>
         </div>

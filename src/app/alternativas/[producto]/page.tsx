@@ -11,7 +11,6 @@ import { Byline } from "@/components/byline";
 import { ProductIcon } from "@/components/product-icon";
 import { JsonLd } from "@/components/json-ld";
 import {
-  difficultyLabels,
   getAlternativesByProduct,
   getGuidesForProduct,
   getProduct,
@@ -35,14 +34,13 @@ export async function generateMetadata({
 
   const title = `Alternativas a ${product.nombre}: ${product.alternativas.length} opciones`;
   const description = recortar(
-    `Alternativas open source y autoalojadas a ${product.nombre}. Requisitos, licencia, coste real, contras y cuándo no conviene migrar.`,
+    `Alternativas open source o de fuente disponible a ${product.nombre}. Requisitos de servidor, licencia, coste real, contras y cuándo no conviene migrar.`,
   );
 
   return {
     title,
     description,
     alternates: { canonical: `/alternativas/${product.slug}` },
-    openGraph: { title, description, type: "website" },
   };
 }
 
@@ -63,7 +61,28 @@ async function Contenido({ params }: Params) {
   const guias = getGuidesForProduct(product.slug);
   const gratuitas = alternativas.filter((a) => a.coste === "gratis");
   const libres = alternativas.filter((a) => a.licenciaTipo === "open-source");
-  const ligeros = alternativas.filter((a) => a.dificultad <= 2);
+  const faciles = alternativas.filter((a) => a.dificultad <= 2);
+
+  const atajos = [
+    {
+      titulo: `Alternativas gratuitas a ${product.nombre}`,
+      descripcion:
+        "Sin coste de licencia. Como mucho, el servidor donde las instales.",
+      items: gratuitas,
+    },
+    {
+      titulo: `Alternativas open source a ${product.nombre}`,
+      descripcion:
+        "Licencia de código abierto: puedes modificarlas, auditarlas y usarlas sin límite de usuarios.",
+      items: libres,
+    },
+    {
+      titulo: `Alternativas fáciles de instalar a ${product.nombre}`,
+      descripcion:
+        "Aplicación de escritorio o un solo comando de Docker, sin perfil de sistemas.",
+      items: faciles,
+    },
+  ].filter((atajo) => atajo.items.length > 0);
 
   const faq = [
     {
@@ -76,7 +95,7 @@ async function Contenido({ params }: Params) {
     },
     {
       q: `¿Se pueden migrar los datos de ${product.nombre}?`,
-      a: `En la mayoría de casos sí. Las herramientas de este directorio incluyen importadores o DyeTools de exportación. Comprueba en la ficha de cada alternativa si hay un importador específico antes de planificar la migración.`,
+      a: `En la mayoría de casos sí. Las herramientas de este directorio incluyen importadores o herramientas de exportación. Comprueba en la ficha de cada alternativa si hay un importador específico antes de planificar la migración.`,
     },
   ];
 
@@ -153,80 +172,42 @@ async function Contenido({ params }: Params) {
         minHeight={100}
       />
 
-      <section className="mt-12">
-        <h2 className="text-2xl font-semibold">
-          Alternativas gratuitas a {product.nombre}
-        </h2>
-        <p className="mt-2 text-sm text-muted">
-          Las {gratuitas.length} opciones que no cuestan licencia. El único
-          gasto es el servidor donde las instalas.
-        </p>
-        <ul className="mt-4 grid gap-2 sm:grid-cols-2">
-          {gratuitas.map((a) => (
-            <li key={a.slug}>
-              <Link
-                href={`/alternativas/${product.slug}/${a.slug}`}
-                className="block rounded-lg border border-border bg-panel p-4 text-sm hover:border-accent"
+      {atajos.length > 0 ? (
+        <section className="mt-12">
+          <h2 className="text-2xl font-semibold">
+            Atajos para elegir alternativa a {product.nombre}
+          </h2>
+          <p className="mt-2 text-sm text-muted">
+            La misma lista de arriba, agrupada por lo que suele decidir la
+            elección: licencia, coste o facilidad de instalación.
+          </p>
+          <div className="mt-4 grid gap-4 md:grid-cols-3">
+            {atajos.map((atajo) => (
+              <div
+                key={atajo.titulo}
+                className="rounded-lg border border-border bg-panel p-5"
               >
-                <span className="font-medium">{a.nombre}</span>
-                <span className="mt-1 block text-xs text-muted">
-                  {a.tagline}
-                </span>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      <section className="mt-12">
-        <h2 className="text-2xl font-semibold">
-          Alternativas open source a {product.nombre}
-        </h2>
-        <p className="mt-2 text-sm text-muted">
-          Las {libres.length} herramientas con licencia de código abierto, que
-          puedes modificar, auditar y usar sin límites de usuarios.
-        </p>
-        <ul className="mt-4 grid gap-2 sm:grid-cols-2">
-          {libres.map((a) => (
-            <li key={a.slug}>
-              <Link
-                href={`/alternativas/${product.slug}/${a.slug}`}
-                className="block rounded-lg border border-border bg-panel p-4 text-sm hover:border-accent"
-              >
-                <span className="font-medium">{a.nombre}</span>
-                <span className="mt-1 block text-xs text-muted">
-                  {a.licencia} · {a.recursosMinimos}
-                </span>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      <section className="mt-12">
-        <h2 className="text-2xl font-semibold">
-          Alternativas ligeras a {product.nombre}
-        </h2>
-        <p className="mt-2 text-sm text-muted">
-          Las {ligeros.length} que se instalan sin perfil de sistemas, para un
-          VPS de 2 GB o menos.
-        </p>
-        <ul className="mt-4 grid gap-2 sm:grid-cols-2">
-          {ligeros.map((a) => (
-            <li key={a.slug}>
-              <Link
-                href={`/alternativas/${product.slug}/${a.slug}`}
-                className="block rounded-lg border border-border bg-panel p-4 text-sm hover:border-accent"
-              >
-                <span className="font-medium">{a.nombre}</span>
-                <span className="mt-1 block text-xs text-muted">
-                  {difficultyLabels[a.dificultad]} · {a.recursosMinimos}
-                </span>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </section>
+                <h3 className="text-sm font-semibold">{atajo.titulo}</h3>
+                <p className="mt-1 text-xs leading-relaxed text-muted">
+                  {atajo.descripcion}
+                </p>
+                <ul className="mt-3 flex flex-wrap gap-1.5">
+                  {atajo.items.map((a) => (
+                    <li key={a.slug}>
+                      <Link
+                        href={`/alternativas/${product.slug}/${a.slug}`}
+                        className="inline-block rounded-full border border-border bg-surface px-2.5 py-1 text-xs hover:border-accent"
+                      >
+                        {a.nombre}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </section>
+      ) : null}
 
       <section className="mt-12">
         <h2 className="text-2xl font-semibold">Tabla comparativa</h2>

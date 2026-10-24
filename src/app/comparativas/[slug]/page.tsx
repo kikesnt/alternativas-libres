@@ -218,6 +218,7 @@ async function Contenido({ params }: Params) {
           author: {
             "@type": "Person",
             name: site.autor,
+            url: `${site.url}/acerca-de`,
           },
           publisher: {
             "@type": "Organization",

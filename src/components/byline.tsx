@@ -20,7 +20,12 @@ export function Byline({
         </span>
         <span>
           Por{" "}
-          <span className="font-medium text-fg">{site.autor}</span>
+          <Link
+            href="/acerca-de"
+            className="font-medium text-fg hover:text-accent hover:underline"
+          >
+            {site.autor}
+          </Link>
         </span>
       </span>
       <span aria-hidden="true">·</span>

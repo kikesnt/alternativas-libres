@@ -291,7 +291,11 @@ export default function HomePage() {
             image: `${site.url}/icon.svg`,
             description: site.descripcion,
             inLanguage: "es",
-            founder: { "@type": "Person", name: site.autor },
+            founder: {
+              "@type": "Person",
+              name: site.autor,
+              url: `${site.url}/acerca-de`,
+            },
             contactPoint: {
               "@type": "ContactPoint",
               contactType: "customer support",

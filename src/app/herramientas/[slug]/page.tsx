@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Breadcrumbs } from "@/components/breadcrumbs";
+import { Byline } from "@/components/byline";
 import { ComparisonTable } from "@/components/comparison-table";
 import { Faq } from "@/components/faq";
 import { JsonLd } from "@/components/json-ld";
@@ -125,6 +126,10 @@ export default async function HerramientaPage({ params }: Params) {
             licencia, requisitos y contras de cada una.
           </p>
         </div>
+      </div>
+
+      <div className="mt-5">
+        <Byline fecha={alt.verificadoEn} />
       </div>
 
       <p className="mt-5 text-sm text-muted">

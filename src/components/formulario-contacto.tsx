@@ -48,6 +48,15 @@ export function FormularioContacto() {
 
   return (
     <form onSubmit={enviar} className="space-y-4">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute left-[-9999px] h-0 w-0 overflow-hidden"
+      >
+        <label>
+          No rellenar este campo
+          <input name="empresa" type="text" tabIndex={-1} autoComplete="off" />
+        </label>
+      </div>
       <div className="grid gap-4 sm:grid-cols-2">
         <label className="flex flex-col gap-1 text-sm">
           <span className="text-muted">Nombre</span>

@@ -244,8 +244,24 @@ pnpm exec wrangler secret put NEWSLETTER_FROM_EMAIL
 `/api/suscripcion`, que usa la misma API de listmonk. Si no está configurado,
 responde con un mensaje claro en vez de romperse.
 
-**Formulario de contacto:** `/contacto` usa `/api/contacto`, que envía a
-`CONTACT_WEBHOOK_URL`. Sirve cualquier webhook (Discord, Slack, Formspree).
+**Formulario de contacto:** `/contacto` usa `/api/contacto`, que tiene dos
+caminos, por orden:
+
+1. `CONTACT_WEBHOOK_URL`, si existe (Discord, Slack, Formspree, Zapier…).
+2. El binding `send_email` de Email Routing, que ya está en `wrangler.jsonc`.
+   El correo sale de `web@alternativas-libres.com` y llega al buzón indicado en
+   el secreto `CONTACT_EMAIL_TO`, que **tiene que ser un destino verificado** en
+   Email Routing.
+
+```bash
+printf 'tu@correo.com' | pnpm exec wrangler secret put CONTACT_EMAIL_TO
+```
+
+El valor es solo la dirección: `wrangler secret put` lee de la entrada estándar,
+así que no hay que escribir `CONTACT_EMAIL_TO=` delante.
+
+Sin webhook ni secreto, el formulario responde 503 con un aviso honesto en vez
+de fingir que ha enviado.
 
 ---
 

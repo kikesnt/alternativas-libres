@@ -1,6 +1,6 @@
 # Primeros pasos, en orden
 
-Guía para deixar el sitio en marcha. Cada paso depende del anterior.
+Guía para dejar el sitio en marcha. Cada paso depende del anterior.
 
 ---
 
@@ -11,11 +11,10 @@ dirección web real. Nada de esto funciona con `localhost`.
 
 **Qué hacer:**
 
-1. Elige un nombre de dominio que sea corto y del sector. Ejemplos del estilo
-   que encaja con el contenido: `alternativaslibres.es`, `autohospedado.es`,
-   `stacket.es`.
-2. Comprueba que está libre y regístralo. Proveedores con panel de DNS
-   intuitivo: Cloudflare (registro + DNS + proxy gratis), Porkbun, Namecheap.
+1. El dominio elegido es `alternativas-libres.com`. Si más adelante quieres
+   proteger la marca, registra `alternativas-libres.es` en un registrador
+   español (Cloudflare no vende `.es`) y redirígelo al `.com`.
+2. Regístralo en Cloudflare (registro + DNS + proxy gratis), Porkbun o Namecheap.
 3. Apunta el dominio a la IP del servidor donde vas a publicar (paso 2).
 
 **Cómo sabes que está bien:** el dominio abre tu página.
@@ -46,7 +45,7 @@ pnpm start        # o con systemd/pm2 para que arranque solo
    certificado. Con Caddy es automático:
 
 ```
-alternativaslibres.es {
+alternativas-libres.com {
     reverse_proxy localhost:3000
 }
 ```
@@ -55,7 +54,7 @@ alternativaslibres.es {
 Netlify. Sube el repo, conecta el dominio y listo. El único límite es que
 AdSense a veces tarda más en aprobar dominios alojados ahí.
 
-**Cómo sabes que está bien:** `https://tudominio.es` abre el sitio con el
+**Cómo sabes que está bien:** `https://tudominio.com` abre el sitio con el
 certificado verde.
 
 ---
@@ -66,7 +65,7 @@ El fichero `.env.local` ya está creado en la raíz del proyecto. Rellena:
 
 | Variable | Dónde la sacas |
 |---|---|
-| `NEXT_PUBLIC_SITE_URL` | Tu dominio, sin `https://` |
+| `NEXT_PUBLIC_SITE_URL` | Tu dominio completo, con `https://` y sin barra final |
 | `NEXT_PUBLIC_CONTACTO_EMAIL` | El tuyo |
 | `NEXT_PUBLIC_ADSENSE_CLIENT` | AdSense → Configuración → Cuenta (empieza por `ca-pub-`) |
 | `NEXT_PUBLIC_ADSENSE_SLOT_LISTADO` | ID del bloque de anuncio |
@@ -105,7 +104,7 @@ del layout). Los dos juntos obligan al usuario a decidir dos veces y es mala pr�
 
 1. `search.google.com/search-console` → añadir propiedad de tipo dominio.
 2. Verifica con DNS (te da un registro TXT).
-3. Envía el sitemap: ya está en `https://tudominio.es/sitemap.xml`.
+3. Envía el sitemap: ya está en `https://tudominio.com/sitemap.xml`.
 4. En unos días verás las páginas indexadas. En "Inspección de URL" puedes
    pedir que indexe las 10 comparativas, que son las que más te importan.
 
@@ -181,23 +180,23 @@ comparativas y fichas nuevas de las últimas dos semanas.
 3. Rellena en `.env.local`:
 
 ```
-NEWSLETTER_API_URL=https://boletin.tudominio.es
+NEWSLETTER_API_URL=https://boletin.tudominio.com
 NEWSLETTER_API_TOKEN=el-token-que-te-dio-listmonk
 NEWSLETTER_LIST_ID=1
-NEWSLETTER_FROM_EMAIL=boletin@tudominio.es
+NEWSLETTER_FROM_EMAIL=boletin@tudominio.com
 CRON_SECRET=una-cadena-larga-y-aleatoria
 ```
 
 4. Prueba el envío manual:
 
 ```bash
-curl -X POST https://tudominio.es/api/boletin -H "Authorization: Bearer TU_CRON_SECRET"
+curl -X POST https://tudominio.com/api/boletin -H "Authorization: Bearer TU_CRON_SECRET"
 ```
 
 5. Para ver el HTML antes de enviarlo (útil para revisar el diseño):
 
 ```
-https://tudominio.es/api/boletin?preview=1
+https://tudominio.com/api/boletin?preview=1
 ```
 
 6. El envío automático está configurado en `vercel.json`: un cron los lunes a

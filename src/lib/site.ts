@@ -2,8 +2,8 @@ export const site = {
   nombre: "Alternativas Libres",
   descripcion:
     "Directorio en español de alternativas self-hosted y de código abierto a las herramientas SaaS que usas cada día. Con requisitos, costes reales y cuándo NO conviene migrar.",
-  url: process.env.NEXT_PUBLIC_SITE_URL || "https://alternativas-libres.es",
-  email: process.env.NEXT_PUBLIC_CONTACTO_EMAIL || "hola@alternativas-libres.es",
+  url: process.env.NEXT_PUBLIC_SITE_URL || "https://alternativas-libres.com",
+  email: process.env.NEXT_PUBLIC_CONTACTO_EMAIL || "hola@alternativas-libres.com",
   locale: "es_ES",
   lang: "es",
   autor: "Enrique M.",

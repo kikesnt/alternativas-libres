@@ -12,9 +12,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # La versión de pnpm no se indica aquí: la fija el campo "packageManager"
+      # del package.json. Si se pone en los dos sitios, la acción falla.
       - uses: pnpm/action-setup@v4
-        with:
-          version: 12
 
       - uses: actions/setup-node@v4
         with:

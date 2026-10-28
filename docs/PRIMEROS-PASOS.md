@@ -33,17 +33,38 @@ sirve como archivos. No hay Worker ni runtime de servidor.
 > 94 de las 179 URL. Con exportación estática no hay CPU que reventar, y además
 > el sitio cuesta cero.
 
-**La primera vez**, en Cloudflare → Workers & Pages → Create → Pages → Connect
-to Git:
+**Estado a 28/10/2026: el proyecto ya existe y el sitio ya está desplegado.**
+Se creó por API y se publicó con `wrangler pages deploy`. Lo único que falta
+es que el dominio apunte al proyecto (ver más abajo).
 
 | Ajuste | Valor |
 |---|---|
-| Nombre del proyecto | `alternativas-libres` |
+| Nombre del proyecto | `alternativas-libres` (creado) |
+| Subdominio de Pages | `alternativas-libres.pages.dev` (funcionando) |
 | Rama de producción | `main` |
 | Framework preset | *None* |
 | Build command | `pnpm build` |
 | Build output directory | `out` |
 | Variable de entorno | `NODE_VERSION` = `22` |
+
+### Lo único que falta: el puntero del dominio
+
+El Worker antiguo gestionaba `alternativas-libres.com` por dentro, así que en
+la zona DNS no había ningún registro que lo apuntara. Al jubilarlo (su
+código sigue en el historial de git, en `main`), la zona quedó sin puntero y
+el dominio no resuelve.
+
+Hay que añadir **dos registros CNAME** en Cloudflare → *DNS* → *Records* →
+*Add record*:
+
+| Type | Name | Target | Proxy | TTL |
+|---|---|---|---|---|
+| `CNAME` | `@` | `alternativas-libres.pages.dev` | Proxied | Auto |
+| `CNAME` | `www` | `alternativas-libres.pages.dev` | Proxied | Auto |
+
+Cloudflare aplana el CNAME del dominio raíz, así que con el proxy en naranja
+funciona sin más. La API de Pages deja el dominio en estado `initializing`
+con el aviso *"CNAME record not set"* hasta que el registro existe.
 
 **Cada vez que cambies código:** se fusiona a `main` y Cloudflare compila y
 publica solo. Si prefieres que lo haga GitHub Actions en vez de Cloudflare,

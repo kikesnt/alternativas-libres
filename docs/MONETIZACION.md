@@ -121,8 +121,8 @@ Los proyectos open source que aparecen en el directorio son el objetivo
 natural del patrocinio: ya están listados, ya tienen tráfico y necesitan
 visibilidad.
 
-- Formato: bloque "Patrocinado" en una categoría concreta + mención en el
-  boletín. 50-300 €/mes.
+- Formato: bloque "Patrocinado" en una categoría concreta + mención en las
+  novedades del sitio. 50-300 €/mes.
 - Regla: el patrocinio no compra una valoración positiva. La ficha mantiene
   sus contras y su fecha de revisión.
 - El primer patrocinio no debería llegar antes del mes 6, cuando el
@@ -133,10 +133,12 @@ visibilidad.
 Un correo cada dos semanas con una migración real (qué se sustituye, por qué,
 cuánto cuesta). Es el activo más valioso, porque convierte tráfico en una audiencia que te pertenece, y es lo que convierte un directorio en un negocio vendible.
 
-El envío ya está automatizado: la ruta `/api/boletin` genera el HTML con las
-comparativas y fichas nuevas de las últimas dos semanas y lo publica en
-listmonk. El cron de los lunes a las 9:00 UTC (configurado en `vercel.json`)
-hace el resto. No hay trabajo manual.
+**Ahora mismo no está en el sitio.** Se quitaron la página `/boletin`, el
+formulario de alta y el envío automático. El motivo no es técnico: un
+boletín que no se escribe no se envía, y enviar sin revisar es mandar correo
+basura con la reputación del dominio. Si algún día se retoma, el trabajo de
+fondo ya está hecho (las comparativas, las fichas y las novedades de las dos
+últimas semanas), pero el envío tiene que ser de alguien que lo lea antes.
 
 Criterio de activación: cuando haya un ritmo constante de publicación (una
 comparativa y una ficha por semana), no antes. Con 500 suscriptores, un
@@ -170,7 +172,8 @@ tabla salen de la suma de las cuatro fuentes.
 - **Mes 4**: solicitud de Approval de AdSense con 30+ páginas listas. Si se rechaza,
   revisar "contenido de poco valor" y añadir páginas comparativas.
 - **Mes 6**: primer contacto con 10 proyectos open source para patrocinio.
-- **Mes 9**: lanzar el boletín con el primer número.
+- **Mes 9**: lanzar el boletín con el primer número, si hay ritmo constante
+  de publicación y alguien que lo revise antes de enviarlo.
 - **Mes 12**: evaluar si tiene sentido abrir la API de datos del directorio.
 
 ## 8. Lo que no hay que hacer

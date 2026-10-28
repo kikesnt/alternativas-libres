@@ -10,6 +10,14 @@ const svgMarca = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
 
 const uriMarca = `data:image/svg+xml;base64,${Buffer.from(svgMarca).toString("base64")}`;
 
+/**
+ * La imagen se genera en la build y se sirve como archivo.
+ *
+ * Con `output: "export"` las rutas de metadatos tienen que declararse
+ * estáticas: sin esto, Next.js no sabe cómo generarlas y la build falla.
+ */
+export const dynamic = "force-static";
+
 export const alt = "Alternativas Libres: alternativas autoalojadas a herramientas SaaS";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";

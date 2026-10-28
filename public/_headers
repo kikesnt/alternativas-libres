@@ -1,2 +1,16 @@
+# Cabeceras de Cloudflare Pages.
+#
+# Con `output: "export"` Next.js no puede emitirlas, así que las pone
+# Cloudflare Pages desde este fichero.
+#
+# OJO: en este formato `/*` es un patrón de ruta (todas), NO un comentario.
+# Los comentarios van con `#`.
+
 /_next/static/*
   Cache-Control: public,max-age=31536000,immutable
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: SAMEORIGIN
+  Permissions-Policy: camera=(), microphone=(), geolocation=()

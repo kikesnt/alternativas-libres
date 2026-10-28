@@ -20,7 +20,7 @@ const pasos = [
   {
     titulo: "Lectura de la licencia",
     detalle:
-      "Abrimos el fichero LICENSE del repositorio y comprobamos el identificador SPDX y el texto completo. Cuando la licencia no es un identificador estándar OSI, la marcamos como fuente disponible yFem必要 copiamos las condiciones relevantes en la ficha.",
+      "Abrimos el fichero LICENSE del repositorio y comprobamos el identificador SPDX y el texto completo. Cuando la licencia no es un identificador estándar OSI, la marcamos como fuente disponible y copiamos las condiciones relevantes en la ficha.",
   },
   {
     titulo: "Comprobación del despliegue",
@@ -110,8 +110,9 @@ export default function MetodologiaPage() {
       <h2 className="mt-10 text-2xl font-semibold">Independencia editorial</h2>
       <p className="mt-3 leading-relaxed text-muted">
         Los anunciantes no compran fichas, posiciones ni valoraciones. El
-        patrocinio da visibilidad a un proyecto ya listado y una mención en el
-        boletín, y en ningún caso elimina las contras de la ficha. Detalles en{" "}
+        patrocinio da visibilidad a un proyecto ya listado y una mención en
+        las novedades del sitio, y en ningún caso elimina las contras de la
+        ficha. Detalles en{" "}
         <Link href="/anuncios" className="text-accent hover:underline">
           publicidad y afiliados
         </Link>

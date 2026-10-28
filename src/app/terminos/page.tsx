@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { site } from "@/lib/site";
+import { BloqueTitular } from "@/components/bloque-titular";
 
 export const metadata: Metadata = {
   title: "Términos y condiciones",
@@ -23,9 +24,9 @@ export default function TerminosPage() {
       <p className="mt-3 leading-relaxed text-muted">
         {site.nombre} ofrece información editorial sobre herramientas de
         software. El acceso al sitio implica la aceptación de estas
-        condiciones. Los datos identificativos del titular se incorporarán antes
-        de la publicación definitiva.
+        condiciones.
       </p>
+      <BloqueTitular />
 
       <h2 className="mt-8 text-2xl font-semibold">2. Naturaleza de la información</h2>
       <p className="mt-3 leading-relaxed text-muted">

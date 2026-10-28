@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { site } from "@/lib/site";
 import { FormularioContacto } from "@/components/formulario-contacto";
+import { BloqueTitular } from "@/components/bloque-titular";
 
 export const metadata: Metadata = {
   title: "Contacto",
@@ -68,11 +69,7 @@ export default function ContactoPage() {
 
         <section className="rounded-lg border border-border bg-panel p-6">
           <h2 className="text-lg font-semibold">Aviso legal</h2>
-          <p className="mt-2 text-sm leading-relaxed text-muted">
-            Los datos identificativos del titular del sitio se publicarán en
-            esta página antes del lanzamiento. Para consultas legales, usa la
-            misma dirección de contacto.
-          </p>
+          <BloqueTitular />
         </section>
       </div>
     </div>

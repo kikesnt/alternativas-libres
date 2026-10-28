@@ -1,0 +1,13 @@
+# Redirecciones de Cloudflare Pages.
+#
+# Con `output: "export"` Next.js ya no puede emitirlas, así que viven aquí.
+# El formato es: /ruta  destino  [código]
+#
+# Las redirecciones de /go/<slug> (los enlaces salientes con UTM) las añade
+# scripts/generar-redirects.mjs al final de la build, porque dependen de los
+# datos de las alternativas y así no pueden quedarse desactualizadas.
+
+/comparativa/:slug  /comparativas/:slug  301
+/blog               /comparativas         301
+/sponsor            /anuncios             301
+/add-your-tool      /colabora             301

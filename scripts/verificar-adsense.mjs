@@ -21,7 +21,8 @@
  *     produce "invalid ad slot" en cada página.
  *  6. `robots.txt`, `sitemap.xml`, `_headers` y `_redirects` existen.
  *  7. Cada URL del sitemap tiene su página en `out/`, y cada página tiene
- *     su entrada en el sitemap (salvo las que no deben indexarse).
+ *     su entrada en el sitemap, salvo las que declaran `noindex` en su HTML
+ *     (esas tampoco pueden estar en el sitemap).
  *  8. Las redirecciones de /go/ cubren todas las alternativas.
  */
 import { readFileSync, existsSync, readdirSync, statSync } from "node:fs";
@@ -208,9 +209,31 @@ if (existsSync(sitemapPath)) {
       fail(`el sitemap lista ${loc} pero no hay ninguna página con esa ruta en out/.`);
     }
   }
-  for (const ruta of rutas.keys()) {
-    if (ruta === "/buscar") continue; // noindex a propósito
-    if (!locs.includes(ruta === "/" ? "/" : `${ruta}/`) && !locs.includes(ruta)) {
+  // Una pagina que se declara noindex no tiene que estar en el sitemap: al
+  // contrario, anunciar en el sitemap una pagina que el propio sitio dice
+  // que no debe indexarse es una contradiccion.
+  //
+  // Se lee el HTML en vez de escribir una lista a mano, para que el regra
+  // siga valiendo cuando se anada otra pagina noindex.
+  const enSitemap = (ruta) =>
+    locs.includes(ruta === "/" ? "/" : `${ruta}/`) || locs.includes(ruta);
+
+  for (const [ruta, pagina] of rutas) {
+    const html = readFileSync(pagina, "utf8");
+    const robots = html.match(/<meta name="robots" content="([^"]*)"/);
+    const noindex = Boolean(robots && robots[1].includes("noindex"));
+
+    if (noindex) {
+      if (enSitemap(ruta)) {
+        fail(
+          `${ruta} está en el sitemap pero su HTML dice noindex: no se pueden ` +
+            `anunciar en el sitemap las paginas que el sitio dice que no indexa.`,
+        );
+      }
+      continue;
+    }
+
+    if (!enSitemap(ruta)) {
       fail(`${ruta} existe pero no está en el sitemap.`);
     }
   }

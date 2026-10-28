@@ -12,6 +12,7 @@ import {
   getAlternative,
   getProducts,
   licenseLabels,
+  getProductoPrincipalDeAlternativa,
 } from "@/lib/queries";
 import { site } from "@/lib/site";
 import { recortar } from "@/lib/seo";
@@ -51,10 +52,25 @@ export async function generateMetadata({
     `Alternativas autoalojadas a ${alt.nombre} (${licenseLabels[alt.licenciaTipo]}): requisitos de servidor, coste, contras y cuándo conviene seguir con ${alt.nombre}.`,
   );
 
+  // /herramientas/{slug} es una pagina de puerta: una hoja de entrada con
+  // el mismo texto que la categoria, no la ficha de la herramienta. La ficha
+  // real, con requisitos, contras y stack, esta en
+  // /alternativas/{producto}/{alternativa}: el propio texto de esta pagina lo
+  // dice ("si buscas lo contrario, esta es su ficha completa").
+  //
+  // Por eso la canonica apunta ahi y la pagina queda en noindex, follow: se
+  // sigue mostrando y sigue funcionando, pero no compite con su propia ficha
+  // en el indice. Sin esto, 58 paginas casi identicas entre si son la senal
+  // clasica de contenido generado en masa (scaled content abuse).
+  const productoPrincipal = getProductoPrincipalDeAlternativa(alt.slug);
+
   return {
     title: titulo,
     description: descripcion,
-    alternates: { canonical: `/herramientas/${alt.slug}` },
+    robots: { index: false, follow: true },
+    alternates: productoPrincipal
+      ? { canonical: `/alternativas/${productoPrincipal}/${alt.slug}` }
+      : { canonical: `/herramientas/${alt.slug}` },
   };
 }
 

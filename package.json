@@ -10,7 +10,8 @@
     "check:enlaces": "node scripts/check-enlaces.mjs",
     "check:links": "node scripts/check-links.mjs",
     "check:consola": "node scripts/check-consola.mjs",
-    "check:adsense": "node scripts/verificar-adsense.mjs"
+    "check:adsense": "node scripts/verificar-adsense.mjs",
+    "migrate:pages": "node scripts/migrar-a-pages.mjs"
   },
   "dependencies": {
     "next": "16.4.2",
@@ -26,7 +27,8 @@
     "eslint": "^9",
     "eslint-config-next": "16.4.2",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "wrangler": "4.154.0"
   },
   "packageManager": "pnpm@12.3.4"
 }

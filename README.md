@@ -53,6 +53,12 @@ En Cloudflare Pages:
 - **Build output directory:** `out`
 - **Node version:** 22 (variable `NODE_VERSION`)
 
+O, sin tocar el panel: con `CLOUDFLARE_API_TOKEN` guardado como secreto del
+repo, el workflow `Deploy` (`.github/workflows/deploy.yml`) compila, pasa la
+puerta de AdSense y el analizador, y publica en cada `push` a `main`. El
+script `pnpm migrate:pages` mueve el dominio del Worker al proyecto de Pages
+y avisa de cada paso. Los pasos, en `docs/PRIMEROS-PASOS.md`.
+
 Lo único que queda vivo es el formulario de contacto, una Pages Function en
 `functions/api/contacto.ts`. Para que el mensaje llegue a algún sitio hay que
 configurar `CONTACT_WEBHOOK_URL` (un webhook externo) o el binding `EMAIL`

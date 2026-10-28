@@ -21,13 +21,6 @@ export default function PrivacidadPage() {
       </p>
 
       <h2 className="mt-8 text-2xl font-semibold">1. Responsable del tratamiento</h2>
-      <p className="mt-3 leading-relaxed text-muted">
-        El responsable del tratamiento es {site.nombre}. Puedes contactarnos en{" "}
-        <a href={`mailto:${site.email}`} className="text-accent hover:underline">
-          {site.email}
-        </a>
-        .
-      </p>
       <BloqueTitular />
 
       <h2 className="mt-8 text-2xl font-semibold">2. Qué datos tratamos</h2>

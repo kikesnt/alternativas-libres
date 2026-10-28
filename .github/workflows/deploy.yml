@@ -1,0 +1,86 @@
+# Despliegue automático a Cloudflare Pages.
+#
+# Cada push a main publica el sitio. Antes de subir nada se ejecutan la
+# puerta de exportacion y de AdSense y el analizador: si alguno falla, el job
+# para y la version anterior sigue en linea. Un build roto nunca llega a
+# produccion.
+#
+# En un pull request se hace la build y los chequeos, pero no se publica.
+#
+# Secretos y variables (los deja gh):
+#   secret  CLOUDFLARE_API_TOKEN  (Account -> Cloudflare Pages -> Edit)
+#   variable CLOUDFLARE_ACCOUNT_ID
+#   variable CLOUDFLARE_PROJECT_NAME
+#   variable NEXT_PUBLIC_ADSENSE_CLIENT       (ca-pub-..., el ID de editor)
+#   variable NEXT_PUBLIC_ADSENSE_SLOT_LISTADO  (ID del espacio publicitario)
+#   variable NEXT_PUBLIC_ADSENSE_SLOT_ARTICULO (ID del espacio publicitario)
+
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+# En main no se cancela un despliegue a medias: es produccion. En un PR, si
+# llega otro push, el anterior ya no interesa.
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # La version de pnpm no se indica aqui: la fija el campo "packageManager"
+      # del package.json. Si se pone en los dos sitios, la accion falla.
+      - uses: pnpm/action-setup@v4
+
+      - name: Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: pnpm
+
+      - name: Instalar dependencias
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        # Las variables NEXT_PUBLIC_* se leen en tiempo de build: es ahi donde
+        # se decide si la pagina lleva el script de AdSense y que espacios
+        # publicitarios se pintan. No son secretos: el ID de editor aparece en
+        # el HTML a proposito, para que el rastreador de Google lo encuentre.
+        # Si faltan, el sitio se publica igual pero sin anuncios.
+        env:
+          NEXT_PUBLIC_SITE_URL: "https://alternativas-libres.com"
+          NEXT_PUBLIC_CONTACTO_EMAIL: "hola@alternativas-libres.com"
+          NEXT_PUBLIC_ADSENSE_CLIENT: ${{ vars.NEXT_PUBLIC_ADSENSE_CLIENT }}
+          NEXT_PUBLIC_ADSENSE_SLOT_LISTADO: ${{ vars.NEXT_PUBLIC_ADSENSE_SLOT_LISTADO }}
+          NEXT_PUBLIC_ADSENSE_SLOT_ARTICULO: ${{ vars.NEXT_PUBLIC_ADSENSE_SLOT_ARTICULO }}
+        run: pnpm build
+
+      - name: Puerta de la exportacion y de AdSense
+        run: pnpm check:adsense
+
+      - name: Analizador
+        run: pnpm lint
+
+      - name: Publicar en Cloudflare Pages
+        if: github.event_name != 'pull_request'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          npx wrangler pages deploy out \
+            --project-name "${{ vars.CLOUDFLARE_PROJECT_NAME }}" \
+            --branch main

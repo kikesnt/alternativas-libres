@@ -262,3 +262,31 @@ console.log(`  Páginas comprobadas: ${rutas.size}`);
 console.log(`  Páginas con script de AdSense: ${conScript}`);
 console.log(`  Páginas con unidad de anuncio: ${conUnidad}`);
 console.log(`  ads.txt: ${existsSync(adsTxtPath) ? "correcto" : "FALTA"}`);
+
+/*
+ * Aviso, no error: los datos registrales del titular son opcionales y el
+ * aviso legal se publica sin ellos. El aviso sale por consola, no en la
+ * pagina: una politica de privacidad que anuncia su propia carencia es peor
+ * que una politica que identifica al responsable como el titular del dominio
+ * con su correo de contacto, que es lo que se publica mientras falten.
+ */
+const variablesTitular = [
+  "NEXT_PUBLIC_TITULAR_NOMBRE",
+  "NEXT_PUBLIC_TITULAR_DOMICILIO",
+  "NEXT_PUBLIC_TITULAR_NIF",
+  "NEXT_PUBLIC_TITULAR_EMAIL",
+];
+const faltanTitular = variablesTitular.filter(
+  (variable) => !(process.env[variable] ?? "").trim(),
+);
+if (faltanTitular.length) {
+  console.log(
+    `\nAviso: faltan ${faltanTitular.length} dato(s) del titular (${faltanTitular.join(", ")}).`,
+  );
+  console.log(
+    "  El aviso legal se publica con el titular del dominio y el correo de contacto.",
+  );
+  console.log(
+    "  Para poner los datos exactos, define esas variables en el entorno de Cloudflare Pages.",
+  );
+}

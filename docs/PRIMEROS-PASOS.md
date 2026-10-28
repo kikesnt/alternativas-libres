@@ -46,7 +46,10 @@ to Git:
 | Variable de entorno | `NODE_VERSION` = `22` |
 
 **Cada vez que cambies código:** se fusiona a `main` y Cloudflare compila y
-publica solo.
+publica solo. Si prefieres que lo haga GitHub Actions en vez de Cloudflare,
+el workflow `Deploy` de `.github/workflows/deploy.yml` hace exactamente lo
+mismo (build, puerta de AdSense, analizador y `wrangler pages deploy`), y
+falla el job sin publicar nada si la build o los verificadores fallan.
 
 **Probar en local antes de subir**, con el mismo comportamiento que Pages
 (URLs limpias, `_redirects` y `_headers`):
@@ -57,6 +60,49 @@ node scripts/servir-out.mjs      # http://127.0.0.1:8787
 ```
 
 `pnpm dev` sigue funcionando para el día a día.
+
+### La vía corta: un token y un comando
+
+Lo de arriba son unos diez clics en el panel. Si prefieres que el trabajo lo
+haga la máquina, el trabajo se reduce a **crear un token de API y guardarlo como
+secreto de GitHub**. A partir de ahí, el despliegue y la mudanza del dominio se
+hacen solos.
+
+**1. Crear el token** (2 min, en Cloudflare → *Mi perfil* → *Tokens de API* →
+*Crear token* → *Token personalizado*):
+
+| Permiso | Acceso |
+|---|---|
+| Account → Cloudflare Pages | Edit |
+| Account → Settings | Read |
+| Account → Workers Scripts | Edit |
+| Zone → DNS | Edit |
+
+> Es el mismo token que ya sirve para `dalilqiyada`: son de **cuenta**, así que
+> valen para todos los sitios de la cuenta.
+
+**2. Guardarlo como secreto** (no queda en el historial ni en el disco):
+
+```bash
+gh secret set CLOUDFLARE_API_TOKEN --repo kikesnt/alternativas-libres
+```
+
+El `gh` lo pide por pantalla: pegas el token y pulsas Intro.
+
+Las dos variables que faltan ya están puestas en el repo:
+`CLOUDFLARE_ACCOUNT_ID` y `CLOUDFLARE_PROJECT_NAME`.
+
+**3. Publicar y mover el dominio.** Con el token en el secreto, el workflow
+`Deploy` publica en cada `push` a `main`, y el script mueve el dominio del
+Worker al proyecto de Pages:
+
+```bash
+pnpm migrate:pages                    # solo informa de lo que hay y lo que falta
+node scripts/migrar-a-pages.mjs --aplicar   # suelta el dominio del Worker y lo pasa a Pages
+```
+
+El script avisa de cada paso: si el dominio sigue con un CNAME a `workers.dev`,
+lo dice, porque ese registro hay que cambiarlo a `<proyecto>.pages.dev`.
 
 **Qué queda configurado en la zona** (no está en el repo, se hace una vez):
 

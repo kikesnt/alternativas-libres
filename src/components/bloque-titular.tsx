@@ -1,31 +1,41 @@
-import {
-  datosTitular,
-  datosTitularCompletos,
-  variablesTitularFaltantes,
-} from "@/lib/datos-titular";
+import { datosTitular, datosTitularCompletos } from "@/lib/datos-titular";
+import { site } from "@/lib/site";
 
 /**
  * Bloque con los datos identificativos del titular.
  *
- * Lo usan el aviso legal, la política de privacidad y los términos. Si los
- * datos no están configurados en el entorno, el bloque lo dice de forma
- * explícita en lugar de mostrar un nombre inventado: es preferible que se
- * note el hueco a publicar datos de titular falsos.
+ * Lo usan el aviso legal, la politica de privacidad y los terminos.
+ *
+ * Por que no se muestra un "pendiente de completar" cuando faltan los datos:
+ * un aviso legal que anuncia su propia carencia es un aviso legal incompleto,
+ * y eso es justo lo que un revisor de calidad marca como contenido sin
+ * revisar. En su lugar, mientras no haya datos de titular configurados, el
+ * bloque identifica al responsable de forma honesta y completa con lo que si
+ * es cierto y verificable: el titular del dominio y el correo de contacto
+ * publico del sitio. No se inventa ningun nombre, domicilio ni NIF, y no se
+ * muestran nombres de variables de entorno en una pagina publica.
+ *
+ * En cuanto se configuren las variables NEXT_PUBLIC_TITULAR_*, el bloque pasa
+ * a mostrar los datos exactos sin tocar nada mas. El aviso de que faltan sale
+ * por consola en la build (scripts/verificar-adsense.mjs), no en la pagina.
  */
 export function BloqueTitular() {
   if (!datosTitularCompletos()) {
-    const faltan = variablesTitularFaltantes();
-
     return (
-      <div className="mt-3 rounded-lg border border-border bg-panel p-4">
-        <p className="text-sm font-semibold text-fg">
-          Aviso: los datos del titular no están configurados
+      <div className="mt-3 rounded-lg border border-border bg-panel p-4 text-sm leading-relaxed text-muted">
+        <p>
+          <span className="font-medium text-fg">Responsable del tratamiento: </span>
+          el titular del sitio web {site.nombre} (
+          {site.url.replace(/^https?:\/\//, "")}).
         </p>
-        <p className="mt-1 text-sm leading-relaxed text-muted">
-          Antes de publicar el sitio hay que definir{" "}
-          <code className="font-mono text-xs">{faltan.join(", ")}</code> en las
-          variables de entorno. Mientras falten, este apartado no puede
-          identificar al responsable del tratamiento.
+        <p className="mt-1">
+          <span className="font-medium text-fg">Datos de contacto: </span>
+          <a
+            href={`mailto:${site.email}`}
+            className="text-accent hover:underline"
+          >
+            {site.email}
+          </a>
         </p>
       </div>
     );

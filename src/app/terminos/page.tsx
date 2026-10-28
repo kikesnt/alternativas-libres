@@ -26,7 +26,6 @@ export default function TerminosPage() {
         software. El acceso al sitio implica la aceptación de estas
         condiciones.
       </p>
-      <BloqueTitular />
 
       <h2 className="mt-8 text-2xl font-semibold">2. Naturaleza de la información</h2>
       <p className="mt-3 leading-relaxed text-muted">
@@ -94,6 +93,11 @@ export default function TerminosPage() {
         europeos disponen del acceso a la plataforma de resolución de
         litigios de la Comisión Europea.
       </p>
+
+      <h2 className="mt-8 text-2xl font-semibold">
+        8. Identificación del titular
+      </h2>
+      <BloqueTitular />
 
       <p className="mt-8 text-sm text-muted">
         Para cualquier duda, escribe a{" "}

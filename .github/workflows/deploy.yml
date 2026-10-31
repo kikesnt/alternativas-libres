@@ -98,3 +98,16 @@ jobs:
           npx wrangler pages deploy out \
             --project-name "${{ vars.CLOUDFLARE_PROJECT_NAME }}" \
             --branch main
+
+      - name: Avisar a Bing (IndexNow)
+        # IndexNow es el protocolo de Microsoft: avisa a Bing de que las URLs
+        # del sitemap han cambiado, sin esperar al rastreo normal. Va DESPUES
+        # de publicar, para que las URLs ya esten en linea cuando Bing las
+        # compruebe.
+        #
+        # continue-on-error: el aviso es un extra, no un requisito. Si
+        # IndexNow esta caido o la clave no llega, el sitio ya esta
+        # publicado y el aviso se puede reenviar en cualquier momento.
+        if: github.event_name != 'pull_request'
+        continue-on-error: true
+        run: node scripts/indexnow.mjs

@@ -1,0 +1,36 @@
+name: Comprobar que compila
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      # La versión de pnpm no se indica aquí: la fija el campo "packageManager"
+      # del package.json. Si se pone en los dos sitios, la acción falla.
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: pnpm
+
+      - name: Instalar
+        run: pnpm install --frozen-lockfile
+
+      # La build genera el sitio estático entero en out/. Es la misma build
+      # que se despliega: si aquí falla, no se publica.
+      - name: Compilar
+        run: pnpm build
+
+      - name: Puerta de la exportación y de AdSense
+        run: pnpm check:adsense
+
+      - name: Analizador
+        run: pnpm lint

@@ -58,7 +58,7 @@ export default function AcercaDePage() {
         </li>
         <li>
           <strong className="text-fg">Contras.</strong> Lo que no funciona bien,
-          escrito sin eddulces.
+          escrito sin edulcores.
         </li>
         <li>
           <strong className="text-fg">Cuándo no migrar.</strong> La sección más
@@ -69,7 +69,7 @@ export default function AcercaDePage() {
       <h2 className="mt-10 text-2xl font-semibold">Cómo seleccionamos</h2>
       <p className="mt-3 leading-relaxed text-muted">
         Una herramienta entra en el directorio si se cumple al menos una de
-        estas condiciones: tiene una imagen de Docker oficial maintained, su
+        estas condiciones: tiene una imagen de Docker oficial mantenida, su
         proyecto está activo en los últimos seis meses, o resuelve un caso que
         las alternativas de pago no cubren bien. Descartamos los proyectos
         abandonados y los que solo funcionan en un framework concreto sin
@@ -87,7 +87,7 @@ export default function AcercaDePage() {
       <p className="mt-3 leading-relaxed text-muted">
         Con publicidad (Google AdSense) y enlaces de afiliado. Ninguna de las
         dos cosas compra una posición en el ranking, ni puede cambiar la
-        valoración de una herramienta. Las fichas conctratas de pago se
+        valoración de una herramienta. Las fichas contratadas de pago se
         identifican como «Patrocinado» y no se mezclan con las orgánicas.
       </p>
       <p className="mt-3 leading-relaxed text-muted">

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 
-type Resultado = {
+export type Resultado = {
   tipo: "producto" | "alternativa";
   nombre: string;
   descripcion: string;

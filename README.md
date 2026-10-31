@@ -17,10 +17,10 @@ pnpm dev          # http://localhost:3000
 | Comando | Qué hace |
 |---|---|
 | `pnpm dev` | Servidor de desarrollo |
-| `pnpm build` | Build de producción |
+| `pnpm build` | Build de producción: genera el sitio estático en `out/` |
 | `pnpm start` | Sirve el build |
-| `pnpm preview` | Build + runtime real de Cloudflare en `localhost:8787` |
-| `pnpm deploy` | Build y despliegue en Cloudflare Workers |
+| `node scripts/servir-out.mjs` | Sirve `out/` como lo haría Cloudflare Pages (URLs limpias, `_redirects` y `_headers`) en `localhost:8787` |
+| `pnpm check:adsense` | Puerta sobre el HTML construido: `ads.txt`, consentimiento, unidades de anuncio, sitemap y redirecciones |
 | `pnpm lint` | ESLint |
 | `node scripts/check-links.mjs http://localhost:3000` | Rastrea el sitio: enlaces rotos, canonicals y sitemap |
 | `node scripts/fetch-logos.mjs` | Descarga los favicon oficiales y regenera `src/lib/data/logos.ts` |
@@ -39,24 +39,40 @@ placeholder y no se carga ningún script de terceros.
 
 ## Despliegue
 
-El sitio corre en **Cloudflare Workers** con `@opennextjs/cloudflare`. El
-Worker está en `worker.ts` (reutiliza el handler de OpenNext y añade el cron
-del boletín), la configuración en `wrangler.jsonc` y el adaptador en
-`open-next.config.ts`.
+El sitio es **estático** y se publica en **Cloudflare Pages**. La build
+genera todas las páginas en `out/` y Pages las sirve como archivos.
 
-```bash
-pnpm exec wrangler login   # solo la primera vez
-pnpm deploy
-```
+Antes era un Worker de OpenNext, y eso es lo que lo tumbó: las páginas que
+necesitan render de Next.js pasaban por el Worker, que se pasó del límite de
+CPU de Cloudflare (error 1102) y devolvió error en 94 de las 179 URL. Con
+exportación estática no hay CPU que reventar.
+
+En Cloudflare Pages:
+
+- **Build command:** `pnpm build`
+- **Build output directory:** `out`
+- **Node version:** 22 (variable `NODE_VERSION`)
+
+O, sin tocar el panel: con `CLOUDFLARE_API_TOKEN` guardado como secreto del
+repo, el workflow `Deploy` (`.github/workflows/deploy.yml`) compila, pasa la
+puerta de AdSense y el analizador, y publica en cada `push` a `main`. El
+script `pnpm migrate:pages` mueve el dominio del Worker al proyecto de Pages
+y avisa de cada paso. Los pasos, en `docs/PRIMEROS-PASOS.md`.
+
+Lo único que queda vivo es el formulario de contacto, una Pages Function en
+`functions/api/contacto.ts`. Para que el mensaje llegue a algún sitio hay que
+configurar `CONTACT_WEBHOOK_URL` (un webhook externo) o el binding `EMAIL`
+de Email Routing, con `CONTACT_EMAIL_TO` como destino. Sin ninguna de las
+dos, el formulario responde con un aviso para que la persona escriba
+directamente por correo.
+
+Las cabeceras de seguridad y las redirecciones están en `public/_headers` y
+`public/_redirects`. Las redirecciones de `/go/<slug>` (los enlaces
+salientes con UTM) las genera `scripts/generar-redirects.mjs` al final de
+la build, a partir de los datos de las alternativas.
 
 `NEXT_PUBLIC_SITE_URL` y `NEXT_PUBLIC_CONTACTO_EMAIL` se incrustan en el
-build: si cambian, hay que volver a desplegar. El resto de variables
-(secretos de boletín, webhook de contacto) se suben con
-`pnpm exec wrangler secret put NOMBRE`.
-
-> Si `pnpm exec wrangler` responde `Command "wrangler" not found`, instala el
-> CLI global con `npm install -g wrangler@4`. Es un fallo de enlazado de pnpm
-> 12 con las dependencias de Wrangler; el comando global funciona igual.
+build: si cambian, hay que volver a desplegar.
 
 Detalle del paso a paso en `docs/PRIMEROS-PASOS.md`.
 

@@ -15,42 +15,115 @@ dirección web real. Nada de esto funciona con `localhost`.
    proteger la marca, registra `alternativas-libres.es` en un registrador
    español (Cloudflare no vende `.es`) y redirígelo al `.com`.
 2. Está registrado en Cloudflare, con el DNS y el proxy incluidos gratis.
-3. No hay que apuntar el dominio a ninguna IP: el sitio se publica como Worker
-   y Cloudflare crea solo los registros del dominio personalizado.
+3. No hay que apuntar el dominio a ninguna IP: el sitio se publica en Cloudflare
+   Pages y Cloudflare crea solo los registros del dominio personalizado.
 
 **Cómo sabes que está bien:** el dominio abre tu página.
 
 ---
 
-## Paso 2 — Publicar en Cloudflare Workers (~5 min, plan gratuito)
+## Paso 2 — Publicar en Cloudflare Pages (~5 min, plan gratuito)
 
-El sitio se despliega con `@opennextjs/cloudflare`, que adapta Next.js al
-runtime de Workers (SSR, rutas de API, imagen Open Graph y redirecciones).
-La configuración vive en el repo: `wrangler.jsonc`, `open-next.config.ts` y
-`worker.ts`.
+El sitio es estático: la build genera todas las páginas en `out/` y Pages las
+sirve como archivos. No hay Worker ni runtime de servidor.
 
-**La primera vez:**
+> **Por qué se cambió.** Hasta ahora el sitio era un Worker de OpenNext y eso
+> lo tumbó: las páginas que necesitan render de Next.js pasaban por el Worker,
+> que se pasó del límite de CPU de Cloudflare (error 1102) y devolvió error en
+> 94 de las 179 URL. Con exportación estática no hay CPU que reventar, y además
+> el sitio cuesta cero.
+
+**Estado a 28/10/2026: el proyecto ya existe y el sitio ya está desplegado.**
+Se creó por API y se publicó con `wrangler pages deploy`. Lo único que falta
+es que el dominio apunte al proyecto (ver más abajo).
+
+| Ajuste | Valor |
+|---|---|
+| Nombre del proyecto | `alternativas-libres` (creado) |
+| Subdominio de Pages | `alternativas-libres.pages.dev` (funcionando) |
+| Rama de producción | `main` |
+| Framework preset | *None* |
+| Build command | `pnpm build` |
+| Build output directory | `out` |
+| Variable de entorno | `NODE_VERSION` = `22` |
+
+### Lo único que falta: el puntero del dominio
+
+El Worker antiguo gestionaba `alternativas-libres.com` por dentro, así que en
+la zona DNS no había ningún registro que lo apuntara. Al jubilarlo (su
+código sigue en el historial de git, en `main`), la zona quedó sin puntero y
+el dominio no resuelve.
+
+Hay que añadir **dos registros CNAME** en Cloudflare → *DNS* → *Records* →
+*Add record*:
+
+| Type | Name | Target | Proxy | TTL |
+|---|---|---|---|---|
+| `CNAME` | `@` | `alternativas-libres.pages.dev` | Proxied | Auto |
+| `CNAME` | `www` | `alternativas-libres.pages.dev` | Proxied | Auto |
+
+Cloudflare aplana el CNAME del dominio raíz, así que con el proxy en naranja
+funciona sin más. La API de Pages deja el dominio en estado `initializing`
+con el aviso *"CNAME record not set"* hasta que el registro existe.
+
+**Cada vez que cambies código:** se fusiona a `main` y Cloudflare compila y
+publica solo. Si prefieres que lo haga GitHub Actions en vez de Cloudflare,
+el workflow `Deploy` de `.github/workflows/deploy.yml` hace exactamente lo
+mismo (build, puerta de AdSense, analizador y `wrangler pages deploy`), y
+falla el job sin publicar nada si la build o los verificadores fallan.
+
+**Probar en local antes de subir**, con el mismo comportamiento que Pages
+(URLs limpias, `_redirects` y `_headers`):
 
 ```bash
-pnpm install
-pnpm exec wrangler login      # abre el navegador y autoriza la cuenta
-pnpm deploy                   # build de Next + build de OpenNext + deploy
+pnpm build
+node scripts/servir-out.mjs      # http://127.0.0.1:8787
 ```
 
-**Cada vez que cambies código:**
+`pnpm dev` sigue funcionando para el día a día.
+
+### La vía corta: un token y un comando
+
+Lo de arriba son unos diez clics en el panel. Si prefieres que el trabajo lo
+haga la máquina, el trabajo se reduce a **crear un token de API y guardarlo como
+secreto de GitHub**. A partir de ahí, el despliegue y la mudanza del dominio se
+hacen solos.
+
+**1. Crear el token** (2 min, en Cloudflare → *Mi perfil* → *Tokens de API* →
+*Crear token* → *Token personalizado*):
+
+| Permiso | Acceso |
+|---|---|
+| Account → Cloudflare Pages | Edit |
+| Account → Settings | Read |
+| Account → Workers Scripts | Edit |
+| Zone → DNS | Edit |
+
+> Es el mismo token que ya sirve para `dalilqiyada`: son de **cuenta**, así que
+> valen para todos los sitios de la cuenta.
+
+**2. Guardarlo como secreto** (no queda en el historial ni en el disco):
 
 ```bash
-pnpm deploy
+gh secret set CLOUDFLARE_API_TOKEN --repo kikesnt/alternativas-libres
 ```
 
-**Probar en local con el runtime real de Workers** (recomendado antes de subir):
+El `gh` lo pide por pantalla: pegas el token y pulsas Intro.
+
+Las dos variables que faltan ya están puestas en el repo:
+`CLOUDFLARE_ACCOUNT_ID` y `CLOUDFLARE_PROJECT_NAME`.
+
+**3. Publicar y mover el dominio.** Con el token en el secreto, el workflow
+`Deploy` publica en cada `push` a `main`, y el script mueve el dominio del
+Worker al proyecto de Pages:
 
 ```bash
-pnpm preview                  # http://localhost:8787
+pnpm migrate:pages                    # solo informa de lo que hay y lo que falta
+node scripts/migrar-a-pages.mjs --aplicar   # suelta el dominio del Worker y lo pasa a Pages
 ```
 
-`pnpm dev` sigue funcionando para el día a día, pero no reproduce el runtime de
-Cloudflare.
+El script avisa de cada paso: si el dominio sigue con un CNAME a `workers.dev`,
+lo dice, porque ese registro hay que cambiarlo a `<proyecto>.pages.dev`.
 
 **Qué queda configurado en la zona** (no está en el repo, se hace una vez):
 
@@ -61,7 +134,6 @@ Cloudflare.
 | SSL/TLS → Always Use HTTPS | Activado |
 | SSL/TLS → HSTS | `max-age=31536000; includeSubDomains` |
 | TLS mínimo | 1.2 |
-| Cron Trigger | `0 9 * * 1` → `/api/boletin` (solo actúa si existe `CRON_SECRET`) |
 
 **Cómo sabes que está bien:** `https://alternativas-libres.com` abre el sitio,
 `http://` y `www.` redirigen al dominio principal, y el certificado es válido.
@@ -195,74 +267,34 @@ valoración de la herramienta.
 
 ---
 
-## Paso 7.5 — Boletín automático (1 h)
+## Paso 7.5 — Formulario de contacto (10 min)
 
-El boletín ya está automatizado: no escribes el correo, se genera solo con las
-comparativas y fichas nuevas de las últimas dos semanas.
+> **El boletín automático se ha quitado del sitio.** Se han eliminado la
+> página `/boletin`, las rutas `/api/boletin` y `/api/suscripcion` y el cron
+> que las disparaba. El motivo no es técnico: un boletín que no se escribe no
+> se envía, y un boletín automático sin revisar es correo basura con la
+> reputación del dominio. Si algún día se retoma, el sitio ya tiene la
+> estructura: lo que hace falta es un envío que alguien revise.
 
-**Puesta en marcha:**
+**Formulario de contacto:** `/contacto` usa `/api/contacto`, que ahora es una
+Pages Function (`functions/api/contacto.ts`), y tiene dos caminos, por orden:
 
-1. Autoaloja **listmonk** (está en el propio directorio, `/alternativas/mailchimp`).
-   Crea una lista y copia su ID desde la URL de la lista.
-2. En la pestaña de Ajustes de listmonk, crea un token de API.
-3. Rellena en `.env.local`:
+1. `CONTACT_WEBHOOK_URL`, si existe (Discord, Slack, Formspree, Zapier…). Es
+   la vía recomendada: no depende de nada de Cloudflare.
+2. El binding `EMAIL` de Email Routing, si el proyecto lo tiene. El correo
+   sale de `web@alternativas-libres.com` y llega al buzón indicado en
+   `CONTACT_EMAIL_TO`, que **tiene que ser un destino verificado** en Email
+   Routing.
 
-```
-NEWSLETTER_API_URL=https://boletin.tudominio.com
-NEWSLETTER_API_TOKEN=el-token-que-te-dio-listmonk
-NEWSLETTER_LIST_ID=1
-NEWSLETTER_FROM_EMAIL=boletin@tudominio.com
-CRON_SECRET=una-cadena-larga-y-aleatoria
-```
+Si no hay ninguna de las dos, el formulario responde con un aviso para que la
+persona escriba directamente a `hola@alternativas-libres.com`: es preferible a
+perder el mensaje sin avisar.
 
-4. Prueba el envío manual:
+En Cloudflare Pages, las variables se ponen en *Settings → Environment
+variables* (no hay `wrangler secret put`): el nombre de la variable y el valor
+en dos campos.
 
-```bash
-curl -X POST https://tudominio.com/api/boletin -H "Authorization: Bearer TU_CRON_SECRET"
-```
-
-5. Para ver el HTML antes de enviarlo (útil para revisar el diseño):
-
-```
-https://tudominio.com/api/boletin?preview=1
-```
-
-6. El envío automático está configurado como Cron Trigger de Cloudflare
-   (`wrangler.jsonc`, lunes a las 9:00 UTC) y llama a esta ruta. Solo hace algo
-   si `CRON_SECRET` está definido como secreto del Worker:
-
-```bash
-pnpm exec wrangler secret put CRON_SECRET
-pnpm exec wrangler secret put NEWSLETTER_API_URL
-pnpm exec wrangler secret put NEWSLETTER_API_TOKEN
-pnpm exec wrangler secret put NEWSLETTER_LIST_ID
-pnpm exec wrangler secret put NEWSLETTER_FROM_EMAIL
-```
-
-`NEXT_PUBLIC_*` no va por secretos: se incrusta en el build, así que vive en
-`.env.local` (o en las variables del builder) y se aplica al desplegar.
-
-**El formulario de alta** (en `/boletin` y en el pie) llama a
-`/api/suscripcion`, que usa la misma API de listmonk. Si no está configurado,
-responde con un mensaje claro en vez de romperse.
-
-**Formulario de contacto:** `/contacto` usa `/api/contacto`, que tiene dos
-caminos, por orden:
-
-1. `CONTACT_WEBHOOK_URL`, si existe (Discord, Slack, Formspree, Zapier…).
-2. El binding `send_email` de Email Routing, que ya está en `wrangler.jsonc`.
-   El correo sale de `web@alternativas-libres.com` y llega al buzón indicado en
-   el secreto `CONTACT_EMAIL_TO`, que **tiene que ser un destino verificado** en
-   Email Routing.
-
-```bash
-printf 'tu@correo.com' | pnpm exec wrangler secret put CONTACT_EMAIL_TO
-```
-
-El valor es solo la dirección: `wrangler secret put` lee de la entrada estándar,
-así que no hay que escribir `CONTACT_EMAIL_TO=` delante.
-
-Sin webhook ni secreto, el formulario responde 503 con un aviso honesto en vez
+Sin webhook ni binding, el formulario responde 503 con un aviso honesto en vez
 de fingir que ha enviado.
 
 ---
@@ -335,8 +367,7 @@ cuentes con ello para el plan.
 - Scripts de mantenimiento: `fetch-logos`, `check-repos`, `check-links`,
   `check-enlaces`, `revisar-fichas`, `verificar-docker`, `fetch-actividad`,
   `check-consola`
-- Boletín automático con preview, cron semanal y alta vía listmonk
-- Formularios de suscripción y contacto con endpoints propios
+- Formulario de contacto con una Pages Function propia
 - Verificación de enlaces externos (`scripts/check-enlaces.mjs`)
 - Actividad de cada proyecto (último commit) en cada ficha
 - Plan de monetización detallado en `docs/MONETIZACION.md`

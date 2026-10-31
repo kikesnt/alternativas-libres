@@ -84,8 +84,8 @@ export default function ColaboraPage() {
       <h2 className="mt-10 text-2xl font-semibold">Patrocinio</h2>
       <p className="mt-3 leading-relaxed text-muted">
         El patrocinio da visibilidad a un proyecto ya listado y una mención en
-        el boletín. No compra una valoración positiva ni la eliminación de las
-        contras de la ficha. Si te interesa, cuéntanos qué quieres promover y
+        las novedades del sitio. No compra una valoración positiva ni la
+        eliminación de las contras de la ficha. Si te interesa, cuéntanos qué quieres promover y
         te pasamos las condiciones.
       </p>
       <p className="mt-3 leading-relaxed text-muted">

@@ -17,6 +17,29 @@ export function getAlternative(slug: string): Alternative | undefined {
   return alternativeBySlug.get(slug);
 }
 
+/**
+ * Producto principal de una alternativa: el primero de su lista `sustituye`
+ * que tenga pagina de producto. Es la ficha que merece ser la canonica de
+ * /herramientas/{slug}.
+ *
+ * 51 de las 58 herramientas tienen una sola ficha, asi que la eleccion es
+ * obvia. Las otras 7 (affine, appflowy, forgejo, mautic, nextcloud,
+ * nextcloud-talk y teable) aparecen en dos o tres productos: se elige el
+ * primero que lista la propia herramienta, que es el orden que usa el dato.
+ */
+export function getProductoPrincipalDeAlternativa(
+  slug: string,
+): string | undefined {
+  const alt = getAlternative(slug);
+  if (!alt) return undefined;
+  const productos = getProducts();
+  for (const producto of alt.sustituye) {
+    const p = productos.find((x) => x.slug === producto);
+    if (p && p.alternativas.includes(slug)) return p.slug;
+  }
+  return productos.find((p) => p.alternativas.includes(slug))?.slug;
+}
+
 export function getAlternatives(slugs: string[]): Alternative[] {
   const unicos = new Map<string, Alternative>();
   for (const slug of slugs) {

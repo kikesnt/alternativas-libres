@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Suspense } from "react";
 import { AdSlot } from "@/components/ad-slot";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { Byline } from "@/components/byline";
@@ -40,16 +39,23 @@ function ancla(texto: string) {
     .replace(/(^-|-$)/g, "");
 }
 
-export default function ComparativaPage({ params }: Params) {
-  return (
-    <Suspense fallback={null}>
-      <Contenido params={params} />
-    </Suspense>
-  );
+// Sin la frontera de Suspense a proposito.
+//
+// En la exportacion estatica, una frontera de Suspense obliga a Next.js a
+// fallback en el HTML y a mandar el contenido despues, en el payload de
+// de React. El resultado era que el elemento main contenia un "Cargando..."
+// real salia despues del </footer>: un rastreador leia un placeholder donde
+// deberia estar el contenido principal.
+//
+// params es una Promise, pero se resuelve en la propia pagina: con
+// generateStaticParams las rutas son conocidas en el build, asi que no hace
+// falta ninguna frontera de streaming.
+export default async function ComparativaPage({ params }: Params) {
+  const { slug } = await params;
+  return <Contenido slug={slug} />;
 }
 
-async function Contenido({ params }: Params) {
-  const { slug } = await params;
+async function Contenido({ slug }: { slug: string }) {
   const guide = getGuide(slug);
   if (!guide) notFound();
 

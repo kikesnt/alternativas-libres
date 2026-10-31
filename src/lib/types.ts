@@ -75,6 +75,14 @@ export interface Alternative {
 
 export type ConsentValue = "all" | "ads-only" | "none";
 
+declare global {
+  interface Window {
+    adsbygoogle: unknown[];
+    dataLayer: unknown[];
+    gtag?: (...args: unknown[]) => void;
+  }
+}
+
 export interface GuideSection {
   h2: string;
   parrafos: string[];

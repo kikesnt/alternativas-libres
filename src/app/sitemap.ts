@@ -8,6 +8,14 @@ import {
 } from "@/lib/queries";
 import { site } from "@/lib/site";
 
+/**
+ * Se genera en la build y se sirve como archivo estático.
+ *
+ * Con `output: "export"` las rutas de metadatos tienen que declararse
+ * estáticas: sin esto, Next.js no sabe cómo generarlas y la build falla.
+ */
+export const dynamic = "force-static";
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const productos = getProducts();
   const guias = getGuides();
@@ -83,12 +91,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${site.url}/metodologia`,
-      changeFrequency: "monthly",
-      priority: 0.6,
-      lastModified: ultimaRevision,
-    },
-    {
-      url: `${site.url}/boletin`,
       changeFrequency: "monthly",
       priority: 0.6,
       lastModified: ultimaRevision,
@@ -170,13 +172,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: ultimaRevision,
   }));
 
-  const porPaginaHerramienta: MetadataRoute.Sitemap = herramientas.map((a) => ({
-    url: `${site.url}/herramientas/${a.slug}`,
-    changeFrequency: "monthly",
-    priority: 0.7,
-    lastModified: new Date(`${a.verificadoEn}T00:00:00Z`),
-  }));
-
   const porGuia: MetadataRoute.Sitemap = guias.map((g) => ({
     url: `${site.url}/comparativas/${g.slug}`,
     changeFrequency: "monthly",
@@ -184,11 +179,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: new Date(`${g.fecha}T00:00:00Z`),
   }));
 
+  // Las 58 fichas /herramientas/{slug} NO van en el sitemap: son paginas de
+  // puerta en noindex, follow, y su canonica es la ficha real
+  // /alternativas/{producto}/{alternativa}. Anunciarlas aqui seria mandar a
+  // indexar paginas que el propio sitio dice que no deben indexarse.
   return [
     ...fijas,
     ...porProducto,
     ...porHerramienta,
-    ...porPaginaHerramienta,
     ...porCategoria,
     ...porVertical,
     ...porGuia,

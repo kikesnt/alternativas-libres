@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { site } from "@/lib/site";
+import { BloqueTitular } from "@/components/bloque-titular";
 
 export const metadata: Metadata = {
   title: "Política de privacidad",
@@ -20,14 +21,7 @@ export default function PrivacidadPage() {
       </p>
 
       <h2 className="mt-8 text-2xl font-semibold">1. Responsable del tratamiento</h2>
-      <p className="mt-3 leading-relaxed text-muted">
-        El responsable del tratamiento es {site.nombre}. Puedes contactarnos en{" "}
-        <a href={`mailto:${site.email}`} className="text-accent hover:underline">
-          {site.email}
-        </a>
-        . Los datos identificativos del titular se incorporarán en esta
-        política antes de la publicación definitiva del sitio.
-      </p>
+      <BloqueTitular />
 
       <h2 className="mt-8 text-2xl font-semibold">2. Qué datos tratamos</h2>
       <ul className="mt-3 list-disc space-y-2 pl-5 leading-relaxed text-muted">
@@ -43,8 +37,8 @@ export default function PrivacidadPage() {
           local de tu navegador.
         </li>
         <li>
-          <strong className="text-fg">Correo electrónico.</strong> Solo si te
-          suscribes voluntariamente al boletín o nos escribes.
+          <strong className="text-fg">Correo electrónico.</strong> Solo si nos
+          escribes tú con el formulario de contacto.
         </li>
       </ul>
 
@@ -53,8 +47,8 @@ export default function PrivacidadPage() {
         Para la publicidad y la analítica, la base legal es tu consentimiento,
         que puedes retirar en cualquier momento desde el aviso de cookies. Para
         el resto de tratamiento de datos de navegación, la base legal es el
-        interés legítimo en medir y mejorar el servicio. Para el boletín y las
-        comunicaciones por correo, es tu consentimiento.
+        interés legítimo en medir y mejorar el servicio. Para las
+        comunicaciones por correo, es tu consentimiento, que das al escribirnos.
       </p>
 
       <h2 className="mt-8 text-2xl font-semibold">

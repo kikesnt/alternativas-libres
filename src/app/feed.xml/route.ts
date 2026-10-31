@@ -1,6 +1,14 @@
 import { getAlternatives, getGuides, getProducts } from "@/lib/queries";
 import { site } from "@/lib/site";
 
+/**
+ * El feed se genera en la build y se sirve como archivo.
+ *
+ * Con `output: "export"` los route handlers tienen que ser estáticos: sin
+ * esto, Next.js no sabe cómo generarlos y la build falla.
+ */
+export const dynamic = "force-static";
+
 function escapar(texto: string) {
   return texto
     .replace(/&/g, "&amp;")

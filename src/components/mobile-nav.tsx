@@ -6,7 +6,6 @@ import { NavLinks } from "@/components/nav-links";
 
 const secundarios = [
   { href: "/novedades", label: "Novedades" },
-  { href: "/boletin", label: "Boletín" },
   { href: "/colabora", label: "Añade tu proyecto" },
 ] as const;
 

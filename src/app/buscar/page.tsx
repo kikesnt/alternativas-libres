@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Buscador } from "@/components/buscador";
+import { Suspense } from "react";
+import { BuscadorCliente } from "@/components/buscador-cliente";
 import { getAlternatives, getProducts } from "@/lib/queries";
 
 export const metadata: Metadata = {
@@ -8,12 +9,7 @@ export const metadata: Metadata = {
   robots: { index: false, follow: true },
 };
 
-export default async function BuscarPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ q?: string }>;
-}) {
-  const { q } = await searchParams;
+export default async function BuscarPage() {
   const products = getProducts();
   const alternativas = getAlternatives(
     products.flatMap((p) => p.alternativas),
@@ -40,7 +36,15 @@ export default async function BuscarPage({
     <div className="mx-auto max-w-3xl px-4 py-10">
       <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">Buscar</h1>
       <div className="mt-6">
-        <Buscador indice={indice} consultaInicial={q ?? ""} />
+        <Suspense
+          fallback={
+            <p className="text-sm text-muted" role="status">
+              Cargando el buscador…
+            </p>
+          }
+        >
+          <BuscadorCliente indice={indice} />
+        </Suspense>
       </div>
     </div>
   );

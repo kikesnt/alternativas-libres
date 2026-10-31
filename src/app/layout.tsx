@@ -6,7 +6,7 @@ import { CookieBanner } from "@/components/cookie-banner";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { Analytics } from "@/components/analytics";
-import { adsenseClient } from "@/lib/ads";
+import { ADSENSE_CLIENT } from "@/lib/ads";
 import { site } from "@/lib/site";
 import { recortar } from "@/lib/seo";
 import { assertDataIntegrity } from "@/lib/data/integrity";
@@ -23,6 +23,12 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+/*
+ * Consent Mode v2. Esto va ANTES de cargar nada (y en este orden: antes del
+ * script de AdSense): es la declaración de "por defecto, denied" que exige
+ * Google. Sin `ads_data_redaction`, los identificadores se mandan aunque el
+ * visitante no haya aceptado nada.
+ */
 const consentDefault = `
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
@@ -32,9 +38,11 @@ gtag('consent','default',{
   ad_personalization:'denied',
   ad_user_choice:'denied',
   analytics_storage:'denied',
-  functionality_storage:'denied',
+  ads_data_redaction:true,
+  functionality_storage:'granted',
   personalization_storage:'denied',
-  security_storage:'denied'
+  security_storage:'granted',
+  wait_for_update:500
 });
 `;
 
@@ -77,11 +85,6 @@ export const metadata: Metadata = {
   creator: site.autor,
   publisher: site.nombre,
   category: "technology",
-  // Permite verificar la propiedad del sitio en AdSense por metaetiqueta, sin
-  // depender de que el script ya esté cargando anuncios.
-  ...(adsenseClient
-    ? { other: { "google-adsense-account": adsenseClient } }
-    : {}),
 };
 
 export const viewport: Viewport = {
@@ -101,6 +104,24 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: consentDefault }} />
+        {/* El script de AdSense va SIEMPRE en el head, aunque el visitante no
+            haya aceptado cookies: lo que espera al consentimiento es la
+            PETICIÓN del anuncio (ver AdSlot), no el script. Si el script solo
+            se inyecta tras aceptar, el rastreador de Google no encuentra el
+            ID de editor y la revisión del sitio se cae con "no ad unit found
+            on your site". */}
+        {ADSENSE_CLIENT ? (
+          <script
+            defer
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT}`}
+            crossOrigin="anonymous"
+          />
+        ) : null}
+        {/* Permite verificar la propiedad del sitio en AdSense por metaetiqueta,
+            sin depender del DNS. */}
+        {ADSENSE_CLIENT ? (
+          <meta name="google-adsense-account" content={ADSENSE_CLIENT} />
+        ) : null}
         <script dangerouslySetInnerHTML={{ __html: themeInit }} />
         <link
           rel="alternate"

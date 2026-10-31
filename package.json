@@ -4,14 +4,16 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "build": "next build && node scripts/generar-redirects.mjs",
+    "start": "npx serve out",
     "lint": "eslint",
-    "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
-    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy"
+    "check:enlaces": "node scripts/check-enlaces.mjs",
+    "check:links": "node scripts/check-links.mjs",
+    "check:consola": "node scripts/check-consola.mjs",
+    "check:adsense": "node scripts/verificar-adsense.mjs",
+    "migrate:pages": "node scripts/migrar-a-pages.mjs"
   },
   "dependencies": {
-    "@opennextjs/cloudflare": "^1.20.13",
     "next": "16.4.2",
     "react": "19.3.0",
     "react-dom": "19.3.0"
@@ -26,7 +28,7 @@
     "eslint-config-next": "16.4.2",
     "tailwindcss": "^4",
     "typescript": "^5",
-    "wrangler": "^4.148.0"
+    "wrangler": "4.154.0"
   },
   "packageManager": "pnpm@12.3.4"
 }

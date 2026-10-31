@@ -7,14 +7,20 @@
 // de forma nativa, asi que avisar aqui es lo que hace que una pagina nueva
 // aparezca en Bing en minutos en lugar de dias.
 //
-// Dos reglas de diseño:
+// Tres reglas de diseño:
 //
 //   1. La clave NO es un secreto. Por diseño se publica en la raiz del sitio,
 //      en el fichero <clave>.txt. Si el buscador no puede leer ese fichero,
 //      el aviso se rechaza con un 422. Por eso la clave se busca por su
 //      nombre: el mismo fichero que se publica es la fuente de la clave.
 //
-//   2. Este script nunca tumba la construcción. Si IndexNow esta caido, si la
+//   2. El fichero de la clave tiene que estar en linea ANTES de avisar.
+//      IndexNow valida la clave en segundo plano y, si no la encuentra en ese
+//      momento, marca el par clave+dominio como no autorizado y ya no vuelve
+//      a aceptarlo (403). Por eso el script espera a que la clave responda
+//      antes de mandar nada.
+//
+//   3. Este script nunca tumba la construcción. Si IndexNow esta caido, si la
 //      red falla o si la clave no llega, avisa por pantalla y termina con
 //      codigo 0. Notificar a un buscador es un extra, no un requisito.
 //
@@ -27,6 +33,8 @@ import { fileURLToPath } from "node:url";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const ENDPOINT = "https://api.indexnow.org/indexnow";
 const TIMEOUT_MS = 20000;
+const ESPERA_CLAVE_MS = 30000;
+const INTENTOS_CLAVE = 4;
 
 // La clave se busca por nombre de fichero: 32 hex, como las que genera
 // IndexNow. Es el mismo fichero que se publica en la raiz del sitio.
@@ -62,6 +70,29 @@ const responde = async (url) => {
   }
 };
 
+// Espera a que el fichero de la clave se sirra desde la raiz del sitio.
+// El despliegue y el aviso salen en paralelo (Pages construye por su cuenta
+// y el aviso va en un workflow aparte), asi que hay que darle margen.
+const claveEnLinea = async (host, key) => {
+  const url = `https://${host}/${key}.txt`;
+  for (let intento = 1; intento <= INTENTOS_CLAVE; intento++) {
+    try {
+      const r = await fetch(url, {
+        method: "HEAD",
+        redirect: "follow",
+        signal: AbortSignal.timeout(TIMEOUT_MS),
+      });
+      if (r.status < 400) return true;
+    } catch {
+      // Todavia no esta: se vuelve a probar.
+    }
+    if (intento < INTENTOS_CLAVE) {
+      await new Promise((r) => setTimeout(r, ESPERA_CLAVE_MS));
+    }
+  }
+  return false;
+};
+
 const avisar = async (host, key, urls) => {
   const cuerpo = {
     host,
@@ -77,8 +108,8 @@ const avisar = async (host, key, urls) => {
   });
   const texto = (await r.text()).slice(0, 300).trim();
   // 200 = validado y procesado. 202 = en cola a la espera de validar la clave.
-  // 400 = peticion mal formada. 422 = no encuentra el fichero de la clave.
-  // 429 = demasiadas peticiones.
+  // 400 = peticion mal formada. 403 = el par clave+dominio no esta autorizado.
+  // 422 = no encuentra el fichero de la clave. 429 = demasiadas peticiones.
   console.log(`IndexNow: HTTP ${r.status} ${texto} | ${urls.length} URLs de ${host}`);
   return r.status;
 };
@@ -118,6 +149,13 @@ const main = async () => {
       return false;
     }
   });
+
+  // Sin la clave en linea no se avisa: IndexNow rechazaria el aviso y
+  // marcaria el par clave+dominio como no autorizado para siempre.
+  if (!(await claveEnLinea(host, key))) {
+    console.log(`IndexNow: la clave aun no esta en linea en ${host}. No se avisa a nadie.`);
+    return;
+  }
 
   // De ocho en ocho: son peticiones de red y no hace falta mas.
   const vivas = [];
